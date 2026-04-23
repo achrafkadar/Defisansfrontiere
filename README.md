@@ -7,6 +7,10 @@ Le livrable **production-ready** se trouve dans **`defi-sans-frontieres/`** (HTM
 - Aperçu local : `cd defi-sans-frontieres && python3 -m http.server 8080`
 - Intégration WP : voir `defi-sans-frontieres/README.md`
 
-GitHub Pages déploie le contenu du dossier `defi-sans-frontieres/` (workflow Actions).
+**URL publique (déploiement « branche ») :**  
+[https://achrafkadar.github.io/Defisansfrontiere/](https://achrafkadar.github.io/Defisansfrontiere/) → redirige vers  
+[https://achrafkadar.github.io/Defisansfrontiere/defi-sans-frontieres/](https://achrafkadar.github.io/Defisansfrontiere/defi-sans-frontieres/)
 
-Les fichiers `index.html` et `styles.css` à la racine du dépôt sont une ancienne démo ; la source à jour est sous `defi-sans-frontieres/`.
+Si tu configures Pages sur **GitHub Actions** avec l’artefact `defi-sans-frontieres`, la landing sera à la racine `/` : enlève alors la redirection dans `index.html` à la racine (voir commentaire dans ce fichier).
+
+La racine `styles.css` n’est plus utilisée par la landing actuelle (tout est sous `defi-sans-frontieres/`).
