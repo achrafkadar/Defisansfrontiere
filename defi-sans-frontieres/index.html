@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr-CA" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Défi Sans Frontières — Maroc 2026 | Fondation Santé Outaouais</title>
+    <meta
+      name="description"
+      content="30 personnes. 10 jours dans le désert marocain. Un documentaire. Une cause : la santé en Outaouais. Postule avant le 20 mai 2026."
+    />
+    <link rel="canonical" href="https://defisansfrontieres.com/" />
+    <meta property="og:title" content="Défi Sans Frontières — Maroc 2026" />
+    <meta
+      property="og:description"
+      content="30 personnes. 10 jours dans le désert marocain. Un documentaire. Une cause : la santé en Outaouais. Postule avant le 20 mai 2026."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1509316785289-025f5f84635b?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Défi Sans Frontières — Maroc 2026" />
+    <meta
+      name="twitter:description"
+      content="30 personnes. 10 jours dans le désert marocain. Un documentaire. Une cause : la santé en Outaouais."
+    />
+    <!-- TODO FSO : remplacer og:image par visuel brandé 1200×630 hébergé sur le domaine FSO -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/variables.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--
+      VARIANTES A/B — H1 + baseline (non affichées)
+      A) H1 « DÉFI SANS FRONTIÈRES » + baseline jaune « Osons, inspirons, sans frontières pour la cause » (retenu)
+      B) H1 « DÉFI SANS FRONTIÈRES » + baseline « Joue dans le documentaire. Change la santé en Outaouais. »
+      C) H1 « 30 PLACES · MAROC » + baseline « Une aventure filmée pour la FSO »
+    -->
+  </head>
+  <body class="dsf-landing">
+    <script>
+      document.documentElement.classList.remove("no-js");
+    </script>
+    <a class="dsf-skip" href="#contenu-principal">Aller au contenu principal</a>
+
+    <div class="dsf-noscript">
+      <noscript
+        >Sans JavaScript, tu peux quand même postuler : coche tous les engagements puis remplis le formulaire. Pour
+        l’expérience complète (verrouillage visuel), active JavaScript.</noscript
+      >
+    </div>
+
+    <header class="dsf-header">
+      <div class="dsf-header__brand">
+        <img
+          class="dsf-header__logo"
+          src="assets/img/logo-fso-placeholder.svg"
+          width="200"
+          height="48"
+          alt="Fondation Santé Outaouais"
+        />
+      </div>
+      <a class="dsf-header__cta" href="#filtres" data-dsf-cta="header_postule">Je postule</a>
+    </header>
+
+    <main id="contenu-principal">
+      <!-- SECTION 1 — HERO -->
+      <section class="dsf-hero" aria-labelledby="dsf-h1">
+        <div class="dsf-hero__bg"></div>
+        <div class="dsf-hero__inner">
+          <div class="dsf-hero__top">
+            <img
+              class="dsf-hero__logo-fso"
+              src="assets/img/logo-fso-placeholder.svg"
+              width="200"
+              height="48"
+              alt=""
+              decoding="async"
+            />
+            <span class="dsf-hero__badge" role="img" aria-label="Édition Défi Maroc">Défi Maroc</span>
+          </div>
+          <h1 id="dsf-h1" class="dsf-hero__h1">Défi sans frontières</h1>
+          <p class="dsf-hero__baseline">Osons, inspirons, sans frontières pour la cause</p>
+          <p class="dsf-hero__edition">
+            Édition Maroc 2026 · 30 places · Un désert · Un documentaire · Une cause
+          </p>
+          <p style="margin: 0 0 1rem; max-width: 48ch; font-size: 1.05rem">
+            Stéphane a choisi de relever le défi. Il cherche 30 personnes pour l’accompagner. Tu veux être l’une
+            d’elles?
+          </p>
+          <a class="dsf-btn dsf-btn--primary" href="#filtres" data-dsf-cta="hero_postule">Je postule</a>
+          <p class="dsf-hero__meta">
+            Candidatures ouvertes jusqu’au <strong>20 mai 2026</strong> · Casting le <strong>23 mai</strong> à
+            Gatineau <!-- À VALIDER CLIENT : lieu exact -->
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 2 — VIDÉO -->
+      <section class="dsf-section dsf-section--alt" aria-labelledby="titre-video">
+        <div class="dsf-container">
+          <h2 id="titre-video" class="dsf-section__title">Écoute Stéphane. Puis postule si tu es prêt.</h2>
+          <p class="dsf-section__lead">
+            Vidéo 30 à 90 secondes — production Wenov (tournage 26–27 avril 2026). <!-- À VALIDER CLIENT -->
+          </p>
+          <div class="dsf-video">
+            <div class="dsf-video__caption">Ce que Stéphane te propose</div>
+            <div class="dsf-video__frame">
+              <!-- TODO FSO : remplacer src par l’URL finale YouTube nocookie ou Vimeo -->
+              <iframe
+                id="dsf-video-iframe"
+                title="Vidéo de présentation — Défi Sans Frontières Maroc 2026"
+                src="about:blank"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="dsf-section__lead" style="margin-top: 0.75rem">
+              <!-- Remplace about:blank par l’embed réel avant mise en ligne -->
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 — CONCEPT -->
+      <section class="dsf-section" aria-labelledby="titre-concept">
+        <div class="dsf-container">
+          <h2 id="titre-concept" class="dsf-section__title">Le concept en trois points</h2>
+          <p class="dsf-section__lead">Joue dans le documentaire. Change le réseau de la santé en Outaouais. Vis une expérience rare.</p>
+          <div class="dsf-grid dsf-grid--3">
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">🏜️</div>
+              <h3 class="dsf-card__title">Un trek de 10 jours</h3>
+              <p>Dans le désert marocain, du <strong>30 octobre au 15 novembre 2026</strong>.</p>
+            </article>
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">🎬</div>
+              <h3 class="dsf-card__title">Documentaire web</h3>
+              <p><strong>8 épisodes</strong> — diffusion à partir de <strong>novembre 2026</strong>.</p>
+            </article>
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">❤️</div>
+              <h3 class="dsf-card__title">Pour la FSO</h3>
+              <p>Au profit de la Fondation Santé Outaouais — chaque participant lève <strong>10 000 $</strong>.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4 — PARCOURS -->
+      <section class="dsf-section dsf-section--alt" aria-labelledby="titre-parcours">
+        <div class="dsf-container">
+          <h2 id="titre-parcours" class="dsf-section__title">Le parcours</h2>
+          <p class="dsf-section__lead">Cinq phases, une même équipe derrière toi.</p>
+          <div class="dsf-timeline">
+            <article class="dsf-phase dsf-phase--done">
+              <div class="dsf-phase__dot" aria-hidden="true"></div>
+              <p class="dsf-phase__label">Phase 0</p>
+              <h3>Conception</h3>
+              <p>Avril 2026 — cadrage, partenaires, production.</p>
+              <span class="dsf-tag">Terminée</span>
+            </article>
+            <article class="dsf-phase dsf-phase--current">
+              <div class="dsf-phase__dot" aria-hidden="true"></div>
+              <p class="dsf-phase__label">Phase 1</p>
+              <h3>Recrutement &amp; casting</h3>
+              <p>Mai 2026 — candidatures, rencontres, sélection des 30.</p>
+              <span class="dsf-tag dsf-tag--live">En cours dès le 1er mai</span>
+            </article>
+            <article class="dsf-phase">
+              <div class="dsf-phase__dot" aria-hidden="true"></div>
+              <p class="dsf-phase__label">Phase 2</p>
+              <h3>Préparation</h3>
+              <p>Juin à octobre 2026 — entraînement, tournage, collecte.</p>
+            </article>
+            <article class="dsf-phase">
+              <div class="dsf-phase__dot" aria-hidden="true"></div>
+              <p class="dsf-phase__label">Phase 3</p>
+              <h3>Le voyage</h3>
+              <p>30 oct. → ~15 nov. 2026 — trek au Maroc.</p>
+            </article>
+            <article class="dsf-phase">
+              <div class="dsf-phase__dot" aria-hidden="true"></div>
+              <p class="dsf-phase__label">Phase 4</p>
+              <h3>Post-défi</h3>
+              <p>Nov. 2026 → jan. 2027 — documentaire, bilan.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5 — POURQUOI -->
+      <section class="dsf-section" aria-labelledby="titre-pourquoi">
+        <div class="dsf-container">
+          <h2 id="titre-pourquoi" class="dsf-section__title">Pourquoi participer</h2>
+          <p class="dsf-section__lead">Quatre raisons qui valent le coup de se challenger pour de vrai.</p>
+          <div class="dsf-grid dsf-grid--2">
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">🌄</div>
+              <h3 class="dsf-card__title">Aventure rare</h3>
+              <p>Le Sahara, encadré — voyage pris en charge (vol, hébergement, repas, logistique), sauf frais personnels listés plus bas.</p>
+            </article>
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">🎥</div>
+              <h3 class="dsf-card__title">Ton portrait public</h3>
+              <p>Un documentaire diffusé publiquement — assume l’exposition, célèbre l’authenticité.</p>
+            </article>
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">🤝</div>
+              <h3 class="dsf-card__title">Impact ici</h3>
+              <p>Tu mobilises ton réseau pour la santé en Outaouais — effet concret sur le terrain.</p>
+            </article>
+            <article class="dsf-card">
+              <div class="dsf-card__icon" aria-hidden="true">👥</div>
+              <h3 class="dsf-card__title">29 complices</h3>
+              <p>Des profils mixtes qui partagent la même audace.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6 — INCLUS -->
+      <section class="dsf-section dsf-section--alt" aria-labelledby="titre-inclus">
+        <div class="dsf-container">
+          <h2 id="titre-inclus" class="dsf-section__title">Ce qui est inclus — ou pas</h2>
+          <p class="dsf-section__lead">Transparence totale avant que tu coches.</p>
+          <div class="dsf-split">
+            <div class="dsf-box dsf-box--ok">
+              <h3>Inclus ✓</h3>
+              <ul>
+                <li>Vol aller-retour Québec ↔ Maroc</li>
+                <li>Hébergement et repas sur place</li>
+                <li>Logistique du trek (Caravanier, guides, sécurité)</li>
+                <li>Encadrement avant, pendant, après</li>
+              </ul>
+            </div>
+            <div class="dsf-box dsf-box--no">
+              <h3>À ta charge ✗</h3>
+              <ul>
+                <li>Vaccins obligatoires</li>
+                <li>Assurance voyage personnelle</li>
+                <li>Matériel personnel (sac de couchage, équipement si non loué à Caravanier)</li>
+                <li>Passeport valide 6 mois après le retour</li>
+                <li>Dépenses personnelles sur place</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTIONS 7–8 — FORMULAIRE UNIQUE -->
+      <form id="dsf-candidature-form" method="post" action="#" novalidate>
+        <!-- TODO FSO : action = endpoint WPForms / admin-ajax.php selon config -->
+
+        <section id="filtres" class="dsf-section" aria-labelledby="titre-filtres">
+          <div class="dsf-container dsf-container--narrow">
+            <h2 id="titre-filtres" class="dsf-section__title">Avant de postuler — lis et coche</h2>
+            <p class="dsf-section__lead">
+              Ces engagements sont obligatoires. Prends le temps de bien lire. La pub t’a mis l’adrénaline; ici, on
+              filtre pour que personne parte à l’aveuglette.
+            </p>
+
+            <div class="dsf-filters">
+              <fieldset style="border: 0; margin: 0; padding: 0">
+                <legend class="visually-hidden">Engagements obligatoires</legend>
+                <ul class="dsf-filters__list">
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f1" name="engage_collecte" data-dsf-filter="1" required />
+                    <label for="f1"
+                      >Je m’engage à lever un minimum de <strong>10 000 $</strong> via ma collecte de fonds avant le
+                      départ.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f2" name="engage_casting" data-dsf-filter="1" required />
+                    <label for="f2"
+                      >Je suis disponible le <strong>23 mai 2026</strong> pour passer le casting en personne à
+                      Gatineau.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f3" name="engage_voyage" data-dsf-filter="1" required />
+                    <label for="f3"
+                      >Je suis disponible pour voyager au Maroc du <strong>30 octobre</strong> au
+                      <strong>~15 novembre 2026</strong>.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f4" name="engage_tournage" data-dsf-filter="1" required />
+                    <label for="f4"
+                      >Je suis disponible pour des séances de tournage ponctuelles entre juin et octobre 2026 (environ
+                      une fois aux deux semaines).</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f5" name="engage_image" data-dsf-filter="1" required />
+                    <label for="f5"
+                      >J’accepte que mon image soit captée et diffusée dans un documentaire web public. Je comprends
+                      que la propriété intellectuelle du contenu appartient à la Fondation Santé Outaouais.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f6" name="engage_sante" data-dsf-filter="1" required />
+                    <label for="f6"
+                      >Je déclare n’avoir aucune condition médicale (cardiaque, diabète non contrôlé, mobilité réduite)
+                      susceptible de m’empêcher de compléter un trek dans le désert.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f7" name="engage_frais" data-dsf-filter="1" required />
+                    <label for="f7"
+                      >Je comprends que les vaccins, l’assurance voyage et le matériel personnel restent à ma
+                      charge.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="f8" name="engage_contrat" data-dsf-filter="1" required />
+                    <label for="f8"
+                      >J’ai lu et j’accepte ces conditions préalables. Je comprends que si je suis sélectionné, je
+                      devrai signer un contrat plus détaillé avec la fondation.</label
+                    >
+                  </li>
+                </ul>
+              </fieldset>
+
+              <div class="dsf-filter-meta" role="status" aria-live="polite">
+                <span id="dsf-filter-count" class="dsf-badge-count">0/8 cases cochées</span>
+                <span id="dsf-unlock-icon" class="dsf-unlock-icon" aria-hidden="true">🔒</span>
+                <span id="dsf-filter-msg" class="dsf-filter-msg dsf-filter-msg--err"
+                  >Coche toutes les cases pour accéder au formulaire</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="postuler" class="dsf-section" aria-labelledby="titre-postuler">
+          <div class="dsf-container dsf-container--narrow">
+            <h2 id="titre-postuler" class="dsf-section__title">Formulaire de candidature</h2>
+            <p class="dsf-section__lead">
+              Les dossiers sont confidentiels — pas de palmarès public avant l’annonce des 30 le
+              <strong>1er juin 2026</strong>.
+            </p>
+
+            <!-- Hors zone inert : les UTMs partent même si le bloc visuel est verrouillé -->
+            <input type="hidden" name="utm_source" id="hidden_utm_source" value="" />
+            <input type="hidden" name="utm_medium" id="hidden_utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" id="hidden_utm_campaign" value="" />
+            <input type="hidden" name="utm_content" id="hidden_utm_content" value="" />
+            <input type="hidden" name="utm_term" id="hidden_utm_term" value="" />
+            <input type="hidden" name="referrer" id="hidden_referrer" value="" />
+            <input type="hidden" name="timestamp_submit" id="hidden_timestamp" value="" />
+
+            <div class="dsf-form-wrap" id="dsf-form-inner">
+              <div class="dsf-form">
+                <div class="dsf-form__row2">
+                  <div class="dsf-field">
+                    <label for="field_prenom">Prénom</label>
+                    <input type="text" id="field_prenom" name="prenom" required autocomplete="given-name" aria-describedby="err_prenom" />
+                    <p class="dsf-field-error" id="err_prenom" role="alert"></p>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_nom">Nom</label>
+                    <input type="text" id="field_nom" name="nom" required autocomplete="family-name" aria-describedby="err_nom" />
+                    <p class="dsf-field-error" id="err_nom" role="alert"></p>
+                  </div>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_courriel">Courriel</label>
+                  <input type="email" id="field_courriel" name="courriel" required autocomplete="email" aria-describedby="err_courriel" />
+                  <p class="dsf-field-error" id="err_courriel" role="alert"></p>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_tel">Téléphone</label>
+                  <input
+                    type="tel"
+                    id="field_tel"
+                    name="telephone"
+                    required
+                    autocomplete="tel"
+                    placeholder="819-555-1234"
+                    aria-describedby="err_tel hint_tel"
+                  />
+                  <span class="hint" id="hint_tel">Format suggéré : 819-XXX-XXXX</span>
+                  <p class="dsf-field-error" id="err_tel" role="alert"></p>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_ville">Ville ou municipalité</label>
+                  <input type="text" id="field_ville" name="ville" required autocomplete="address-level2" aria-describedby="err_ville" />
+                  <p class="dsf-field-error" id="err_ville" role="alert"></p>
+                </div>
+                <div class="dsf-form__row2">
+                  <div class="dsf-field">
+                    <label for="field_age">Âge</label>
+                    <input type="number" id="field_age" name="age" min="18" max="75" required inputmode="numeric" aria-describedby="err_age" />
+                    <p class="dsf-field-error" id="err_age" role="alert"></p>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_profession">Profession</label>
+                    <input type="text" id="field_profession" name="profession" required autocomplete="organization-title" aria-describedby="err_profession" />
+                    <p class="dsf-field-error" id="err_profession" role="alert"></p>
+                  </div>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_motivation">Pourquoi toi? Raconte-nous en trois phrases pourquoi tu devrais être dans les 30.</label>
+                  <span class="hint">500 caractères max.</span>
+                  <textarea id="field_motivation" name="motivation" maxlength="500" required aria-describedby="err_motivation"></textarea>
+                  <p class="dsf-field-error" id="err_motivation" role="alert"></p>
+                  <div class="dsf-char"><span id="count_motivation">0</span>/500</div>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_plan">Comment comptes-tu lever 10 000 $? Décris ton plan en grandes lignes.</label>
+                  <span class="hint">500 caractères max.</span>
+                  <textarea id="field_plan" name="plan_levee" maxlength="500" required aria-describedby="err_plan"></textarea>
+                  <p class="dsf-field-error" id="err_plan" role="alert"></p>
+                  <div class="dsf-char"><span id="count_plan">0</span>/500</div>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_video">As-tu déjà un lien vers ta vidéo de présentation?</label>
+                  <span class="hint">Optionnel — les instructions détaillées suivent par courriel après la soumission.</span>
+                  <input type="url" id="field_video" name="video_url" autocomplete="url" placeholder="https://…" aria-describedby="err_video" />
+                  <p class="dsf-field-error" id="err_video" role="alert"></p>
+                </div>
+
+                <div class="dsf-field">
+                  <div class="dsf-check">
+                    <input type="checkbox" id="consent_candidature" name="consent_candidature" required />
+                    <label for="consent_candidature">J’accepte que la FSO communique avec moi dans le cadre de cette candidature.</label>
+                  </div>
+                  <div class="dsf-check">
+                    <input type="checkbox" id="consent_marketing" name="consent_marketing" />
+                    <label for="consent_marketing"
+                      >J’accepte de recevoir des communications de la FSO sur d’autres projets (optionnel).</label
+                    >
+                  </div>
+                </div>
+
+                <div class="dsf-form__actions">
+                  <button type="submit" class="dsf-btn dsf-btn--primary" id="dsf-submit-btn" data-dsf-cta="submit_form">
+                    <span class="dsf-spinner" aria-hidden="true"></span>
+                    Soumettre ma candidature
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="dsf-success" id="dsf-success" tabindex="-1" role="region" aria-labelledby="succes-titre">
+              <h2 id="succes-titre">Merci <span data-dsf-success-name="">toi</span>!</h2>
+              <p>
+                On t’a envoyé un courriel avec les instructions pour ta vidéo de présentation. Vérifie tes pourriels
+                au besoin. On te recontacte d’ici le <strong>22 mai</strong>.
+              </p>
+              <p class="hint">En mode démo statique, aucun courriel n’est parti — configure WPForms + notification.</p>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <!-- SECTION 9 — STÉPHANE -->
+      <section class="dsf-section dsf-amb" aria-labelledby="titre-stephane">
+        <div class="dsf-container">
+          <div class="dsf-amb__grid">
+            <div class="dsf-amb__photo" aria-label="Photo de Stéphane — placeholder">
+              <!-- TODO : remplacer par <img src="assets/img/stephane.jpg" alt="Stéphane, ambassadeur du défi"> -->
+              S
+            </div>
+            <div>
+              <h2 id="titre-stephane">Stéphane, notre guide</h2>
+              <p>
+                Stéphane <!-- À VALIDER CLIENT : nom complet --> est un entrepreneur accompli et un aventurier dans l’âme. Il a choisi de porter ce défi. Mais il refuse de partir seul. Il veut amener 30 personnes avec lui dans le désert marocain. Peut-être toi.
+              </p>
+              <p style="margin-top: 1rem">
+                <a class="dsf-btn dsf-btn--primary" href="#titre-video" data-dsf-cta="cta_video_stephane">Voir sa vidéo</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10 — FSO -->
+      <section class="dsf-section" aria-labelledby="titre-fso">
+        <div class="dsf-container">
+          <h2 id="titre-fso" class="dsf-section__title">La Fondation Santé Outaouais</h2>
+          <p class="dsf-section__lead">
+            La plus grande organisation philanthropique en santé et services sociaux de notre région. En partenariat avec le
+            <strong>CISSS de l’Outaouais</strong>, elle investit dans 9 secteurs : milieu hospitalier, cancérologie, soutien aux personnes aînées, santé mentale, jeunesse, réadaptation, recherche, services sociaux et reconnaissance du personnel.
+          </p>
+          <p class="dsf-fso-sign">Pour de meilleurs soins, ici, chez nous!</p>
+          <a class="dsf-btn dsf-btn--outline" href="https://fondationsanteoutaouais.ca" rel="noopener noreferrer" data-dsf-cta="fso_site">fondationsanteoutaouais.ca</a>
+        </div>
+      </section>
+
+      <!-- SECTION 11 — FAQ -->
+      <section class="dsf-section dsf-section--alt dsf-faq" aria-labelledby="titre-faq">
+        <div class="dsf-container">
+          <h2 id="titre-faq" class="dsf-section__title">Questions fréquentes</h2>
+          <details class="dsf-faq-item">
+            <summary>Combien ça coûte de ma poche? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>
+                Prévois vaccins, assurance voyage et équipement. <!-- À VALIDER CLIENT : estimation $ --> Une fourchette à jour sera communiquée par la FSO.
+              </p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Je dois-tu être en forme olympique? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>Non — mais en bonne santé et prêt à marcher plusieurs heures par jour. Un plan de préparation t’attend après la sélection.</p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Combien de temps pour lever les 10 000 $? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>Entre la sélection et l’automne 2026, avec accompagnement. La page « Je donne en ligne » P2P s’active le 1er juin pour les 30.</p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Puis-je postuler en équipe ou en couple? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>Oui — chaque personne soumet son dossier. Le trek prévoit aussi des moments d’équipe.</p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Qu’est-ce qui arrive si un imprévu survient après ma sélection? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>On travaille avec transparence. Les modalités précises seront au contrat — l’objectif, c’est un groupe solide jusqu’au bout.</p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Les frais de voyage sont-ils déductibles d’impôts? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>Ça dépend des montants admissibles en don et de ta situation. Parle avec un·e pro ou la FSO pour les reçus.</p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Comment se déroule le casting du 23 mai? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>
+                <!-- À VALIDER CLIENT : lieu (UQO, salle Jean-Dépériez, école secondaire, etc.) -->
+                Rencontre en personne à Gatineau — horaire communiqué aux finalistes.
+              </p>
+            </div>
+          </details>
+          <details class="dsf-faq-item">
+            <summary>Si je ne suis pas sélectionné, je peux-tu quand même contribuer? <span class="dsf-faq-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="dsf-faq-item__body">
+              <p>Oui — la mission continue sur fondationsanteoutaouais.ca. On te dira comment appuyer la campagne.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="dsf-footer">
+      <div class="dsf-container">
+        <div class="dsf-footer__grid">
+          <div>
+            <img class="dsf-footer__logo" src="assets/img/logo-fso-placeholder.svg" width="200" height="48" alt="Fondation Santé Outaouais" />
+            <p>
+              <a href="mailto:info@fondationsanteoutaouais.ca">info@fondationsanteoutaouais.ca</a><br />
+              <a href="tel:+18199666108">819 966-6108</a><br />
+              173, rue Gamelin, Gatineau QC J8Y 1W1
+            </p>
+          </div>
+          <div>
+            <p><strong>Liens utiles</strong></p>
+            <ul class="dsf-footer__social">
+              <li><a href="#">Mentions légales</a> <!-- TODO : URL FSO --></li>
+              <li><a href="#">Politique de confidentialité</a> <!-- TODO Loi 25 --> <!-- À VALIDER CLIENT --></li>
+              <li><a href="#">Accessibilité</a></li>
+              <li><a href="https://fondationsanteoutaouais.ca" rel="noopener noreferrer">fondationsanteoutaouais.ca</a></li>
+            </ul>
+          </div>
+          <div>
+            <p><strong>Suis-nous</strong></p>
+            <ul class="dsf-footer__social">
+              <li><a href="https://www.facebook.com/FondationSanteOutaouais" rel="noopener noreferrer">Facebook</a></li>
+              <li><a href="https://www.instagram.com/fondationsanteoutaouais/" rel="noopener noreferrer">Instagram</a></li>
+              <li>
+                <a href="https://www.linkedin.com/company/fondation-sant%C3%A9-gatineau/" rel="noopener noreferrer">LinkedIn</a>
+              </li>
+              <li><a href="https://www.youtube.com/@FondationOutaouais" rel="noopener noreferrer">YouTube</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="dsf-footer__bar">
+          Numéro d’organisme de bienfaisance : 10758 8477 RR0001 · © 2026 Fondation Santé Outaouais. Tous droits réservés.<br />
+          Patrick Sinsen : retirer les redirections d’anciennes URL avant la mise en ligne publique.
+        </p>
+      </div>
+    </footer>
+
+    <script defer src="assets/js/analytics.js"></script>
+    <script defer src="assets/js/smooth-scroll.js"></script>
+    <script defer src="assets/js/form-gate.js"></script>
+    <script defer src="assets/js/form-submit.js"></script>
+  </body>
+</html>

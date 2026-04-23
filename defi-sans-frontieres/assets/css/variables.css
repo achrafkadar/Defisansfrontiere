@@ -1,0 +1,45 @@
+/**
+ * Tokens Défi Sans Frontières — brand book (à synchroniser avec livrable Wenov final).
+ * Règles : jaune accent = CTA uniquement ; pas de jaune sur longs textes ; pas de primary en fond de CTA.
+ */
+
+:root {
+  /* Couleurs de marque Défi Sans Frontières */
+  --color-primary: #0a3d91;
+  --color-accent: #f5b73c;
+  --color-sand-light: #f4a94c;
+  --color-sand-deep: #c85a1e;
+  --color-sky: #8fb4c7;
+  --color-dark: #0e1b2c;
+
+  /* Couleurs fonctionnelles */
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6b6b;
+  --color-bg: #ffffff;
+  --color-bg-alt: #fff8ed;
+  --color-success: #2d8f3c;
+  --color-error: #c63a3a;
+  --color-white: #ffffff;
+
+  /* Typographie (2 familles Google max : Oswald + Inter) */
+  --font-heading: "Oswald", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Rythme */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --shadow-card: 0 4px 24px rgba(10, 61, 145, 0.08);
+  --shadow-cta: 0 6px 20px rgba(245, 183, 60, 0.35);
+  --spacing-section: clamp(4rem, 8vw, 8rem);
+  --maxwidth-content: 1200px;
+  --maxwidth-narrow: 720px;
+
+  /* Header sticky (ancrage smooth) */
+  --header-offset: 4.5rem;
+
+  /* Breakpoints (référence documentaire — media queries dans main.css) */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
+}

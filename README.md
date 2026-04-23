@@ -1,7 +1,12 @@
 # Defisansfrontiere
 
-Page d’accueil minimale pour le projet **Defisansfrontiere**.
+## Landing FSO — Défi Sans Frontières (livraison actuelle)
 
-## Aperçu local
+Le livrable **production-ready** se trouve dans **`defi-sans-frontieres/`** (HTML, CSS, JS, gabarits WordPress, courriel).
 
-Ouvrez `index.html` dans un navigateur, ou servez le dossier avec un serveur HTTP statique.
+- Aperçu local : `cd defi-sans-frontieres && python3 -m http.server 8080`
+- Intégration WP : voir `defi-sans-frontieres/README.md`
+
+GitHub Pages déploie le contenu du dossier `defi-sans-frontieres/` (workflow Actions).
+
+Les fichiers `index.html` et `styles.css` à la racine du dépôt sont une ancienne démo ; la source à jour est sous `defi-sans-frontieres/`.

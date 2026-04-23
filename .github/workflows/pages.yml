@@ -30,7 +30,7 @@ jobs:
       - name: Artefact statique
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: defi-sans-frontieres
 
       - name: Déploiement
         id: deployment
