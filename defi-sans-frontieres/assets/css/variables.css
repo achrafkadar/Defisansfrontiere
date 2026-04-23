@@ -1,43 +1,51 @@
 /**
- * Tokens Défi Sans Frontières — brand book (à synchroniser avec livrable Wenov final).
- * Règles : jaune accent = CTA uniquement ; pas de jaune sur longs textes ; pas de primary en fond de CTA.
+ * Thème sombre — même esprit que l’ancienne démo (nuit, sable, accent chaud).
+ * Les noms de variables restent compatibles avec main.css.
  */
 
 :root {
-  /* Couleurs de marque Défi Sans Frontières */
-  --color-primary: #0a3d91;
-  --color-accent: #f5b73c;
-  --color-sand-light: #f4a94c;
-  --color-sand-deep: #c85a1e;
-  --color-sky: #8fb4c7;
-  --color-dark: #0e1b2c;
+  color-scheme: dark;
 
-  /* Couleurs fonctionnelles */
-  --color-text: #1a1a1a;
-  --color-text-muted: #6b6b6b;
-  --color-bg: #ffffff;
-  --color-bg-alt: #fff8ed;
-  --color-success: #2d8f3c;
-  --color-error: #c63a3a;
+  /* Surfaces */
+  --color-bg: #0b0d12;
+  --color-bg-alt: #12151f;
+  --color-card: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-footer-bg: #06080e;
+  --color-surface-elevated: #151a24;
+
+  /* Texte */
+  --color-text: #e8ecf1;
+  --color-text-muted: #9aa3b2;
   --color-white: #ffffff;
 
-  /* Typographie (2 familles Google max : Oswald + Inter) */
-  --font-heading: "Oswald", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* Accents (lisibles sur fond sombre) */
+  --color-primary: #6ee7ff;
+  --color-accent: #f0a046;
+  --color-accent-hot: #c77d1f;
+  --color-sand-light: #e8d4b4;
+  --color-sand-deep: #c9a66b;
+  --color-sky: #6b8fa3;
+  --color-dark: #1a0f05;
 
-  /* Rythme */
-  --radius-card: 12px;
-  --radius-button: 8px;
-  --shadow-card: 0 4px 24px rgba(10, 61, 145, 0.08);
-  --shadow-cta: 0 6px 20px rgba(245, 183, 60, 0.35);
+  /* États */
+  --color-success: #7dd3a0;
+  --color-error: #f87171;
+
+  /* Typo (comme l’ancienne landing) */
+  --font-heading: "Outfit", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+
+  --radius-card: 14px;
+  --radius-button: 10px;
+  --radius-pill: 999px;
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.45);
+  --shadow-cta: 0 6px 28px rgba(240, 160, 70, 0.35);
   --spacing-section: clamp(4rem, 8vw, 8rem);
   --maxwidth-content: 1200px;
   --maxwidth-narrow: 720px;
-
-  /* Header sticky (ancrage smooth) */
   --header-offset: 4.5rem;
 
-  /* Breakpoints (référence documentaire — media queries dans main.css) */
   --bp-sm: 480px;
   --bp-md: 768px;
   --bp-lg: 1024px;

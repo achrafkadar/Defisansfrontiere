@@ -34,7 +34,10 @@ body.dsf-landing {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text);
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: radial-gradient(1200px 600px at 10% -10%, rgba(110, 231, 255, 0.1), transparent),
+    radial-gradient(900px 500px at 90% 0%, rgba(167, 139, 250, 0.1), transparent);
+  background-attachment: fixed;
 }
 
 body.dsf-landing :focus-visible {
@@ -48,8 +51,8 @@ body.dsf-landing :focus-visible {
   top: 0.75rem;
   z-index: 10000;
   padding: 0.5rem 1rem;
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: var(--color-accent);
+  color: var(--color-dark);
   font-weight: 700;
   text-decoration: none;
   border-radius: var(--radius-button);
@@ -91,9 +94,9 @@ body.dsf-landing :focus-visible {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem clamp(1rem, 3vw, 2rem);
-  background: rgba(255, 255, 255, 0.94);
-  border-bottom: 1px solid rgba(10, 61, 145, 0.12);
-  backdrop-filter: blur(8px);
+  background: rgba(11, 13, 18, 0.88);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
 }
 
 .dsf-header__brand {
@@ -105,17 +108,19 @@ body.dsf-landing :focus-visible {
 .dsf-header__logo {
   height: 40px;
   width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
 }
 
 .dsf-header__cta {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 0.95rem;
   padding: 0.55rem 1.1rem;
-  border-radius: var(--radius-button);
-  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hot));
   color: var(--color-dark);
   text-decoration: none;
   box-shadow: var(--shadow-cta);
@@ -150,7 +155,7 @@ body.dsf-landing :focus-visible {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: var(--color-dark);
+  background-color: var(--color-bg);
   background-image: linear-gradient(
       90deg,
       rgba(14, 27, 44, 0.88) 0%,
@@ -190,7 +195,8 @@ body.dsf-landing :focus-visible {
 .dsf-hero__logo-fso {
   height: 48px;
   width: auto;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  opacity: 0.95;
 }
 
 .dsf-hero__badge {
@@ -203,34 +209,37 @@ body.dsf-landing :focus-visible {
   font-size: 0.75rem;
   padding: 0.35rem 0.65rem;
   border-radius: 999px;
-  background: var(--color-primary);
-  color: var(--color-white);
-  border: 2px solid var(--color-accent);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-sand-light);
+  border: 1px solid var(--color-accent);
 }
 
 .dsf-hero__h1 {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   line-height: 0.95;
   font-size: clamp(3rem, 8vw, 6rem);
-  color: var(--color-primary);
-  text-shadow: 0 2px 0 var(--color-white), 0 0 24px rgba(255, 255, 255, 0.35);
   margin: 0 0 1rem;
   max-width: 18ch;
+  color: transparent;
+  background: linear-gradient(120deg, var(--color-white), #c7d2fe);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.45));
 }
 
 .dsf-hero__baseline {
   display: inline-block;
-  background: var(--color-accent);
-  color: var(--color-white);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hot));
+  color: var(--color-dark);
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   letter-spacing: 0.02em;
   padding: 0.65rem 1.1rem;
-  border-radius: var(--radius-button);
+  border-radius: 10px;
   margin-bottom: 1rem;
   box-shadow: var(--shadow-cta);
 }
@@ -252,7 +261,7 @@ body.dsf-landing :focus-visible {
   letter-spacing: 0.05em;
   font-size: 1rem;
   padding: 0.85rem 1.5rem;
-  border-radius: var(--radius-button);
+  border-radius: var(--radius-pill);
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -271,9 +280,15 @@ body.dsf-landing :focus-visible {
 }
 
 .dsf-btn--outline {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-sand-light);
+  border: 1px solid var(--color-border);
+}
+
+.dsf-btn--outline:hover,
+.dsf-btn--outline:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .dsf-hero__meta {
@@ -318,7 +333,7 @@ body.dsf-landing :focus-visible {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-card);
   overflow: hidden;
-  border: 3px solid var(--color-primary);
+  border: 2px solid rgba(110, 231, 255, 0.45);
   box-shadow: var(--shadow-card);
   background: #000;
 }
@@ -354,11 +369,11 @@ body.dsf-landing :focus-visible {
 }
 
 .dsf-card {
-  background: var(--color-bg);
+  background: var(--color-card);
   border-radius: var(--radius-card);
   padding: 1.5rem;
   box-shadow: var(--shadow-card);
-  border: 1px solid rgba(10, 61, 145, 0.08);
+  border: 1px solid var(--color-border);
 }
 
 .dsf-card__icon {
@@ -415,8 +430,8 @@ body.dsf-landing :focus-visible {
   z-index: 1;
   padding: 1rem;
   border-radius: var(--radius-card);
-  background: var(--color-bg);
-  border: 1px solid rgba(10, 61, 145, 0.1);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
 }
 
@@ -437,7 +452,7 @@ body.dsf-landing :focus-visible {
 .dsf-phase--current .dsf-phase__dot {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(245, 183, 60, 0.35);
+  box-shadow: 0 0 0 6px rgba(240, 160, 70, 0.35);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -449,10 +464,10 @@ body.dsf-landing :focus-visible {
 @keyframes dsf-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(245, 183, 60, 0.45);
+    box-shadow: 0 0 0 0 rgba(240, 160, 70, 0.45);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(245, 183, 60, 0);
+    box-shadow: 0 0 0 12px rgba(240, 160, 70, 0);
   }
 }
 
@@ -485,13 +500,13 @@ body.dsf-landing :focus-visible {
   font-weight: 700;
   padding: 0.2rem 0.45rem;
   border-radius: 6px;
-  background: rgba(45, 143, 60, 0.12);
+  background: rgba(125, 211, 160, 0.15);
   color: var(--color-success);
 }
 
 .dsf-tag--live {
-  background: rgba(245, 183, 60, 0.2);
-  color: var(--color-sand-deep);
+  background: rgba(240, 160, 70, 0.2);
+  color: var(--color-accent);
 }
 
 /* ------------------------------------------------------------------------- Inclus / non inclus */
@@ -509,7 +524,8 @@ body.dsf-landing :focus-visible {
 .dsf-box {
   padding: 1.25rem;
   border-radius: var(--radius-card);
-  background: var(--color-bg);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
 }
 
 .dsf-box--ok {
@@ -540,8 +556,8 @@ body.dsf-landing :focus-visible {
 .dsf-filters {
   padding: 1.5rem;
   border-radius: var(--radius-card);
-  border: 2px solid rgba(10, 61, 145, 0.15);
-  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.35);
   box-shadow: var(--shadow-card);
 }
 
@@ -584,8 +600,9 @@ body.dsf-landing :focus-visible {
 
 .dsf-badge-count {
   font-family: var(--font-heading);
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: rgba(110, 231, 255, 0.18);
+  color: var(--color-primary);
+  border: 1px solid rgba(110, 231, 255, 0.35);
   padding: 0.35rem 0.65rem;
   border-radius: 999px;
   font-size: 0.9rem;
@@ -596,7 +613,7 @@ body.dsf-landing :focus-visible {
 }
 
 .dsf-filter-msg--err {
-  color: var(--color-error);
+  color: #fca5a5;
 }
 
 .dsf-filter-msg--ok {
@@ -660,7 +677,9 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   font: inherit;
   padding: 0.65rem 0.75rem;
   border-radius: var(--radius-button);
-  border: 1px solid rgba(10, 61, 145, 0.25);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--color-text);
 }
 
 .dsf-field input.dsf-input-invalid,
@@ -693,8 +712,8 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 .dsf-spinner {
   width: 1.1rem;
   height: 1.1rem;
-  border: 2px solid rgba(14, 27, 44, 0.25);
-  border-top-color: var(--color-dark);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: dsf-spin 0.7s linear infinite;
   display: none;
@@ -714,8 +733,8 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   display: none;
   padding: 1.5rem;
   border-radius: var(--radius-card);
-  border: 2px solid var(--color-success);
-  background: rgba(45, 143, 60, 0.08);
+  border: 1px solid rgba(125, 211, 160, 0.45);
+  background: rgba(125, 211, 160, 0.1);
 }
 
 .dsf-success.is-visible {
@@ -730,8 +749,8 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 /* ------------------------------------------------------------------------- Ambassadeur */
 .dsf-amb {
-  background: var(--color-dark);
-  color: var(--color-white);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
 }
 
 .dsf-amb__grid {
@@ -751,7 +770,7 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   overflow: hidden;
   border: 3px solid var(--color-accent);
   aspect-ratio: 1;
-  background: linear-gradient(145deg, var(--color-sand-deep), var(--color-primary));
+  background: linear-gradient(145deg, var(--color-sand-deep), #1a3a4a);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -777,7 +796,7 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 .dsf-amb p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--color-text-muted);
 }
 
 /* ------------------------------------------------------------------------- FSO */
@@ -785,8 +804,9 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.75rem 1rem;
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: rgba(110, 231, 255, 0.12);
+  color: var(--color-sand-light);
+  border: 1px solid rgba(110, 231, 255, 0.35);
   font-family: var(--font-heading);
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -795,10 +815,10 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 /* ------------------------------------------------------------------------- FAQ */
 .dsf-faq-item {
-  border: 1px solid rgba(10, 61, 145, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   margin-bottom: 0.65rem;
-  background: var(--color-bg);
+  background: var(--color-card);
   overflow: hidden;
 }
 
@@ -839,7 +859,7 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 .dsf-faq-item__body {
   padding: 0 1.1rem 1rem;
   color: var(--color-text-muted);
-  border-top: 1px solid rgba(10, 61, 145, 0.08);
+  border-top: 1px solid var(--color-border);
 }
 
 .dsf-faq-item__body p {
@@ -848,13 +868,14 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 /* ------------------------------------------------------------------------- Footer */
 .dsf-footer {
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: var(--color-footer-bg);
+  color: var(--color-text);
   padding: 3rem 0 1.5rem;
+  border-top: 1px solid var(--color-border);
 }
 
 .dsf-footer a {
-  color: var(--color-white);
+  color: var(--color-sand-light);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -874,6 +895,8 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   height: 52px;
   width: auto;
   margin-bottom: 0.75rem;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
 .dsf-footer__social {
@@ -888,17 +911,18 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 .dsf-footer__bar {
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid var(--color-border);
   font-size: 0.85rem;
   text-align: center;
+  color: var(--color-text-muted);
 }
 
 /* ------------------------------------------------------------------------- noscript */
 .dsf-noscript {
   padding: 1rem;
-  background: #fff3cd;
-  color: #664d03;
-  border-bottom: 2px solid var(--color-accent);
+  background: rgba(240, 160, 70, 0.12);
+  color: var(--color-sand-light);
+  border-bottom: 1px solid var(--color-border);
   text-align: center;
   font-weight: 600;
 }
