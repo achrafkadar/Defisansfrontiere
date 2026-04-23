@@ -143,7 +143,7 @@ body.dsf-landing :focus-visible {
 
 /**
  * Fond hero (grande « section d’en-tête » sous la barre sticky).
- * Image : remplace assets/img/hero-header-bg.jpg par ta photo finale (même nom de fichier).
+ * Image : remplace assets/img/hero-header-bg.png par ta photo finale (même nom de fichier).
  * Le point d’ancrage à droite garde silhouettes + soleil visibles sur mobile et bureau.
  */
 .dsf-hero__bg {
@@ -164,7 +164,7 @@ body.dsf-landing :focus-visible {
       rgba(14, 27, 44, 0.25) 35%,
       rgba(14, 27, 44, 0.75) 100%
     ),
-    url("../img/hero-header-bg.jpg");
+    url("../img/hero-header-bg.png");
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
