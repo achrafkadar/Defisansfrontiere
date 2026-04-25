@@ -1,11 +1,9 @@
 /**
- * Validation, compteurs de caractères, soumission (fallback démo front-end).
- * TODO FSO : brancher l’action réelle WPForms / endpoint serveur — ne pas conserver le mode démo en prod.
+ * Validation, compteurs de caractères, soumission vers FormSubmit (courriel ads@wenov.ca).
+ * Sur WordPress avec WPForms, remplacer l’action du formulaire et retirer la logique FormSubmit.
  */
 (function () {
   "use strict";
-
-  var DEMO_MODE = true;
 
   function bindCharCount(textareaId, outId) {
     var ta = document.getElementById(textareaId);
@@ -67,14 +65,50 @@
     if (el) el.value = new Date().toISOString();
   }
 
+  function setFormSubmitNextUrl() {
+    var next = document.getElementById("dsf-form-next");
+    if (!next) return;
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.set("merci", "1");
+      u.hash = "dsf-success";
+      next.value = u.toString();
+    } catch (e) {
+      next.value =
+        window.location.origin +
+        window.location.pathname +
+        (window.location.search ? window.location.search + "&" : "?") +
+        "merci=1#dsf-success";
+    }
+  }
+
   function showSuccess(prenom) {
     var form = document.getElementById("dsf-candidature-form");
     var success = document.getElementById("dsf-success");
     if (!form || !success) return;
     form.style.display = "none";
     success.classList.add("is-visible");
-    success.querySelector("[data-dsf-success-name]").textContent = prenom || "toi";
+    var nameSpan = success.querySelector("[data-dsf-success-name]");
+    if (nameSpan) nameSpan.textContent = prenom || "toi";
     success.focus();
+  }
+
+  function tryShowSuccessFromRedirect() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("merci") !== "1") return;
+      var prenom = "";
+      try {
+        prenom = sessionStorage.getItem("dsf_merci_prenom") || "";
+        sessionStorage.removeItem("dsf_merci_prenom");
+      } catch (e) {}
+      showSuccess(prenom.trim());
+      if (history.replaceState) {
+        var u = new URL(window.location.href);
+        u.searchParams.delete("merci");
+        history.replaceState({}, "", u.pathname + u.search + (u.hash || "#dsf-success"));
+      }
+    } catch (e2) {}
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -83,6 +117,9 @@
 
     var form = document.getElementById("dsf-candidature-form");
     if (!form) return;
+
+    setFormSubmitNextUrl();
+    tryShowSuccessFromRedirect();
 
     bindBlurValidation(form);
 
@@ -104,31 +141,25 @@
         return;
       }
 
-      if (!DEMO_MODE) {
-        setTimestamp();
-        return;
-      }
-
-      e.preventDefault();
       setTimestamp();
+      setFormSubmitNextUrl();
+
+      var courriel = document.getElementById("field_courriel");
+      var replyto = document.getElementById("dsf-form-replyto");
+      if (courriel && replyto) replyto.value = courriel.value.trim();
+
+      var prenomEl = document.getElementById("field_prenom");
+      try {
+        sessionStorage.setItem("dsf_merci_prenom", (prenomEl && prenomEl.value ? prenomEl.value : "").trim());
+      } catch (err) {}
+
+      if (window.DSF && window.DSF.analytics) {
+        window.DSF.analytics.trackFormSubmitSuccess();
+      }
 
       var btn = document.getElementById("dsf-submit-btn");
-      if (btn) {
-        btn.classList.add("is-loading");
-        btn.setAttribute("disabled", "disabled");
-      }
-
-      window.setTimeout(function () {
-        if (btn) {
-          btn.classList.remove("is-loading");
-          btn.removeAttribute("disabled");
-        }
-        var prenom = (document.getElementById("field_prenom") || {}).value || "";
-        if (window.DSF && window.DSF.analytics) {
-          window.DSF.analytics.trackFormSubmitSuccess();
-        }
-        showSuccess(prenom.trim());
-      }, 650);
+      if (btn) btn.classList.add("is-loading");
+      /* Pas de preventDefault : navigation POST vers FormSubmit puis _next */
     });
   });
 })();

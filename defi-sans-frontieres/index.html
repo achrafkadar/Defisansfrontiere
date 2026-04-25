@@ -257,8 +257,23 @@
       </section>
 
       <!-- SECTIONS 7–8 — FORMULAIRE UNIQUE -->
-      <form id="dsf-candidature-form" method="post" action="#" novalidate>
-        <!-- TODO FSO : action = endpoint WPForms / admin-ajax.php selon config -->
+      <form
+        id="dsf-candidature-form"
+        method="post"
+        action="https://formsubmit.co/ads@wenov.ca"
+        novalidate
+      >
+        <!--
+          Envoi réel via FormSubmit (https://formsubmit.co) vers ads@wenov.ca.
+          Première soumission : FormSubmit envoie un courriel d’activation à cette adresse — clique le lien pour activer.
+          TODO FSO prod : remplacer par WPForms / Gravity + SMTP institutionnel.
+        -->
+        <input type="hidden" name="_subject" value="Candidature — Défi Sans Frontières Maroc 2026" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" id="dsf-form-next" value="" />
+        <input type="hidden" name="_replyto" id="dsf-form-replyto" value="" />
+        <!-- Anti-robots (laisser vide) -->
+        <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" />
 
         <section id="filtres" class="dsf-section" aria-labelledby="titre-filtres">
           <div class="dsf-container dsf-container--narrow">
@@ -455,10 +470,13 @@
             <div class="dsf-success" id="dsf-success" tabindex="-1" role="region" aria-labelledby="succes-titre">
               <h2 id="succes-titre">Merci <span data-dsf-success-name="">toi</span>!</h2>
               <p>
-                On t’a envoyé un courriel avec les instructions pour ta vidéo de présentation. Vérifie tes pourriels
-                au besoin. On te recontacte d’ici le <strong>22 mai</strong>.
+                Ta candidature a été transmise. Tu vas recevoir un courriel de confirmation (vérifie tes pourriels).
+                L’équipe te recontacte d’ici le <strong>22 mai</strong>.
               </p>
-              <p class="hint">En mode démo statique, aucun courriel n’est parti — configure WPForms + notification.</p>
+              <p class="hint">
+                Si c’est la première fois avec FormSubmit, <strong>ads@wenov.ca</strong> doit d’abord cliquer sur le
+                lien d’activation reçu de FormSubmit.
+              </p>
             </div>
           </div>
         </section>
