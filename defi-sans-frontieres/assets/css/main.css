@@ -584,27 +584,62 @@ body.dsf-landing :focus-visible {
 .dsf-timeline {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.15rem;
   position: relative;
+  padding-left: 1.25rem;
+}
+
+.dsf-timeline--dynamic::before {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 0.1rem;
+  bottom: 0.1rem;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(110, 231, 255, 0.75), rgba(110, 231, 255, 0.08));
+}
+
+.dsf-timeline--dynamic::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 0.1rem;
+  width: 3px;
+  height: 38%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--color-accent), rgba(240, 160, 70, 0.05));
+  box-shadow: 0 0 24px rgba(240, 160, 70, 0.35);
 }
 
 @media (min-width: 1024px) {
   .dsf-timeline {
     flex-direction: row;
     align-items: stretch;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding-left: 0;
+    padding-top: 2rem;
   }
 
-  .dsf-timeline::before {
+  .dsf-timeline--dynamic::before {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 1.1rem;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-sand-light));
+    left: 2%;
+    right: 2%;
+    top: 0.55rem;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(110, 231, 255, 0.72), rgba(110, 231, 255, 0.08));
     border-radius: 999px;
     z-index: 0;
+  }
+
+  .dsf-timeline--dynamic::after {
+    left: 2%;
+    top: 0.55rem;
+    width: 42%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), rgba(240, 160, 70, 0.05));
+    box-shadow: 0 0 22px rgba(240, 160, 70, 0.35);
   }
 }
 
@@ -612,26 +647,31 @@ body.dsf-landing :focus-visible {
   flex: 1;
   position: relative;
   z-index: 1;
-  padding: 1rem;
+  padding: 1rem 1rem 1.1rem;
   border-radius: var(--radius-card);
   background: var(--color-card);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  backdrop-filter: blur(8px);
 }
 
 .dsf-phase:hover {
   transform: translateY(-4px);
-  border-color: rgba(110, 231, 255, 0.45);
+  border-color: rgba(110, 231, 255, 0.6);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
 .dsf-phase__dot {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.15rem;
+  height: 1.15rem;
   border-radius: 50%;
-  margin-bottom: 0.5rem;
-  border: 3px solid var(--color-sky);
+  margin-bottom: 0.55rem;
+  border: 2px solid var(--color-sky);
   background: transparent;
+  position: relative;
+  margin-left: -1.42rem;
+  box-shadow: 0 0 0 5px rgba(11, 13, 18, 0.9);
 }
 
 .dsf-phase--done .dsf-phase__dot {
@@ -642,12 +682,16 @@ body.dsf-landing :focus-visible {
 .dsf-phase--current .dsf-phase__dot {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(240, 160, 70, 0.35);
+  box-shadow: 0 0 0 5px rgba(11, 13, 18, 0.9), 0 0 0 10px rgba(240, 160, 70, 0.2);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .dsf-phase--current .dsf-phase__dot {
     animation: dsf-pulse 2s ease-in-out infinite;
+  }
+
+  .dsf-timeline--dynamic::after {
+    animation: dsf-flow 2.8s ease-in-out infinite;
   }
 }
 
@@ -658,6 +702,30 @@ body.dsf-landing :focus-visible {
   }
   50% {
     box-shadow: 0 0 0 12px rgba(240, 160, 70, 0);
+  }
+}
+
+@keyframes dsf-flow {
+  0%,
+  100% {
+    filter: brightness(1);
+    opacity: 0.85;
+  }
+  50% {
+    filter: brightness(1.12);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dsf-phase {
+    padding-top: 1.35rem;
+  }
+
+  .dsf-phase__dot {
+    margin-left: 0;
+    margin-top: -2rem;
+    box-shadow: 0 0 0 6px rgba(11, 13, 18, 0.95);
   }
 }
 
