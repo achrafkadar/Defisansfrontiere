@@ -52,9 +52,27 @@
     });
   }
 
+  // Header transparent au chargement, solide après un léger scroll.
+  function bindHeaderScrollState() {
+    var header = document.querySelector(HEADER_SEL);
+    if (!header) return;
+
+    function refresh() {
+      if (window.scrollY > 80) {
+        header.classList.add("is-scrolled");
+      } else {
+        header.classList.remove("is-scrolled");
+      }
+    }
+
+    window.addEventListener("scroll", refresh, { passive: true });
+    refresh();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     bindAnchors();
     bindFaqAccordion();
+    bindHeaderScrollState();
     if (window.location.hash) {
       setTimeout(function () {
         scrollToHash(window.location.hash, "auto");

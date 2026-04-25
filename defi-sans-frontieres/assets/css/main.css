@@ -94,9 +94,16 @@ body.dsf-landing :focus-visible {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem clamp(1rem, 3vw, 2rem);
-  background: rgba(11, 13, 18, 0.88);
-  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.55), rgba(11, 13, 18, 0.2));
+  border-bottom: 1px solid transparent;
   backdrop-filter: blur(12px);
+  transition: background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, padding 0.2s ease-out;
+}
+
+.dsf-header.is-scrolled {
+  background: rgba(11, 13, 18, 0.9);
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
 }
 
 .dsf-header__brand {
@@ -144,6 +151,7 @@ body.dsf-landing :focus-visible {
   padding: var(--spacing-section) 0 calc(var(--spacing-section) * 0.75);
   color: var(--color-white);
   isolation: isolate;
+  overflow: hidden;
 }
 
 /**
@@ -179,6 +187,7 @@ body.dsf-landing :focus-visible {
   position: relative;
   width: min(100% - 2rem, var(--maxwidth-content));
   margin: 0 auto;
+  padding-top: max(1rem, env(safe-area-inset-top));
 }
 
 .dsf-hero__top {
@@ -297,6 +306,46 @@ body.dsf-landing :focus-visible {
   opacity: 0.95;
 }
 
+/* Entrée visuelle hero (désactivée si reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-hero__h1,
+  .dsf-hero__baseline,
+  .dsf-hero__edition,
+  .dsf-hero .dsf-btn,
+  .dsf-hero__meta {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: dsf-hero-in 0.7s ease forwards;
+  }
+
+  .dsf-hero__h1 {
+    animation-delay: 0.1s;
+  }
+
+  .dsf-hero__baseline {
+    animation-delay: 0.28s;
+  }
+
+  .dsf-hero__edition {
+    animation-delay: 0.45s;
+  }
+
+  .dsf-hero .dsf-btn {
+    animation-delay: 0.62s;
+  }
+
+  .dsf-hero__meta {
+    animation-delay: 0.78s;
+  }
+}
+
+@keyframes dsf-hero-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ------------------------------------------------------------------------- Sections génériques */
 .dsf-section {
   padding: var(--spacing-section) 0;
@@ -314,6 +363,16 @@ body.dsf-landing :focus-visible {
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   letter-spacing: 0.03em;
   margin: 0 0 0.75rem;
+}
+
+.dsf-section__title::after {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 3px;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
 }
 
 .dsf-section__lead {
@@ -374,6 +433,14 @@ body.dsf-landing :focus-visible {
   padding: 1.5rem;
   box-shadow: var(--shadow-card);
   border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.dsf-card:hover,
+.dsf-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(240, 160, 70, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
 .dsf-card__icon {
@@ -931,6 +998,39 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 @media (min-width: 480px) {
   .dsf-header__logo {
     height: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dsf-header {
+    min-height: 60px;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .dsf-header__logo {
+    height: 32px;
+  }
+
+  .dsf-header__cta {
+    display: none;
+  }
+
+  .dsf-hero {
+    min-height: 90vh;
+  }
+
+  .dsf-hero__top {
+    position: static;
+    margin-bottom: 1rem;
+  }
+
+  .dsf-hero__logo-fso {
+    display: none;
+  }
+
+  .dsf-hero__badge {
+    margin-top: 0;
   }
 }
 
