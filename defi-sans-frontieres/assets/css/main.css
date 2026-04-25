@@ -154,6 +154,32 @@ body.dsf-landing :focus-visible {
   overflow: hidden;
 }
 
+.dsf-hero::before,
+.dsf-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(48px);
+}
+
+.dsf-hero::before {
+  width: min(42vw, 480px);
+  height: min(42vw, 480px);
+  top: -12%;
+  right: -8%;
+  background: rgba(110, 231, 255, 0.16);
+}
+
+.dsf-hero::after {
+  width: min(34vw, 360px);
+  height: min(34vw, 360px);
+  bottom: -18%;
+  left: -6%;
+  background: rgba(240, 160, 70, 0.13);
+}
+
 /**
  * Fond hero (grande « section d’en-tête » sous la barre sticky).
  * Image : remplace assets/img/hero-header-bg.png par ta photo finale (même nom de fichier).
@@ -275,6 +301,8 @@ body.dsf-landing :focus-visible {
   cursor: pointer;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .dsf-btn--primary {
@@ -286,6 +314,27 @@ body.dsf-landing :focus-visible {
 .dsf-btn--primary:hover,
 .dsf-btn--primary:focus-visible {
   transform: translateY(-2px);
+}
+
+.dsf-btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-btn--primary:hover::after,
+  .dsf-btn--primary:focus-visible::after {
+    animation: dsf-shine 0.7s ease forwards;
+  }
+}
+
+@keyframes dsf-shine {
+  to {
+    transform: translateX(120%);
+  }
 }
 
 .dsf-btn--outline {
@@ -381,6 +430,20 @@ body.dsf-landing :focus-visible {
   max-width: 52ch;
 }
 
+/* Reveal progressif au scroll (piloté par design-motion.js) */
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-reveal {
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .dsf-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* ------------------------------------------------------------------------- Vidéo */
 .dsf-video {
   max-width: 960px;
@@ -434,6 +497,8 @@ body.dsf-landing :focus-visible {
   box-shadow: var(--shadow-card);
   border: 1px solid var(--color-border);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .dsf-card:hover,
