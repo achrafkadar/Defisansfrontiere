@@ -479,57 +479,63 @@ body.dsf-landing :focus-visible {
 }
 
 /* Image de fond par section (remplaçable dans assets/img/) */
-#video.dsf-section,
-#concept.dsf-section,
-#parcours.dsf-section,
-#pourquoi.dsf-section,
-#inclus.dsf-section,
-#filtres.dsf-section,
-#postuler.dsf-section,
-#stephane.dsf-section,
-#fondation.dsf-section,
-#faq.dsf-section {
-  --section-image: url("../img/hero-desert-placeholder.svg");
-  --section-image-opacity: 0.14;
-}
-
 #video.dsf-section {
+  --section-image: url("../img/video-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.14;
   --section-image-position: center 25%;
 }
 
 #concept.dsf-section {
+  --section-image: url("../img/concept-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.16;
   --section-image-position: center 45%;
 }
 
 #parcours.dsf-section {
+  --section-image: url("../img/parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.16;
   --section-image-position: center 55%;
 }
 
 #pourquoi.dsf-section {
+  --section-image: url("../img/pourquoi-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.15;
   --section-image-position: center 35%;
 }
 
 #inclus.dsf-section {
+  --section-image: url("../img/inclus-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.14;
   --section-image-position: center 60%;
 }
 
 #filtres.dsf-section {
+  --section-image: url("../img/filtres-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.12;
   --section-image-position: center 42%;
 }
 
 #postuler.dsf-section {
+  --section-image: url("../img/postuler-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.12;
   --section-image-position: center 48%;
 }
 
 #stephane.dsf-section {
+  --section-image: url("../img/stephane-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.16;
   --section-image-position: center 40%;
 }
 
 #fondation.dsf-section {
+  --section-image: url("../img/fondation-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.14;
   --section-image-position: center 58%;
 }
 
 #faq.dsf-section {
+  --section-image: url("../img/faq-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  --section-image-opacity: 0.13;
   --section-image-position: center 30%;
 }
 
