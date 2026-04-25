@@ -1,36 +1,37 @@
-/**
- * Thème sombre — même esprit que l’ancienne démo (nuit, sable, accent chaud).
- * Les noms de variables restent compatibles avec main.css.
- */
-
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
+
+  /* Palette charte officielle */
+  --color-accent: #fdc91b;
+  --color-primary: #0063ae;
+  --color-bg: #fffff6;
+  --color-sky: #65c0dd;
 
   /* Surfaces */
-  --color-bg: #0b0d12;
-  --color-bg-alt: #12151f;
-  --color-card: rgba(255, 255, 255, 0.06);
-  --color-border: rgba(255, 255, 255, 0.12);
-  --color-footer-bg: #06080e;
-  --color-surface-elevated: #151a24;
+  --color-bg-alt: #0e1b2c; /* section noire */
+  --color-card: #ffffff;
+  --color-card-dark: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(0, 99, 174, 0.22);
+  --color-border-dark: rgba(101, 192, 221, 0.35);
+  --color-footer-bg: #0063ae;
+  --color-surface-elevated: #111f33;
 
   /* Texte */
-  --color-text: #e8ecf1;
-  --color-text-muted: #9aa3b2;
+  --color-text: #0e1b2c;
+  --color-text-muted: rgba(14, 27, 44, 0.75);
+  --color-text-on-dark: #f4fbff;
+  --color-muted-on-dark: rgba(244, 251, 255, 0.78);
   --color-white: #ffffff;
 
-  /* Accents (lisibles sur fond sombre) */
-  --color-primary: #6ee7ff;
-  --color-accent: #f0a046;
-  --color-accent-hot: #c77d1f;
-  --color-sand-light: #e8d4b4;
-  --color-sand-deep: #c9a66b;
-  --color-sky: #6b8fa3;
-  --color-dark: #1a0f05;
+  /* Accents secondaires cohérents */
+  --color-accent-hot: #d4a300;
+  --color-sand-light: #fff5cf;
+  --color-sand-deep: #0063ae;
+  --color-dark: #0e1b2c;
 
   /* États */
-  --color-success: #7dd3a0;
-  --color-error: #f87171;
+  --color-success: #1ea76d;
+  --color-error: #c63a3a;
 
   /* Typo (comme l’ancienne landing) */
   --font-heading: "Outfit", system-ui, sans-serif;
@@ -39,8 +40,8 @@
   --radius-card: 14px;
   --radius-button: 10px;
   --radius-pill: 999px;
-  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.45);
-  --shadow-cta: 0 6px 28px rgba(240, 160, 70, 0.35);
+  --shadow-card: 0 14px 40px rgba(0, 40, 82, 0.16);
+  --shadow-cta: 0 10px 28px rgba(253, 201, 27, 0.38);
   --spacing-section: clamp(4rem, 8vw, 8rem);
   --maxwidth-content: 1200px;
   --maxwidth-narrow: 720px;

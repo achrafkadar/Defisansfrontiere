@@ -35,8 +35,8 @@ body.dsf-landing {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
-  background-image: radial-gradient(1200px 600px at 10% -10%, rgba(110, 231, 255, 0.1), transparent),
-    radial-gradient(900px 500px at 90% 0%, rgba(167, 139, 250, 0.1), transparent);
+  background-image: radial-gradient(1200px 600px at 10% -10%, rgba(101, 192, 221, 0.12), transparent),
+    radial-gradient(900px 500px at 90% 0%, rgba(0, 99, 174, 0.08), transparent);
   background-attachment: fixed;
 }
 
@@ -94,16 +94,21 @@ body.dsf-landing :focus-visible {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem clamp(1rem, 3vw, 2rem);
-  background: linear-gradient(180deg, rgba(11, 13, 18, 0.55), rgba(11, 13, 18, 0.2));
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.62), rgba(14, 27, 44, 0.22));
   border-bottom: 1px solid transparent;
   backdrop-filter: blur(12px);
   transition: background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, padding 0.2s ease-out;
 }
 
 .dsf-header.is-scrolled {
-  background: rgba(11, 13, 18, 0.9);
+  background: rgba(255, 255, 246, 0.96);
   border-bottom-color: var(--color-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.dsf-header.is-scrolled .dsf-header__logo {
+  filter: none;
+  opacity: 1;
 }
 
 .dsf-header__brand {
@@ -439,6 +444,15 @@ body.dsf-landing :focus-visible {
   background: var(--color-bg-alt);
 }
 
+.dsf-section--alt .dsf-section__title {
+  color: var(--color-text-on-dark);
+}
+
+.dsf-section--alt .dsf-section__lead,
+.dsf-section--alt .dsf-video__caption {
+  color: var(--color-muted-on-dark);
+}
+
 .dsf-section__title {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -490,7 +504,7 @@ body.dsf-landing :focus-visible {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-card);
   overflow: hidden;
-  border: 2px solid rgba(110, 231, 255, 0.45);
+  border: 2px solid rgba(101, 192, 221, 0.65);
   box-shadow: var(--shadow-card);
   background: #000;
 }
@@ -537,10 +551,23 @@ body.dsf-landing :focus-visible {
   will-change: transform;
 }
 
+.dsf-section--alt .dsf-card {
+  background: var(--color-card-dark);
+  border-color: var(--color-border-dark);
+}
+
+.dsf-section--alt .dsf-card__title {
+  color: var(--color-text-on-dark);
+}
+
+.dsf-section--alt .dsf-card p {
+  color: var(--color-muted-on-dark);
+}
+
 .dsf-card:hover,
 .dsf-card:focus-within {
   transform: translateY(-4px);
-  border-color: rgba(240, 160, 70, 0.45);
+  border-color: rgba(253, 201, 27, 0.55);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
@@ -550,7 +577,7 @@ body.dsf-landing :focus-visible {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(130deg, rgba(110, 231, 255, 0.12), transparent 45%, rgba(240, 160, 70, 0.1));
+  background: linear-gradient(130deg, rgba(101, 192, 221, 0.16), transparent 45%, rgba(253, 201, 27, 0.14));
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -597,7 +624,7 @@ body.dsf-landing :focus-visible {
   bottom: 0.1rem;
   width: 3px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(110, 231, 255, 0.75), rgba(110, 231, 255, 0.08));
+  background: linear-gradient(180deg, rgba(101, 192, 221, 0.85), rgba(101, 192, 221, 0.08));
 }
 
 .dsf-timeline--dynamic::after {
@@ -608,8 +635,8 @@ body.dsf-landing :focus-visible {
   width: 3px;
   height: 38%;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--color-accent), rgba(240, 160, 70, 0.05));
-  box-shadow: 0 0 24px rgba(240, 160, 70, 0.35);
+  background: linear-gradient(180deg, var(--color-accent), rgba(253, 201, 27, 0.05));
+  box-shadow: 0 0 24px rgba(253, 201, 27, 0.42);
 }
 
 @media (min-width: 1024px) {
@@ -628,7 +655,7 @@ body.dsf-landing :focus-visible {
     right: 2%;
     top: 0.55rem;
     height: 3px;
-    background: linear-gradient(90deg, rgba(110, 231, 255, 0.72), rgba(110, 231, 255, 0.08));
+    background: linear-gradient(90deg, rgba(101, 192, 221, 0.85), rgba(101, 192, 221, 0.08));
     border-radius: 999px;
     z-index: 0;
   }
@@ -638,8 +665,8 @@ body.dsf-landing :focus-visible {
     top: 0.55rem;
     width: 42%;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-accent), rgba(240, 160, 70, 0.05));
-    box-shadow: 0 0 22px rgba(240, 160, 70, 0.35);
+    background: linear-gradient(90deg, var(--color-accent), rgba(253, 201, 27, 0.05));
+    box-shadow: 0 0 22px rgba(253, 201, 27, 0.42);
   }
 }
 
@@ -656,9 +683,14 @@ body.dsf-landing :focus-visible {
   backdrop-filter: blur(8px);
 }
 
+.dsf-section--alt .dsf-phase {
+  background: var(--color-card-dark);
+  border-color: var(--color-border-dark);
+}
+
 .dsf-phase:hover {
   transform: translateY(-4px);
-  border-color: rgba(110, 231, 255, 0.6);
+  border-color: rgba(101, 192, 221, 0.75);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
@@ -671,7 +703,7 @@ body.dsf-landing :focus-visible {
   background: transparent;
   position: relative;
   margin-left: -1.42rem;
-  box-shadow: 0 0 0 5px rgba(11, 13, 18, 0.9);
+  box-shadow: 0 0 0 5px rgba(14, 27, 44, 0.88);
 }
 
 .dsf-phase--done .dsf-phase__dot {
@@ -682,7 +714,7 @@ body.dsf-landing :focus-visible {
 .dsf-phase--current .dsf-phase__dot {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 5px rgba(11, 13, 18, 0.9), 0 0 0 10px rgba(240, 160, 70, 0.2);
+  box-shadow: 0 0 0 5px rgba(14, 27, 44, 0.88), 0 0 0 10px rgba(253, 201, 27, 0.25);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -698,10 +730,10 @@ body.dsf-landing :focus-visible {
 @keyframes dsf-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(240, 160, 70, 0.45);
+    box-shadow: 0 0 0 0 rgba(253, 201, 27, 0.5);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(240, 160, 70, 0);
+    box-shadow: 0 0 0 12px rgba(253, 201, 27, 0);
   }
 }
 
@@ -733,7 +765,7 @@ body.dsf-landing :focus-visible {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-sand-deep);
+  color: var(--color-sky);
   font-weight: 700;
   margin: 0 0 0.25rem;
 }
@@ -745,10 +777,18 @@ body.dsf-landing :focus-visible {
   font-size: 1.05rem;
 }
 
+.dsf-section--alt .dsf-phase h3 {
+  color: var(--color-text-on-dark);
+}
+
 .dsf-phase p {
   margin: 0;
   font-size: 0.92rem;
   color: var(--color-text-muted);
+}
+
+.dsf-section--alt .dsf-phase p {
+  color: var(--color-muted-on-dark);
 }
 
 .dsf-tag {
