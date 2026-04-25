@@ -180,6 +180,31 @@ body.dsf-landing :focus-visible {
   background: rgba(240, 160, 70, 0.13);
 }
 
+.dsf-hero__layer {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 999px;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+.dsf-hero__layer--one {
+  width: min(44vw, 520px);
+  height: min(44vw, 520px);
+  right: -10%;
+  top: 18%;
+  background: radial-gradient(circle, rgba(143, 180, 199, 0.9), rgba(143, 180, 199, 0) 66%);
+}
+
+.dsf-hero__layer--two {
+  width: min(32vw, 360px);
+  height: min(32vw, 360px);
+  left: -8%;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(244, 169, 76, 0.85), rgba(244, 169, 76, 0) 65%);
+}
+
 /**
  * Fond hero (grande « section d’en-tête » sous la barre sticky).
  * Image : remplace assets/img/hero-header-bg.png par ta photo finale (même nom de fichier).
@@ -214,6 +239,8 @@ body.dsf-landing :focus-visible {
   width: min(100% - 2rem, var(--maxwidth-content));
   margin: 0 auto;
   padding-top: max(1rem, env(safe-area-inset-top));
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .dsf-hero__top {
@@ -283,6 +310,13 @@ body.dsf-landing :focus-visible {
   font-size: clamp(1rem, 2.2vw, 1.2rem);
   margin: 0 0 1.5rem;
   max-width: 40ch;
+}
+
+.dsf-hero__story {
+  margin: 0 0 1rem;
+  max-width: 48ch;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .dsf-btn {
@@ -398,6 +432,7 @@ body.dsf-landing :focus-visible {
 /* ------------------------------------------------------------------------- Sections génériques */
 .dsf-section {
   padding: var(--spacing-section) 0;
+  position: relative;
 }
 
 .dsf-section--alt {
@@ -491,6 +526,7 @@ body.dsf-landing :focus-visible {
 }
 
 .dsf-card {
+  position: relative;
   background: var(--color-card);
   border-radius: var(--radius-card);
   padding: 1.5rem;
@@ -506,6 +542,22 @@ body.dsf-landing :focus-visible {
   transform: translateY(-4px);
   border-color: rgba(240, 160, 70, 0.45);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.dsf-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(130deg, rgba(110, 231, 255, 0.12), transparent 45%, rgba(240, 160, 70, 0.1));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dsf-card:hover::before,
+.dsf-card:focus-within::before {
+  opacity: 1;
 }
 
 .dsf-card__icon {
@@ -565,6 +617,12 @@ body.dsf-landing :focus-visible {
   background: var(--color-card);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.dsf-phase:hover {
+  transform: translateY(-4px);
+  border-color: rgba(110, 231, 255, 0.45);
 }
 
 .dsf-phase__dot {
@@ -952,6 +1010,12 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   margin-bottom: 0.65rem;
   background: var(--color-card);
   overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dsf-faq-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(240, 160, 70, 0.45);
 }
 
 .dsf-faq-item summary {
@@ -1096,6 +1160,10 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
   .dsf-hero__badge {
     margin-top: 0;
+  }
+
+  .dsf-hero__layer {
+    opacity: 0.2;
   }
 }
 

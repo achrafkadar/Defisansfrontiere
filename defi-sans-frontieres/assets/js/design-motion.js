@@ -17,8 +17,9 @@
     );
     if (!targets.length) return;
 
-    targets.forEach(function (el) {
+    targets.forEach(function (el, idx) {
       el.classList.add("dsf-reveal");
+      el.style.transitionDelay = Math.min((idx % 6) * 70, 280) + "ms";
     });
 
     var observer = new IntersectionObserver(
@@ -41,6 +42,9 @@
     if (reducedMotion) return;
     var hero = document.querySelector(".dsf-hero");
     var bg = document.querySelector(".dsf-hero__bg");
+    var layerOne = document.querySelector(".dsf-hero__layer--one");
+    var layerTwo = document.querySelector(".dsf-hero__layer--two");
+    var inner = document.querySelector(".dsf-hero__inner");
     if (!hero || !bg) return;
 
     function update() {
@@ -49,11 +53,38 @@
       var progress = Math.max(-1, Math.min(1, rect.top / window.innerHeight));
       var y = Math.round(progress * -22);
       bg.style.transform = "translate3d(0," + y + "px,0) scale(1.03)";
+      if (layerOne) {
+        layerOne.style.transform = "translate3d(0," + Math.round(y * 0.55) + "px,0)";
+      }
+      if (layerTwo) {
+        layerTwo.style.transform = "translate3d(0," + Math.round(y * -0.35) + "px,0)";
+      }
     }
 
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     update();
+
+    if (window.matchMedia("(max-width: 1023px)").matches) return;
+
+    hero.addEventListener("mousemove", function (e) {
+      if (!inner) return;
+      var r = hero.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top) / r.height;
+      var rx = (0.5 - py) * 2.5;
+      var ry = (px - 0.5) * 3.2;
+      inner.style.transform =
+        "perspective(1200px) rotateX(" +
+        rx.toFixed(2) +
+        "deg) rotateY(" +
+        ry.toFixed(2) +
+        "deg)";
+    });
+
+    hero.addEventListener("mouseleave", function () {
+      if (inner) inner.style.transform = "";
+    });
   }
 
   function initCardTilt() {
