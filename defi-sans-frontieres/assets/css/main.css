@@ -466,11 +466,11 @@ body.dsf-landing :focus-visible {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(255, 255, 246, 0.56), rgba(255, 255, 246, 0.68));
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.58), rgba(14, 27, 44, 0.7));
 }
 
 .dsf-section--alt::after {
-  background: linear-gradient(180deg, rgba(14, 27, 44, 0.6), rgba(14, 27, 44, 0.74));
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.7), rgba(14, 27, 44, 0.84));
 }
 
 .dsf-section > .dsf-container {
@@ -552,7 +552,7 @@ body.dsf-landing :focus-visible {
   font-family: var(--font-heading);
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-text-on-dark);
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   letter-spacing: 0.03em;
   margin: 0 0 0.75rem;
@@ -570,7 +570,7 @@ body.dsf-landing :focus-visible {
 
 .dsf-section__lead {
   margin: 0 0 2rem;
-  color: var(--color-text-muted);
+  color: var(--color-muted-on-dark);
   max-width: 52ch;
 }
 
@@ -615,7 +615,7 @@ body.dsf-landing :focus-visible {
 .dsf-video__caption {
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-muted-on-dark);
 }
 
 /* ------------------------------------------------------------------------- Cards grid */
