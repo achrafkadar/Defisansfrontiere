@@ -98,19 +98,24 @@
           <h2 id="titre-video" class="dsf-section__title">30 places · Un désert · Un documentaire · Une cause</h2>
           <div class="dsf-video">
             <div class="dsf-video__caption">Ce que Stéphane te propose</div>
-            <div class="dsf-video__frame">
-              <!-- TODO FSO : remplacer src par l’URL finale YouTube nocookie ou Vimeo -->
-              <iframe
-                id="dsf-video-iframe"
-                title="Vidéo de présentation — Défi Sans Frontières Maroc 2026"
-                src="about:blank"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
+            <div
+              class="dsf-video__frame dsf-video__frame--cover"
+              data-video-embed="about:blank"
+              data-video-title="Vidéo de présentation — Défi Sans Frontières Maroc 2026"
+            >
+              <!-- TODO FSO : remplace data-video-embed par l’URL embed YouTube nocookie ou Vimeo -->
+              <button class="dsf-video__cover" type="button" id="dsf-video-play" aria-label="Lire la vidéo de présentation">
+                <img
+                  class="dsf-video__thumb"
+                  src="assets/img/video-thumbnail.jpg"
+                  alt="Aperçu vidéo — Défi Sans Frontières Maroc 2026"
+                  loading="lazy"
+                />
+                <span class="dsf-video__play" aria-hidden="true">▶</span>
+              </button>
             </div>
             <p class="dsf-section__lead" style="margin-top: 0.75rem">
-              <!-- Remplace about:blank par l’embed réel avant mise en ligne -->
+              <!-- Remplace assets/img/video-thumbnail.jpg + data-video-embed avant mise en ligne -->
             </p>
           </div>
         </div>
@@ -621,6 +626,7 @@
     <script defer src="assets/js/analytics.js"></script>
     <script defer src="assets/js/smooth-scroll.js"></script>
     <script defer src="assets/js/design-motion.js"></script>
+    <script defer src="assets/js/video-cover.js"></script>
     <script defer src="assets/js/form-gate.js"></script>
     <script defer src="assets/js/form-submit.js"></script>
   </body>
