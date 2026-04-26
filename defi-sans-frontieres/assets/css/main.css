@@ -284,7 +284,7 @@ body.dsf-landing :focus-visible {
   margin: 0 0 1rem;
   max-width: 18ch;
   color: transparent;
-  background: linear-gradient(120deg, var(--color-white), #c7d2fe);
+  background: linear-gradient(120deg, var(--color-accent), #ffd95a);
   -webkit-background-clip: text;
   background-clip: text;
   filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.45));
