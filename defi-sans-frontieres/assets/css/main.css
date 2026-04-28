@@ -565,6 +565,10 @@ body.dsf-landing :focus-visible {
 #video.dsf-section + #concept.dsf-section > .dsf-container::before {
   top: calc(-1 * clamp(3.25rem, 10vw, 6.25rem));
   height: clamp(3.25rem, 10vw, 6.25rem);
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
   background: linear-gradient(
     180deg,
     rgba(18, 21, 31, 0) 0%,
@@ -613,6 +617,10 @@ body.dsf-landing :focus-visible {
 #concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
   top: calc(-1 * clamp(3.25rem, 10vw, 6.25rem));
   height: clamp(3.25rem, 10vw, 6.25rem);
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
   background: linear-gradient(
     180deg,
     rgba(18, 21, 31, 0) 0%,
@@ -632,6 +640,7 @@ body.dsf-landing :focus-visible {
   #video.dsf-section + #concept.dsf-section > .dsf-container::before {
     top: calc(-1 * clamp(2rem, 7vw, 3.4rem));
     height: clamp(2rem, 7vw, 3.4rem);
+    width: 100vw;
   }
 
   #video.dsf-section + #concept.dsf-section {
@@ -642,6 +651,7 @@ body.dsf-landing :focus-visible {
   #concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
     top: calc(-1 * clamp(2rem, 7vw, 3.4rem));
     height: clamp(2rem, 7vw, 3.4rem);
+    width: 100vw;
   }
 
   #concept.dsf-section + #parcours.dsf-section {
