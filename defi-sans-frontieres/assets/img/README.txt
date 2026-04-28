@@ -26,3 +26,21 @@ Images attendues par section (landing):
 - faq-bg.jpg
 
 Si une image manque, la landing utilise automatiquement `hero-desert-placeholder.svg` comme fallback.
+
+---
+Dimensions et poids cibles (page longue = chaque ko compte)
+============================================================
+Format d’export recommandé : **WebP** (qualité ~75–82) + **JPG** en secours si besoin.
+Règle simple : **largeur max 1920 px** pour les fonds de section (le CSS fait `cover` ; inutile d’exporter 4000 px).
+
+| Fichier / usage              | Dimensions export    | Poids cible    | Note |
+|-----------------------------|----------------------|----------------|------|
+| Fonds de section (*-bg.jpg) | 1920 × 1080 à 1280   | 80–200 ko /img | 16:9 ou 3:2 ; flou léger OK en bas si texte |
+| hero-header-bg (hero)       | 1920 × 1080 min.     | 120–250 ko     | Zone lisible centre/bas pour le texte |
+| Miniature vidéo             | **1280 × 720**       | **≤ 120 ko**   | Même ratio que la vidéo 16:9 |
+| Logo header / footer (PNG)  | largeur 400–800 px @1x | 15–40 ko     | SVG préféré si dispo |
+| Portrait Stéphane           | **800 × 1000** env.  | 60–120 ko      | Ratio portrait ; rognage carré possible en CSS |
+| og:image (réseaux)          | **1200 × 630**       | **≤ 300 ko**   | Ratio imposé ; texte lisible au centre |
+| Icônes / pictos             | SVG ou PNG 64–128 px | < 15 ko        | |
+
+Budget global réaliste pour toute la landing (hors vidéo embed) : viser < 1,5–2 Mo total pour les images si possible ; au-delà, prioriser WebP et réduire la hauteur des fonds (1080 → 900 px) avant de baisser trop la qualité.
