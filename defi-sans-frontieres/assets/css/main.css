@@ -515,6 +515,7 @@ body.dsf-landing :focus-visible {
   --section-image: url("../img/concept-bg.jpg"), url("../img/hero-desert-placeholder.svg");
   --section-image-opacity: 0.36;
   --section-image-position: center 45%;
+  background: var(--color-bg-alt);
 }
 
 /*
@@ -524,9 +525,9 @@ body.dsf-landing :focus-visible {
 #concept.dsf-section::after {
   background: linear-gradient(
     180deg,
-    rgba(14, 27, 44, 0.52) 0%,
-    rgba(14, 27, 44, 0.62) 42%,
-    rgba(18, 21, 31, 0.82) 78%,
+    rgba(14, 27, 44, 0.54) 0%,
+    rgba(14, 27, 44, 0.66) 45%,
+    rgba(18, 21, 31, 0.9) 80%,
     var(--color-bg-alt) 100%
   );
 }
@@ -556,28 +557,40 @@ body.dsf-landing :focus-visible {
 #parcours.dsf-section::after {
   background: linear-gradient(
     180deg,
-    rgba(18, 21, 31, 0.88) 0%,
-    rgba(14, 27, 44, 0.72) 28%,
+    rgba(18, 21, 31, 0.94) 0%,
+    rgba(14, 27, 44, 0.76) 30%,
     rgba(14, 27, 44, 0.8) 100%
   );
 }
 
 /* Pont plus haut entre les deux blocs (gradient sur le container du parcours) */
 #concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
-  top: calc(-1 * clamp(2.75rem, 9vw, 5.5rem));
-  height: clamp(2.75rem, 9vw, 5.5rem);
+  top: calc(-1 * clamp(3.25rem, 10vw, 6.25rem));
+  height: clamp(3.25rem, 10vw, 6.25rem);
   background: linear-gradient(
     180deg,
     rgba(18, 21, 31, 0) 0%,
-    rgba(18, 21, 31, 0.22) 35%,
-    rgba(14, 27, 44, 0.38) 100%
+    rgba(18, 21, 31, 0.28) 40%,
+    rgba(14, 27, 44, 0.45) 100%
   );
+}
+
+/* Superposition contrôlée : le parcours "remonte" légèrement dans le concept
+   pour supprimer la ligne de cassure entre les deux sections. */
+#concept.dsf-section + #parcours.dsf-section {
+  margin-top: calc(-1 * clamp(1.1rem, 2.4vw, 1.9rem));
+  padding-top: calc(var(--spacing-section) + clamp(1.1rem, 2.4vw, 1.9rem));
 }
 
 @media (max-width: 767px) {
   #concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
-    top: calc(-1 * clamp(1.75rem, 6vw, 3rem));
-    height: clamp(1.75rem, 6vw, 3rem);
+    top: calc(-1 * clamp(2rem, 7vw, 3.4rem));
+    height: clamp(2rem, 7vw, 3.4rem);
+  }
+
+  #concept.dsf-section + #parcours.dsf-section {
+    margin-top: calc(-1 * clamp(0.7rem, 3vw, 1.1rem));
+    padding-top: calc(var(--spacing-section) + clamp(0.7rem, 3vw, 1.1rem));
   }
 }
 
