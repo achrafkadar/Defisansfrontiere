@@ -438,37 +438,9 @@ body.dsf-landing :focus-visible {
   --section-image-position: center center;
 }
 
-/* Fondu entre sections pour adoucir les transitions visuelles */
-.dsf-section + .dsf-section::before,
-.dsf-section + .dsf-section::after {
-  transition: opacity 0.4s ease;
-}
-
+/* Fondu global entre TOUTES les sections (pleine largeur, sans "carreau") */
 .dsf-section + .dsf-section {
   margin-top: -1px;
-}
-
-.dsf-section + .dsf-section .dsf-container::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(-1 * clamp(2.2rem, 5vw, 4rem));
-  height: clamp(2.2rem, 5vw, 4rem);
-  pointer-events: none;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(14, 27, 44, 0), rgba(14, 27, 44, 0.55));
-}
-
-.dsf-section:not(.dsf-section--alt) + .dsf-section:not(.dsf-section--alt) .dsf-container::before {
-  background: linear-gradient(180deg, rgba(14, 27, 44, 0), rgba(14, 27, 44, 0.45));
-}
-
-@media (max-width: 767px) {
-  .dsf-section + .dsf-section .dsf-container::before {
-    top: calc(-1 * clamp(1.4rem, 4vw, 2.2rem));
-    height: clamp(1.4rem, 4vw, 2.2rem);
-  }
 }
 
 .dsf-section--alt {
@@ -511,75 +483,10 @@ body.dsf-landing :focus-visible {
   --section-image-position: center 25%;
 }
 
-/* Transition vidéo (30 places…) → concept : même rupture alt / image qu’avant entre concept et parcours */
-#video.dsf-section::after {
-  background: linear-gradient(
-    180deg,
-    rgba(14, 27, 44, 0.64) 0%,
-    rgba(14, 27, 44, 0.72) 40%,
-    rgba(18, 21, 31, 0.9) 78%,
-    var(--color-bg-alt) 100%
-  );
-}
-
 #concept.dsf-section {
   --section-image: url("../img/concept-bg.jpg"), url("../img/hero-desert-placeholder.svg");
   --section-image-opacity: 0.36;
   --section-image-position: center 45%;
-  background: var(--color-bg-alt);
-}
-
-/*
- * Transition concept → parcours : le parcours est en --alt (#12151f) avec overlay plus dense ;
- * sans fondu dédié, la jonction entre deux images + deux surfaces paraît « coupée ».
- * Le haut du concept est aussi adouci quand il suit la section vidéo (#video + #concept).
- */
-#concept.dsf-section::after {
-  background: linear-gradient(
-    180deg,
-    rgba(18, 21, 31, 0.93) 0%,
-    rgba(14, 27, 44, 0.56) 14%,
-    rgba(14, 27, 44, 0.64) 46%,
-    rgba(18, 21, 31, 0.9) 80%,
-    var(--color-bg-alt) 100%
-  );
-}
-
-/* Photo concept : entrée douce sous la section vidéo */
-#video.dsf-section + #concept.dsf-section::before {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.35) min(10vh, 100px),
-    #000 min(22vh, 220px)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.35) min(10vh, 100px),
-    #000 min(22vh, 220px)
-  );
-}
-
-/* Pont + léger chevauchement vidéo → concept */
-#video.dsf-section + #concept.dsf-section > .dsf-container::before {
-  top: calc(-1 * clamp(3.25rem, 10vw, 6.25rem));
-  height: clamp(3.25rem, 10vw, 6.25rem);
-  left: 50%;
-  right: auto;
-  width: 100vw;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    180deg,
-    rgba(18, 21, 31, 0) 0%,
-    rgba(18, 21, 31, 0.26) 38%,
-    rgba(14, 27, 44, 0.42) 100%
-  );
-}
-
-#video.dsf-section + #concept.dsf-section {
-  margin-top: calc(-1 * clamp(1.1rem, 2.4vw, 1.9rem));
-  padding-top: calc(var(--spacing-section) + clamp(1.1rem, 2.4vw, 1.9rem));
 }
 
 #parcours.dsf-section {
@@ -588,76 +495,18 @@ body.dsf-landing :focus-visible {
   --section-image-position: center 55%;
 }
 
-/* Image du parcours : entrée progressive en haut de section (évite une ligne nette sous le concept) */
-#parcours.dsf-section::before {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.35) min(10vh, 100px),
-    #000 min(22vh, 220px)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.35) min(10vh, 100px),
-    #000 min(22vh, 220px)
-  );
+/* Top fade appliqué uniformément sur chaque section qui suit une autre section */
+.dsf-section + .dsf-section::after {
+  background:
+    linear-gradient(180deg, rgba(18, 21, 31, 0.72) 0, rgba(18, 21, 31, 0) clamp(2.3rem, 7vw, 6rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.6), rgba(14, 27, 44, 0.74));
 }
 
-#parcours.dsf-section::after {
-  background: linear-gradient(
-    180deg,
-    rgba(18, 21, 31, 0.94) 0%,
-    rgba(14, 27, 44, 0.76) 30%,
-    rgba(14, 27, 44, 0.8) 100%
-  );
-}
-
-/* Pont plus haut entre les deux blocs (gradient sur le container du parcours) */
-#concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
-  top: calc(-1 * clamp(3.25rem, 10vw, 6.25rem));
-  height: clamp(3.25rem, 10vw, 6.25rem);
-  left: 50%;
-  right: auto;
-  width: 100vw;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    180deg,
-    rgba(18, 21, 31, 0) 0%,
-    rgba(18, 21, 31, 0.28) 40%,
-    rgba(14, 27, 44, 0.45) 100%
-  );
-}
-
-/* Superposition contrôlée : le parcours "remonte" légèrement dans le concept
-   pour supprimer la ligne de cassure entre les deux sections. */
-#concept.dsf-section + #parcours.dsf-section {
-  margin-top: calc(-1 * clamp(1.1rem, 2.4vw, 1.9rem));
-  padding-top: calc(var(--spacing-section) + clamp(1.1rem, 2.4vw, 1.9rem));
-}
-
-@media (max-width: 767px) {
-  #video.dsf-section + #concept.dsf-section > .dsf-container::before {
-    top: calc(-1 * clamp(2rem, 7vw, 3.4rem));
-    height: clamp(2rem, 7vw, 3.4rem);
-    width: 100vw;
-  }
-
-  #video.dsf-section + #concept.dsf-section {
-    margin-top: calc(-1 * clamp(0.7rem, 3vw, 1.1rem));
-    padding-top: calc(var(--spacing-section) + clamp(0.7rem, 3vw, 1.1rem));
-  }
-
-  #concept.dsf-section + #parcours.dsf-section > .dsf-container::before {
-    top: calc(-1 * clamp(2rem, 7vw, 3.4rem));
-    height: clamp(2rem, 7vw, 3.4rem);
-    width: 100vw;
-  }
-
-  #concept.dsf-section + #parcours.dsf-section {
-    margin-top: calc(-1 * clamp(0.7rem, 3vw, 1.1rem));
-    padding-top: calc(var(--spacing-section) + clamp(0.7rem, 3vw, 1.1rem));
-  }
+.dsf-section--alt + .dsf-section::after,
+.dsf-section + .dsf-section--alt::after {
+  background:
+    linear-gradient(180deg, rgba(18, 21, 31, 0.82) 0, rgba(18, 21, 31, 0) clamp(2.3rem, 7vw, 6rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.66), rgba(14, 27, 44, 0.82));
 }
 
 #pourquoi.dsf-section {
