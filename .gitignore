@@ -1,1 +1,3 @@
 .DS_Store
+# Métadonnées macOS sur volumes externes (Lexar, etc.)
+._*
