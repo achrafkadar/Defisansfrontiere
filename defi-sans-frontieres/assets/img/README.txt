@@ -15,7 +15,7 @@ Le dépôt contient pour l’instant :
 
 Images attendues par section (landing):
 - video-bg.jpg
-- concept-parcours-bg.jpg — **une seule image** pour les sections « Le concept » + « Le parcours » : exporter ton visuel **entier** en 1920×2160 px (deux bandes 1920×1080 empilées sans marge), nom de fichier exact `concept-parcours-bg.jpg`. Le CSS affiche la moitié haute sur le concept et la moitié basse sur le parcours (plus de décalage entre deux fichiers). Si tu changes les dimensions, adapte le `min-height` dans `main.css` (bloc #concept / #parcours).
+- concept-parcours-bg.jpg — **une seule image** pour les sections « Le concept » + « Le parcours » : exporter ton visuel **entier** en 1920×2160 px (deux bandes 1920×1080 empilées sans marge), nom de fichier exact `concept-parcours-bg.jpg`. Le CSS affiche la moitié haute / basse avec `min-height: min(calc(100vw × 1080 / 1920), 65vh, 48rem)` pour éviter des bandes vides énormes sur grand écran ; tu peux retirer le plafond dans `main.css` si tu veux la hauteur « pleine image ».
 - pourquoi-bg.jpg
 - inclus-bg.jpg
 - filtres-bg.jpg

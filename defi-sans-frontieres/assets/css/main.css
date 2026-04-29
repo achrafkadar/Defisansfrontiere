@@ -488,23 +488,25 @@ body.dsf-landing :focus-visible {
  * Export conseillé : 1920 × 2160 (deux bandes 1920×1080 empilées sans couture dans Photoshop).
  * - Concept : moitié HAUTE → background-position center top
  * - Parcours : moitié BASSE → center bottom (rencontre exacte au milieu si la hauteur min. est respectée)
- * min-height = moitié de la hauteur affichée à largeur 100% : calc(100vw × 1080 / 1920) pour une image 1920×2160.
- * Autre format : remplace 1080 par (hauteur totale en px ÷ 2) et 1920 par la largeur en px.
+ * Hauteur : la moitié d’image à l’échelle largeur serait énorme sur un grand écran (ex. 1080 px).
+ * On plafonne avec min() pour éviter une bande vide sous les cartes + un grand vide avant « Le parcours ».
+ * Si tu préfères retrouver la hauteur pleine image, retire le plafond 65vh / 48rem.
  */
 #concept.dsf-section,
 #parcours.dsf-section {
   /* Fichier unique : largeur × hauteur TOTALE (ex. 1920×2160). Si autre taille, modifie le calc (× demi-hauteur ÷ largeur). */
   --section-image: url("../img/concept-parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
-  min-height: calc(100vw * 1080 / 1920);
+  min-height: min(calc(100vw * 1080 / 1920), 65vh, 48rem);
 }
 
 #concept.dsf-section {
-  --section-image-opacity: 0.36;
+  --section-image-opacity: 0.42;
   --section-image-position: center top;
+  padding-bottom: calc(var(--spacing-section) * 0.55);
 }
 
 #parcours.dsf-section {
-  --section-image-opacity: 0.36;
+  --section-image-opacity: 0.42;
   --section-image-position: center bottom;
 }
 
@@ -515,11 +517,22 @@ body.dsf-landing :focus-visible {
   background-repeat: no-repeat;
 }
 
-/* Fondu plus léger sur la jonction concept → parcours pour ne pas masquer la continuité de la photo */
+/* Voile plus léger sur « Le concept » pour ne pas écraser la photo (effet filtre trop fort) */
+#concept.dsf-section::after {
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.38), rgba(14, 27, 44, 0.52));
+}
+
+/* Rapprocher les deux blocs : la double marge (padding bas + padding haut) créait un « trou » sombre */
+#concept.dsf-section + #parcours.dsf-section {
+  margin-top: calc(-1 * clamp(1.25rem, 3vw, 2.25rem));
+  padding-top: calc(var(--spacing-section) + clamp(1.25rem, 3vw, 2.25rem));
+}
+
+/* Fondu sur « Le parcours » quand il suit le concept (plus spécifique que .dsf-section--alt::after) */
 #concept.dsf-section + #parcours.dsf-section::after {
   background:
-    linear-gradient(180deg, rgba(18, 21, 31, 0.42) 0, rgba(18, 21, 31, 0) clamp(1.6rem, 5vw, 4rem)),
-    linear-gradient(180deg, rgba(14, 27, 44, 0.58), rgba(14, 27, 44, 0.76));
+    linear-gradient(180deg, rgba(18, 21, 31, 0.28) 0, rgba(18, 21, 31, 0) clamp(1.2rem, 4vw, 3rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.48), rgba(14, 27, 44, 0.68));
 }
 
 /* Top fade appliqué uniformément sur chaque section qui suit une autre section */
