@@ -487,7 +487,8 @@ body.dsf-landing :focus-visible {
  * Concept + Parcours : deux exports 1920×1080 = moitiés haut/bas d’une même image.
  * - Image concept = partie HAUTE → ancrée en bas de section pour que le bord coupe rejoigne le parcours.
  * - Image parcours = partie BASSE → ancrée en haut.
- * Même min-height pour que `cover` scale pareil des deux côtés (sinon la jonction dérape).
+ * Même min-height pour équilibrer les blocs ; pour l’alignement pixel des deux moitiés on évite `cover`
+ * (hauteurs différentes = échelles différentes = décalage horizontal au milieu).
  * Si tu as découpé en GAUCHE/DROITE au lieu de HAUT/BAS, mets concept en `right center` et parcours en `left center`.
  */
 #concept.dsf-section {
@@ -507,6 +508,9 @@ body.dsf-landing :focus-visible {
 #concept.dsf-section::before,
 #parcours.dsf-section::before {
   transform: none;
+  /* Largeur identique à la section : même échelle que la moitié du dessous/dessus (évite le décalage avec cover). */
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
 
 /* Fondu plus léger sur la jonction concept → parcours pour ne pas masquer la continuité de la photo */
