@@ -483,16 +483,37 @@ body.dsf-landing :focus-visible {
   --section-image-position: center 25%;
 }
 
+/*
+ * Concept + Parcours : deux exports 1920×1080 = moitiés haut/bas d’une même image.
+ * - Image concept = partie HAUTE → ancrée en bas de section pour que le bord coupe rejoigne le parcours.
+ * - Image parcours = partie BASSE → ancrée en haut.
+ * Même min-height pour que `cover` scale pareil des deux côtés (sinon la jonction dérape).
+ * Si tu as découpé en GAUCHE/DROITE au lieu de HAUT/BAS, mets concept en `right center` et parcours en `left center`.
+ */
 #concept.dsf-section {
   --section-image: url("../img/concept-bg.jpg"), url("../img/hero-desert-placeholder.svg");
   --section-image-opacity: 0.36;
-  --section-image-position: center 45%;
+  --section-image-position: center bottom;
+  min-height: clamp(28rem, 70vh, 52rem);
 }
 
 #parcours.dsf-section {
   --section-image: url("../img/parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
   --section-image-opacity: 0.34;
-  --section-image-position: center 55%;
+  --section-image-position: center top;
+  min-height: clamp(28rem, 70vh, 52rem);
+}
+
+#concept.dsf-section::before,
+#parcours.dsf-section::before {
+  transform: none;
+}
+
+/* Fondu plus léger sur la jonction concept → parcours pour ne pas masquer la continuité de la photo */
+#concept.dsf-section + #parcours.dsf-section::after {
+  background:
+    linear-gradient(180deg, rgba(18, 21, 31, 0.42) 0, rgba(18, 21, 31, 0) clamp(1.6rem, 5vw, 4rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.58), rgba(14, 27, 44, 0.76));
 }
 
 /* Top fade appliqué uniformément sur chaque section qui suit une autre section */

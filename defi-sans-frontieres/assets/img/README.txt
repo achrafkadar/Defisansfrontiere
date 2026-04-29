@@ -15,8 +15,8 @@ Le dépôt contient pour l’instant :
 
 Images attendues par section (landing):
 - video-bg.jpg
-- concept-bg.jpg
-- parcours-bg.jpg
+- concept-bg.jpg — si tu découpes une seule image en deux pour Concept + Parcours : exporter deux fois 1920×1080 (moitié haute / moitié basse), les deux fichiers portent ces noms ; le CSS aligne `center bottom` / `center top`.
+- parcours-bg.jpg — suite verticale de concept-bg (voir ci-dessus). Découpe gauche/droite : ajuster les positions dans main.css (commentaire bloc #concept / #parcours).
 - pourquoi-bg.jpg
 - inclus-bg.jpg
 - filtres-bg.jpg
