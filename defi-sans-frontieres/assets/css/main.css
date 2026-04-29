@@ -484,37 +484,51 @@ body.dsf-landing :focus-visible {
 }
 
 /*
- * Concept + Parcours : UNE seule image (`concept-parcours-bg.jpg`) — même fichier sur les deux sections.
- * Export conseillé : 1920 × 2160 (deux bandes 1920×1080 empilées sans couture dans Photoshop).
- * - Concept : moitié HAUTE → background-position center top
- * - Parcours : moitié BASSE → center bottom (rencontre exacte au milieu si la hauteur min. est respectée)
- * Hauteur : la moitié d’image à l’échelle largeur serait énorme sur un grand écran (ex. 1080 px).
- * On plafonne avec min() pour éviter une bande vide sous les cartes + un grand vide avant « Le parcours ».
- * Si tu préfères retrouver la hauteur pleine image, retire le plafond 65vh / 48rem.
+ * Concept + Parcours : une seule image sur `.dsf-concept-parcours-wrap` (HTML)
+ * → une couche, un scale `cover`, aucune couture entre les deux sections.
+ * Fichier : concept-parcours-bg.jpg — idéal 1920 × 2160 (ou 16∶9 double bande).
  */
-#concept.dsf-section,
-#parcours.dsf-section {
-  /* Fichier unique : largeur × hauteur TOTALE (ex. 1920×2160). Si autre taille, modifie le calc (× demi-hauteur ÷ largeur). */
-  --section-image: url("../img/concept-parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
-  min-height: min(calc(100vw * 1080 / 1920), 65vh, 48rem);
+.dsf-concept-parcours-wrap {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.dsf-concept-parcours-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../img/concept-parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.42;
+}
+
+.dsf-concept-parcours-wrap > .dsf-section {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+.dsf-concept-parcours-wrap > .dsf-section.dsf-section--alt {
+  background: transparent;
+}
+
+.dsf-concept-parcours-wrap #concept.dsf-section,
+.dsf-concept-parcours-wrap #parcours.dsf-section {
+  --section-image: none;
+}
+
+.dsf-concept-parcours-wrap #concept.dsf-section::before,
+.dsf-concept-parcours-wrap #parcours.dsf-section::before {
+  display: none;
 }
 
 #concept.dsf-section {
-  --section-image-opacity: 0.42;
-  --section-image-position: center top;
   padding-bottom: calc(var(--spacing-section) * 0.55);
-}
-
-#parcours.dsf-section {
-  --section-image-opacity: 0.42;
-  --section-image-position: center bottom;
-}
-
-#concept.dsf-section::before,
-#parcours.dsf-section::before {
-  transform: none;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
 }
 
 /* Voile plus léger sur « Le concept » pour ne pas écraser la photo (effet filtre trop fort) */
@@ -533,6 +547,13 @@ body.dsf-landing :focus-visible {
   background:
     linear-gradient(180deg, rgba(18, 21, 31, 0.28) 0, rgba(18, 21, 31, 0) clamp(1.2rem, 4vw, 3rem)),
     linear-gradient(180deg, rgba(14, 27, 44, 0.48), rgba(14, 27, 44, 0.68));
+}
+
+/* Après le wrapper : « Pourquoi » n’est plus adjacent à #parcours — recoller le fondu haut */
+.dsf-concept-parcours-wrap + #pourquoi.dsf-section::after {
+  background:
+    linear-gradient(180deg, rgba(18, 21, 31, 0.82) 0, rgba(18, 21, 31, 0) clamp(2.3rem, 7vw, 6rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.66), rgba(14, 27, 44, 0.82));
 }
 
 /* Top fade appliqué uniformément sur chaque section qui suit une autre section */
