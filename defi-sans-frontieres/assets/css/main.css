@@ -484,31 +484,33 @@ body.dsf-landing :focus-visible {
 }
 
 /*
- * Concept + Parcours : deux exports 1920×1080 = moitiés haut/bas d’une même image.
- * - Image concept = partie HAUTE → ancrée en bas de section pour que le bord coupe rejoigne le parcours.
- * - Image parcours = partie BASSE → ancrée en haut.
- * Même min-height pour équilibrer les blocs ; pour l’alignement pixel des deux moitiés on évite `cover`
- * (hauteurs différentes = échelles différentes = décalage horizontal au milieu).
- * Si tu as découpé en GAUCHE/DROITE au lieu de HAUT/BAS, mets concept en `right center` et parcours en `left center`.
+ * Concept + Parcours : UNE seule image (`concept-parcours-bg.jpg`) — même fichier sur les deux sections.
+ * Export conseillé : 1920 × 2160 (deux bandes 1920×1080 empilées sans couture dans Photoshop).
+ * - Concept : moitié HAUTE → background-position center top
+ * - Parcours : moitié BASSE → center bottom (rencontre exacte au milieu si la hauteur min. est respectée)
+ * min-height = moitié de la hauteur affichée à largeur 100% : calc(100vw × 1080 / 1920) pour une image 1920×2160.
+ * Autre format : remplace 1080 par (hauteur totale en px ÷ 2) et 1920 par la largeur en px.
  */
+#concept.dsf-section,
+#parcours.dsf-section {
+  /* Fichier unique : largeur × hauteur TOTALE (ex. 1920×2160). Si autre taille, modifie le calc (× demi-hauteur ÷ largeur). */
+  --section-image: url("../img/concept-parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  min-height: calc(100vw * 1080 / 1920);
+}
+
 #concept.dsf-section {
-  --section-image: url("../img/concept-bg.jpg"), url("../img/hero-desert-placeholder.svg");
   --section-image-opacity: 0.36;
-  --section-image-position: center bottom;
-  min-height: clamp(28rem, 70vh, 52rem);
+  --section-image-position: center top;
 }
 
 #parcours.dsf-section {
-  --section-image: url("../img/parcours-bg.jpg"), url("../img/hero-desert-placeholder.svg");
-  --section-image-opacity: 0.34;
-  --section-image-position: center top;
-  min-height: clamp(28rem, 70vh, 52rem);
+  --section-image-opacity: 0.36;
+  --section-image-position: center bottom;
 }
 
 #concept.dsf-section::before,
 #parcours.dsf-section::before {
   transform: none;
-  /* Largeur identique à la section : même échelle que la moitié du dessous/dessus (évite le décalage avec cover). */
   background-size: 100% auto;
   background-repeat: no-repeat;
 }
