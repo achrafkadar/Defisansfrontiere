@@ -492,6 +492,8 @@ body.dsf-landing :focus-visible {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  /* Évite qu’un sub-pixel entre sections laisse voir une autre couleur (bande « bleue ») */
+  background-color: var(--color-bg-alt);
 }
 
 .dsf-concept-parcours-wrap::before {
@@ -505,6 +507,11 @@ body.dsf-landing :focus-visible {
   background-position: center center;
   background-repeat: no-repeat;
   opacity: 0.42;
+}
+
+/* Pas de recollement -1px entre concept et parcours : ça créait parfois une ligne visible */
+.dsf-concept-parcours-wrap .dsf-section + .dsf-section {
+  margin-top: 0;
 }
 
 .dsf-concept-parcours-wrap > .dsf-section {
@@ -531,22 +538,28 @@ body.dsf-landing :focus-visible {
   padding-bottom: calc(var(--spacing-section) * 0.55);
 }
 
-/* Voile plus léger sur « Le concept » pour ne pas écraser la photo (effet filtre trop fort) */
+/*
+ * Voile concept : le bas du dégradé se fond en transparent pour ne pas cumuler avec le voile du parcours
+ * (sinon bande bleue plus foncée exactement sur la jointure).
+ */
 #concept.dsf-section::after {
-  background: linear-gradient(180deg, rgba(14, 27, 44, 0.38), rgba(14, 27, 44, 0.52));
+  background: linear-gradient(
+    180deg,
+    rgba(14, 27, 44, 0.38) 0%,
+    rgba(14, 27, 44, 0.42) 72%,
+    rgba(14, 27, 44, 0) 100%
+  );
 }
 
-/* Rapprocher les deux blocs : la double marge (padding bas + padding haut) créait un « trou » sombre */
+/* Rapprocher les deux blocs sans chevauchement négatif (évite ligne / flash au pixel près) */
 #concept.dsf-section + #parcours.dsf-section {
-  margin-top: calc(-1 * clamp(1.25rem, 3vw, 2.25rem));
-  padding-top: calc(var(--spacing-section) + clamp(1.25rem, 3vw, 2.25rem));
+  margin-top: 0;
+  padding-top: var(--spacing-section);
 }
 
-/* Fondu sur « Le parcours » quand il suit le concept (plus spécifique que .dsf-section--alt::after) */
+/* Un seul dégradé sur le parcours : pas de double couche en haut de section */
 #concept.dsf-section + #parcours.dsf-section::after {
-  background:
-    linear-gradient(180deg, rgba(18, 21, 31, 0.28) 0, rgba(18, 21, 31, 0) clamp(1.2rem, 4vw, 3rem)),
-    linear-gradient(180deg, rgba(14, 27, 44, 0.48), rgba(14, 27, 44, 0.68));
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.5), rgba(14, 27, 44, 0.72));
 }
 
 /* Après le wrapper : « Pourquoi » n’est plus adjacent à #parcours — recoller le fondu haut */
