@@ -509,6 +509,19 @@ body.dsf-landing :focus-visible {
   opacity: 0.42;
 }
 
+/*
+ * Un seul voile « bleu » sur tout le bloc (même rendu que .dsf-section--alt::after) :
+ * identique sur Le concept et Le parcours, sans cumul ni couture.
+ */
+.dsf-concept-parcours-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.7), rgba(14, 27, 44, 0.84));
+}
+
 /* Pas de recollement -1px entre concept et parcours : ça créait parfois une ligne visible */
 .dsf-concept-parcours-wrap .dsf-section + .dsf-section {
   margin-top: 0;
@@ -516,7 +529,7 @@ body.dsf-landing :focus-visible {
 
 .dsf-concept-parcours-wrap > .dsf-section {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   background: transparent;
 }
 
@@ -534,32 +547,20 @@ body.dsf-landing :focus-visible {
   display: none;
 }
 
-#concept.dsf-section {
-  padding-bottom: calc(var(--spacing-section) * 0.55);
+/* Voiles par section désactivés : le filtre est sur .dsf-concept-parcours-wrap::after */
+.dsf-concept-parcours-wrap #concept.dsf-section::after,
+.dsf-concept-parcours-wrap #parcours.dsf-section::after {
+  display: none;
 }
 
-/*
- * Voile concept : le bas du dégradé se fond en transparent pour ne pas cumuler avec le voile du parcours
- * (sinon bande bleue plus foncée exactement sur la jointure).
- */
-#concept.dsf-section::after {
-  background: linear-gradient(
-    180deg,
-    rgba(14, 27, 44, 0.38) 0%,
-    rgba(14, 27, 44, 0.42) 72%,
-    rgba(14, 27, 44, 0) 100%
-  );
+#concept.dsf-section {
+  padding-bottom: calc(var(--spacing-section) * 0.55);
 }
 
 /* Rapprocher les deux blocs sans chevauchement négatif (évite ligne / flash au pixel près) */
 #concept.dsf-section + #parcours.dsf-section {
   margin-top: 0;
   padding-top: var(--spacing-section);
-}
-
-/* Un seul dégradé sur le parcours : pas de double couche en haut de section */
-#concept.dsf-section + #parcours.dsf-section::after {
-  background: linear-gradient(180deg, rgba(14, 27, 44, 0.5), rgba(14, 27, 44, 0.72));
 }
 
 /* Après le wrapper : « Pourquoi » n’est plus adjacent à #parcours — recoller le fondu haut */
