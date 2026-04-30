@@ -100,6 +100,13 @@ body.dsf-landing :focus-visible {
   transition: background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, padding 0.2s ease-out;
 }
 
+/* Empêche toute marge UA qui pourrait créer un espace au-dessus du header */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .dsf-header.is-scrolled {
   background: rgba(255, 255, 246, 0.96);
   border-bottom-color: var(--color-border);
@@ -496,6 +503,11 @@ body.dsf-landing :focus-visible {
   background-color: var(--color-bg-alt);
 }
 
+/* Coller la transition vidéo -> concept */
+#video.dsf-section + .dsf-concept-parcours-wrap {
+  margin-top: -1px;
+}
+
 .dsf-concept-parcours-wrap::before {
   content: "";
   position: absolute;
@@ -568,6 +580,66 @@ body.dsf-landing :focus-visible {
   background:
     linear-gradient(180deg, rgba(18, 21, 31, 0.82) 0, rgba(18, 21, 31, 0) clamp(2.3rem, 7vw, 6rem)),
     linear-gradient(180deg, rgba(14, 27, 44, 0.66), rgba(14, 27, 44, 0.82));
+}
+
+/*
+ * Pourquoi + Inclus : même logique que Concept + Parcours
+ * (une seule image de fond continue pour deux sections).
+ */
+.dsf-pourquoi-inclus-wrap {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+  margin-top: -1px;
+}
+
+.dsf-pourquoi-inclus-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../img/pourquoi-inclus-bg.jpg"), url("../img/hero-desert-placeholder.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+}
+
+.dsf-pourquoi-inclus-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.7), rgba(14, 27, 44, 0.84));
+}
+
+.dsf-pourquoi-inclus-wrap > .dsf-section {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+.dsf-pourquoi-inclus-wrap > .dsf-section.dsf-section--alt {
+  background: transparent;
+}
+
+.dsf-pourquoi-inclus-wrap .dsf-section + .dsf-section {
+  margin-top: 0;
+}
+
+.dsf-pourquoi-inclus-wrap #pourquoi.dsf-section,
+.dsf-pourquoi-inclus-wrap #inclus.dsf-section {
+  --section-image: none;
+}
+
+.dsf-pourquoi-inclus-wrap #pourquoi.dsf-section::before,
+.dsf-pourquoi-inclus-wrap #inclus.dsf-section::before,
+.dsf-pourquoi-inclus-wrap #pourquoi.dsf-section::after,
+.dsf-pourquoi-inclus-wrap #inclus.dsf-section::after {
+  display: none;
 }
 
 /* Top fade appliqué uniformément sur chaque section qui suit une autre section */
@@ -1455,12 +1527,17 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 /* ------------------------------------------------------------------------- noscript */
 .dsf-noscript {
+  display: none;
   padding: 1rem;
   background: rgba(240, 160, 70, 0.12);
   color: var(--color-sand-light);
   border-bottom: 1px solid var(--color-border);
   text-align: center;
   font-weight: 600;
+}
+
+html.no-js .dsf-noscript {
+  display: block;
 }
 
 /* ------------------------------------------------------------------------- Breakpoints finition typo */

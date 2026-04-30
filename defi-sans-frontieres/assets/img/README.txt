@@ -16,6 +16,7 @@ Le dépôt contient pour l’instant :
 Images attendues par section (landing):
 - video-bg.jpg
 - concept-parcours-bg.jpg — **une seule image** pour le bloc « Le concept » + « Le parcours » : exporter ton visuel en **1920 × 2160 px** (deux bandes 1920×1080 empilées), fichier `concept-parcours-bg.jpg`. Le fond est appliqué **une fois** sur le conteneur `.dsf-concept-parcours-wrap` dans `index.html` (`cover`, centre) : plus de coupure entre les deux sections.
+- pourquoi-inclus-bg.jpg — **une seule image** pour le bloc « Pourquoi participer » + « Ce qui est inclus — ou pas » : exporter en **1920 × 2160 px** (ou ratio équivalent), fichier `pourquoi-inclus-bg.jpg`. Le fond est appliqué sur `.dsf-pourquoi-inclus-wrap`.
 - pourquoi-bg.jpg
 - inclus-bg.jpg
 - filtres-bg.jpg

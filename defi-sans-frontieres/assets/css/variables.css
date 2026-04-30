@@ -21,8 +21,8 @@
 
   /* Accents (lisibles sur fond sombre) */
   --color-primary: #6ee7ff;
-  --color-accent: #f0a046;
-  --color-accent-hot: #c77d1f;
+  --color-accent: #ffcb1b;
+  --color-accent-hot: #d9a800;
   --color-sand-light: #e8d4b4;
   --color-sand-deep: #c9a66b;
   --color-sky: #6b8fa3;
@@ -40,7 +40,7 @@
   --radius-button: 10px;
   --radius-pill: 999px;
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.45);
-  --shadow-cta: 0 6px 28px rgba(240, 160, 70, 0.35);
+  --shadow-cta: 0 6px 28px rgba(255, 203, 27, 0.35);
   --spacing-section: clamp(4rem, 8vw, 8rem);
   --maxwidth-content: 1200px;
   --maxwidth-narrow: 720px;
