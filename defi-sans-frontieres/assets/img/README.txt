@@ -28,6 +28,28 @@ Images attendues par section (landing):
 Si une image manque, la landing utilise automatiquement `hero-desert-placeholder.svg` comme fallback.
 
 ---
+Cadrage : `concept-parcours-bg.jpg` et `pourquoi-inclus-bg.jpg` (1920 × 2160)
+============================================================================
+Même principe pour les deux : **une image verticale** ; le haut = première section, le bas = la seconde. Le CSS affiche l’image en **`background-size: cover` + `center`** sur le **conteneur** (hauteur = contenu des deux blocs) : sur certains écrans, le haut et le bas de la photo sont un peu rognés — mets le sujet important **loin des bords** et de la **ligne médiane** si tu veux qu’il reste toujours visible.
+
+**Repères en pixels (canvas 1920 × 2160), origine en haut à gauche :**
+
+- **Ligne de « coupe » visuelle** entre les deux sections : autour de **Y = 1080 px** (milieu). Évite d’y placer un visage, un texte ou un détail fort : en zone mobile la hauteur de contenu change et le rognage `cover` peut bouger.
+- **Marges sûres latérales** : garde le sujet principal entre **X ≈ 150 px et 1770 px** (marge ~8 % de chaque côté) pour les petits écrans / barres de défilement.
+- **Bandes haut / bas** : laisse un peu d’air dans les **~200 px** du bord haut et du bord bas du fichier (désert, ciel, texture) : le texte (titres, cartes) se superpose souvent en haut de chaque demi-image.
+
+**Par bloc :**
+
+| Zone du fichier        | Sert à couvrir (en gros) | Où le contenu texte se pose |
+|------------------------|---------------------------|-----------------------------|
+| **Haut 0 → 1080 px**  | Section « Le concept » ou « Pourquoi » | Titre, sous-titre, puis **cartes** (souvent zone centrale et bas de ce demi-écran). Moins de détail fort au centre-bas de cette bande. |
+| **Bas 1080 → 2160**   | « Le parcours » (timeline) ou « Inclus » (2 colonnes) | Titres en haut de la bande, listes en dessous. Pense **deux moitiés gauche/droite** pour Inclus. |
+
+**Mobile** : la largeur utile se rapproche de ~360–430 px : privilégie un sujet **centré** ou **symétrique** plutôt qu’ancré d’un seul côté.
+
+**Poids** : vise **≤ 250–400 ko** par fichier 1920×2160 en JPG optimisé (ou WebP + fallback).
+
+---
 Dimensions et poids cibles (page longue = chaque ko compte)
 ============================================================
 Format d’export recommandé : **WebP** (qualité ~75–82) + **JPG** en secours si besoin.
