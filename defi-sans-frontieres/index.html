@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- URL absolue page merci (FormSubmit _next). À mettre à jour si domaine custom (ex. https://defisansfrontieres.com/merci.html). -->
+    <!-- URL absolue page merci (FormSubmit _next). Sur GitHub Pages la landing est dans defi-sans-frontieres/. Domaine custom : adapter le chemin. -->
     <meta
       name="dsf-merci-page"
-      content="https://achrafkadar.github.io/Defisansfrontiere/merci.html"
+      content="https://achrafkadar.github.io/Defisansfrontiere/defi-sans-frontieres/merci.html"
     />
     <title>Défi Sans Frontières — Maroc 2026 | Fondation Santé Outaouais</title>
     <meta
@@ -316,7 +316,19 @@
           <p class="dsf-section__lead">Transparence totale avant que tu coches.</p>
           <div class="dsf-split">
             <div class="dsf-box dsf-box--ok">
-              <h3>Inclus ✓</h3>
+              <div class="dsf-inclus-head">
+                <div class="dsf-inclus-icon-wrap dsf-inclus-icon-wrap--ok" aria-hidden="true">
+                  <svg class="dsf-inclus-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                    <circle class="dsf-inclus-path dsf-inclus-path--ring" pathLength="100" cx="24" cy="24" r="18" fill="none" />
+                    <path
+                      class="dsf-inclus-path dsf-inclus-path--check"
+                      pathLength="100"
+                      d="M14 25 L21 32 L34 17"
+                    />
+                  </svg>
+                </div>
+                <h3>Inclus ✓</h3>
+              </div>
               <ul>
                 <li>Vol aller-retour Québec ↔ Maroc</li>
                 <li>Hébergement et repas sur place</li>
@@ -325,7 +337,16 @@
               </ul>
             </div>
             <div class="dsf-box dsf-box--no">
-              <h3>À ta charge ✗</h3>
+              <div class="dsf-inclus-head">
+                <div class="dsf-inclus-icon-wrap dsf-inclus-icon-wrap--no" aria-hidden="true">
+                  <svg class="dsf-inclus-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                    <circle class="dsf-inclus-path dsf-inclus-path--ring" pathLength="100" cx="24" cy="24" r="18" fill="none" />
+                    <path class="dsf-inclus-path dsf-inclus-path--cross-a" pathLength="100" d="M17 17 L31 31" />
+                    <path class="dsf-inclus-path dsf-inclus-path--cross-b" pathLength="100" d="M31 17 L17 31" />
+                  </svg>
+                </div>
+                <h3>À ta charge ✗</h3>
+              </div>
               <ul>
                 <li>Vaccins obligatoires</li>
                 <li>Assurance voyage personnelle</li>
@@ -358,7 +379,7 @@
           type="hidden"
           name="_next"
           id="dsf-form-next"
-          value="https://achrafkadar.github.io/Defisansfrontiere/merci.html"
+          value="https://achrafkadar.github.io/Defisansfrontiere/defi-sans-frontieres/merci.html"
         />
         <!-- Désactive reCAPTCHA : évite l’étape intermédiaire qui casse souvent _next. Réactiver (retirer ce champ) si le spam augmente. -->
         <input type="hidden" name="_captcha" value="false" />
