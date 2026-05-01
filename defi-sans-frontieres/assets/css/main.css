@@ -270,7 +270,7 @@ body {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: min(100%, 26.5rem);
+  max-width: min(100%, 31rem);
   margin-inline: auto;
   padding-inline: 0.5rem;
   transform-style: preserve-3d;
@@ -2279,7 +2279,7 @@ html.no-js .dsf-noscript {
 
 @media (min-width: 480px) {
   .dsf-hero__inner {
-    max-width: min(100%, 28rem);
+    max-width: min(100%, 35rem);
   }
 }
 
