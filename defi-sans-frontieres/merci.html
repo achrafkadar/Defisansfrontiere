@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr-CA" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merci — Défi Sans Frontières Maroc 2026 | Fondation Santé Outaouais</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/variables.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="dsf-landing">
+    <script>
+      document.documentElement.classList.remove("no-js");
+    </script>
+    <a class="dsf-skip" href="#contenu-merci">Aller au message de confirmation</a>
+
+    <header class="dsf-header">
+      <div class="dsf-header__brand">
+        <a href="index.html" class="dsf-header__brand-link" aria-label="Retour à l’accueil Défi Sans Frontières">
+          <img
+            class="dsf-header__logo"
+            src="assets/img/logo123.png"
+            width="200"
+            height="48"
+            alt="Fondation Santé Outaouais"
+          />
+        </a>
+      </div>
+      <a class="dsf-header__cta" href="index.html">Accueil</a>
+    </header>
+
+    <main id="contenu-merci" class="dsf-merci-page">
+      <div class="dsf-container dsf-container--narrow">
+        <div class="dsf-merci-page__card" tabindex="-1">
+          <h1 class="dsf-merci-page__title">
+            Merci<span id="merci-prenom-hook" class="dsf-merci-page__prenom"></span>. Ta candidature est entre nos mains.
+            <span class="dsf-merci-page__emoji" aria-hidden="true">✅</span>
+          </h1>
+
+          <p>
+            On a bien reçu ton formulaire et ta vidéo. C’est déjà un pas que peu de gens osent faire, et on tient à te le
+            dire.
+          </p>
+
+          <p class="dsf-merci-page__lead">Voici ce qui arrive maintenant :</p>
+
+          <ul class="dsf-merci-page__list">
+            <li>
+              Notre équipe va prendre le temps de visionner chaque candidature, une par une. On cherche
+              <strong>60 finalistes</strong> qui seront invités au casting en personne à Gatineau le
+              <strong>23 mai 2026</strong>.
+            </li>
+            <li>
+              Tu recevras un courriel d’ici le <strong>20 mai</strong> pour t’annoncer le résultat de cette première
+              étape, qu’il soit positif ou non. Pas de mauvaise surprise, pas de silence radio.
+            </li>
+            <li>
+              D’ici là, parle de ton projet autour de toi. Le bouche-à-oreille fait partie de l’aventure.
+            </li>
+          </ul>
+
+          <p>
+            Une question entre-temps ? Écris-nous à
+            <a href="mailto:defimaroc@fondationsanteoutaouais.ca">defimaroc@fondationsanteoutaouais.ca</a>
+          </p>
+
+          <p class="dsf-merci-page__signoff">
+            Merci de ta confiance,<br />
+            <strong>L’équipe de la Fondation Santé Outaouais</strong>
+          </p>
+
+          <p class="dsf-merci-page__back">
+            <a class="dsf-btn dsf-btn--outline" href="index.html">Retour à la page du défi</a>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="dsf-footer dsf-footer--merci">
+      <div class="dsf-container">
+        <p class="dsf-footer__bar" style="margin: 0; text-align: center">
+          © 2026 Fondation Santé Outaouais ·
+          <a href="https://fondationsanteoutaouais.ca" rel="noopener noreferrer">fondationsanteoutaouais.ca</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        try {
+          var p = sessionStorage.getItem("dsf_merci_prenom");
+          if (p) {
+            sessionStorage.removeItem("dsf_merci_prenom");
+            var spot = document.getElementById("merci-prenom-hook");
+            if (spot) spot.textContent = ", " + p;
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>

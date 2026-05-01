@@ -65,50 +65,53 @@
     if (el) el.value = new Date().toISOString();
   }
 
-  function setFormSubmitNextUrl() {
-    var next = document.getElementById("dsf-form-next");
-    if (!next) return;
+  /**
+   * URL absolue de merci.html. FormSubmit exige https:// complète ; une valeur relative
+   * ou vide renvoie souvent à l’accueil après le captcha.
+   * Priorité : meta name="dsf-merci-page" (prod) sauf en local / file.
+   */
+  function merciPageAbsoluteUrl() {
+    var meta = document.querySelector('meta[name="dsf-merci-page"]');
+    var fromMeta = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
+    var host = window.location.hostname || "";
+    var isLocal =
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      window.location.protocol === "file:";
+
+    if (fromMeta && /^https:\/\//i.test(fromMeta) && !isLocal) {
+      return fromMeta;
+    }
+
     try {
       var u = new URL(window.location.href);
-      u.searchParams.set("merci", "1");
-      u.hash = "dsf-success";
-      next.value = u.toString();
-    } catch (e) {
-      next.value =
-        window.location.origin +
-        window.location.pathname +
-        (window.location.search ? window.location.search + "&" : "?") +
-        "merci=1#dsf-success";
+      var p = u.pathname;
+      if (p.endsWith("/")) {
+        u.pathname = p + "merci.html";
+      } else if (/\.html?$/i.test(p)) {
+        u.pathname = p.replace(/[^/]+$/, "merci.html");
+      } else {
+        u.pathname = (p.endsWith("/") ? p : p + "/") + "merci.html";
+      }
+      u.search = "";
+      u.hash = "";
+      var out = u.toString();
+      if (/^https:\/\//i.test(out)) return out;
+    } catch (e) {}
+
+    if (fromMeta && /^https:\/\//i.test(fromMeta)) return fromMeta;
+    try {
+      return new URL("merci.html", window.location.href).href;
+    } catch (e2) {
+      return fromMeta || "";
     }
   }
 
-  function showSuccess(prenom) {
-    var form = document.getElementById("dsf-candidature-form");
-    var success = document.getElementById("dsf-success");
-    if (!form || !success) return;
-    form.style.display = "none";
-    success.classList.add("is-visible");
-    var nameSpan = success.querySelector("[data-dsf-success-name]");
-    if (nameSpan) nameSpan.textContent = prenom || "toi";
-    success.focus();
-  }
-
-  function tryShowSuccessFromRedirect() {
-    try {
-      var params = new URLSearchParams(window.location.search);
-      if (params.get("merci") !== "1") return;
-      var prenom = "";
-      try {
-        prenom = sessionStorage.getItem("dsf_merci_prenom") || "";
-        sessionStorage.removeItem("dsf_merci_prenom");
-      } catch (e) {}
-      showSuccess(prenom.trim());
-      if (history.replaceState) {
-        var u = new URL(window.location.href);
-        u.searchParams.delete("merci");
-        history.replaceState({}, "", u.pathname + u.search + (u.hash || "#dsf-success"));
-      }
-    } catch (e2) {}
+  function setFormSubmitNextUrl() {
+    var next = document.getElementById("dsf-form-next");
+    if (!next) return;
+    var url = merciPageAbsoluteUrl();
+    if (url) next.value = url;
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -119,7 +122,6 @@
     if (!form) return;
 
     setFormSubmitNextUrl();
-    tryShowSuccessFromRedirect();
 
     bindBlurValidation(form);
 
