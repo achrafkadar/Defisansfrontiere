@@ -1936,18 +1936,76 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 /* Page merci (après soumission FormSubmit) */
 .dsf-merci-page {
-  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 8vw, 5rem);
-  min-height: min(70vh, 820px);
-  background: var(--color-bg);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: calc(100svh - var(--header-offset));
+  padding: clamp(1rem, 2.5vw, 2rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: center;
+}
+
+.dsf-merci-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--color-bg);
+  background-image: linear-gradient(
+      120deg,
+      rgba(14, 27, 44, 0.82) 0%,
+      rgba(14, 27, 44, 0.38) 45%,
+      rgba(14, 27, 44, 0.15) 70%,
+      rgba(14, 27, 44, 0.35) 100%
+    ),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.55) 0%, rgba(14, 27, 44, 0.12) 42%, rgba(14, 27, 44, 0.55) 100%),
+    url("../img/hero-header-bg.png");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+}
+
+.dsf-merci-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 45%, rgba(8, 10, 16, 0.5) 0%, transparent 62%),
+    linear-gradient(
+      90deg,
+      rgba(10, 14, 22, 0.75) 0%,
+      rgba(14, 27, 44, 0.35) 50%,
+      rgba(14, 27, 44, 0.2) 72%,
+      transparent 92%
+    ),
+    linear-gradient(180deg, rgba(8, 10, 16, 0.5) 0%, transparent 45%, rgba(8, 10, 16, 0.7) 100%);
+}
+
+.dsf-merci-page .dsf-container--narrow {
+  width: min(100% - 2rem, 46rem);
 }
 
 .dsf-merci-page__card {
-  padding: clamp(1.5rem, 4vw, 2.25rem);
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(1.75rem, 4.5vw, 2.75rem) clamp(1.35rem, 3.5vw, 2rem);
   border-radius: var(--radius-card);
-  border: 1px solid rgba(125, 211, 160, 0.45);
-  background: rgba(125, 211, 160, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(15, 18, 28, 0.42);
   color: var(--color-text);
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+@supports (backdrop-filter: blur(14px)) or (-webkit-backdrop-filter: blur(14px)) {
+  .dsf-merci-page__card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 .dsf-merci-page__title {
@@ -1972,8 +2030,9 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 .dsf-merci-page__card p {
   margin: 0 0 1rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.92);
   max-width: 62ch;
+  margin-inline: auto;
 }
 
 .dsf-merci-page__card a:not(.dsf-btn) {
@@ -1992,8 +2051,10 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 .dsf-merci-page__list {
   margin: 0 0 1.25rem;
   padding-left: 1.2rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 62ch;
+  margin-inline: auto;
+  text-align: left;
 }
 
 .dsf-merci-page__list li {
