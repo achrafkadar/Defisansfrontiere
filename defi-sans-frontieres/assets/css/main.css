@@ -334,7 +334,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  line-height: 0.92;
+  line-height: 1.05;
   font-size: clamp(3.5rem, 14vw, 8rem);
   margin: 0 0 1rem;
   max-width: 14ch;
@@ -342,7 +342,20 @@ body {
   background: linear-gradient(118deg, #ffffff 0%, #e8f4ff 38%, #fef6e4 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 4px 32px rgba(0, 0, 0, 0.55)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+  /* Une seule ombre, décalée vers le bas : évite le fin halo / trait au-dessus des accents (ex. é de Défi) */
+  filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.48));
+}
+
+.dsf-hero__h1-line {
+  display: block;
+}
+
+.dsf-hero__h1-line:first-child {
+  padding-top: 0.05em;
+}
+
+.dsf-hero__h1-line + .dsf-hero__h1-line {
+  margin-top: 0.12em;
 }
 
 .dsf-hero__baseline {
@@ -402,9 +415,9 @@ body {
 
 .dsf-hero__story {
   margin: 0;
-  max-width: min(48ch, 100%);
+  max-width: min(46ch, 100%);
   font-size: clamp(1rem, 2.3vw, 1.12rem);
-  line-height: 1.62;
+  line-height: 1.68;
   color: rgba(255, 255, 255, 0.94);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.85),
@@ -2232,6 +2245,22 @@ html.no-js .dsf-noscript {
 
   .dsf-hero__layer {
     opacity: 0.2;
+  }
+
+  .dsf-hero__story {
+    max-width: min(40ch, 100%);
+    line-height: 1.75;
+  }
+}
+
+/* Hero : colonne de texte un peu plus étroite sur très grand écran (lignes moins longues) */
+@media (min-width: 1280px) {
+  .dsf-hero__inner {
+    width: min(100% - 2rem, min(56rem, var(--maxwidth-content)));
+  }
+
+  .dsf-hero__story {
+    max-width: min(44ch, 100%);
   }
 }
 
