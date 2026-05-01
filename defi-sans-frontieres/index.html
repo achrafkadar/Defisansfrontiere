@@ -197,13 +197,27 @@
           <h2 id="titre-parcours" class="dsf-section__title">Le parcours</h2>
           <p class="dsf-section__lead">Quatorze jours du massif du Saghro au Sahara, jusqu’à la médina de Marrakech.</p>
           <div class="dsf-timeline dsf-timeline--dynamic">
-            <article class="dsf-phase dsf-phase--current">
+            <article
+              class="dsf-phase dsf-phase--current"
+              data-parcours-key="jour1"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jour 1</p>
               <h3>Arrivée au Maroc</h3>
               <p>Accueil, transfert, préparation et première immersion culturelle.</p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jours2a5"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jours 2 à 5</p>
               <h3>Trek du Saghro</h3>
@@ -211,31 +225,66 @@
                 Randonnée dans les montagnes volcaniques, paysages rocheux, villages berbères et dépassement de soi.
               </p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jour6"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jour 6</p>
               <h3>Transition vers le désert</h3>
               <p>Route panoramique, découverte du Sud marocain et arrivée aux portes du Sahara.</p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jours7a11"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jours 7 à 11</p>
               <h3>Trek saharien</h3>
               <p>Marche dans la vallée du Drâa, dunes, bivouacs, silence du désert et esprit d’équipe.</p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jour12"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jour 12</p>
               <h3>Retour vers Marrakech</h3>
               <p>Fin du trek et retour progressif vers la ville rouge.</p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jour13"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jour 13</p>
               <h3>Marrakech</h3>
               <p>Découverte, repos, moments de célébration et conclusion du défi.</p>
             </article>
-            <article class="dsf-phase">
+            <article
+              class="dsf-phase"
+              data-parcours-key="jour14"
+              role="button"
+              tabindex="0"
+              aria-haspopup="dialog"
+              aria-controls="dsf-parcours-modal"
+            >
               <div class="dsf-phase__dot" aria-hidden="true"></div>
               <p class="dsf-phase__label">Jour 14</p>
               <h3>Retour</h3>
@@ -244,6 +293,16 @@
           </div>
         </div>
       </section>
+
+      <dialog id="dsf-parcours-modal" class="dsf-parcours-modal" aria-labelledby="dsf-parcours-modal-title">
+        <button class="dsf-parcours-modal__close" type="button" data-parcours-close aria-label="Fermer la fenêtre">
+          ✕
+        </button>
+        <div class="dsf-parcours-modal__label" id="dsf-parcours-modal-label">Parcours</div>
+        <h3 class="dsf-parcours-modal__title" id="dsf-parcours-modal-title"></h3>
+        <p class="dsf-parcours-modal__lead" id="dsf-parcours-modal-lead"></p>
+        <ul class="dsf-parcours-modal__details" id="dsf-parcours-modal-details"></ul>
+      </dialog>
       </div>
 
       <!-- SECTIONS 5–6 — POURQUOI + INCLUS (fond photo unique sur le conteneur, sans coupure) -->
@@ -909,5 +968,6 @@
     <script defer src="assets/js/video-cover.js"></script>
     <script defer src="assets/js/form-gate.js"></script>
     <script defer src="assets/js/form-submit.js"></script>
+    <script defer src="assets/js/parcours-popup.js"></script>
   </body>
 </html>

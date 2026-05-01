@@ -1471,6 +1471,116 @@ body {
   color: var(--color-muted-on-dark);
 }
 
+.dsf-phase[role="button"] {
+  cursor: pointer;
+}
+
+.dsf-phase[role="button"]:focus-visible {
+  outline: 2px solid rgba(253, 201, 27, 0.95);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 4px rgba(253, 201, 27, 0.18),
+    0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* ------------------------------------------------------------------------- Parcours popup */
+.dsf-parcours-modal {
+  width: min(92vw, 46rem);
+  max-height: min(86vh, 48rem);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 18px;
+  padding: clamp(1.2rem, 2.6vw, 2rem);
+  color: var(--color-text);
+  background: rgba(11, 16, 27, 0.62);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  overflow: auto;
+}
+
+@supports (backdrop-filter: blur(14px)) or (-webkit-backdrop-filter: blur(14px)) {
+  .dsf-parcours-modal {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+}
+
+.dsf-parcours-modal::backdrop {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(253, 201, 27, 0.12), rgba(11, 13, 18, 0.86) 62%),
+    rgba(8, 10, 16, 0.78);
+  backdrop-filter: blur(2px);
+}
+
+.dsf-parcours-modal__close {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dsf-parcours-modal__label {
+  display: inline-block;
+  margin-top: 0.15rem;
+  margin-bottom: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-dark);
+  background: linear-gradient(120deg, var(--color-accent), #ffd56a);
+}
+
+.dsf-parcours-modal__title {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2.8vw, 2rem);
+  color: #ffffff;
+}
+
+.dsf-parcours-modal__lead {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.dsf-parcours-modal__details {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.dsf-parcours-modal__details li {
+  position: relative;
+  padding: 0.7rem 0.85rem 0.7rem 2rem;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dsf-parcours-modal__details li::before {
+  content: "✦";
+  position: absolute;
+  left: 0.7rem;
+  top: 0.52rem;
+  color: #ffd56a;
+  font-size: 0.95rem;
+}
+
 .dsf-tag {
   display: inline-block;
   margin-top: 0.5rem;
