@@ -891,10 +891,197 @@ body {
   opacity: 1;
 }
 
-.dsf-card__icon {
-  font-size: 2rem;
-  line-height: 1;
-  margin-bottom: 0.5rem;
+/* Icônes SVG des cartes — halo, tracé animé, survol */
+.dsf-card__icon-wrap {
+  --icon-delay: 0s;
+  position: relative;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-bottom: 0.85rem;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  background: linear-gradient(145deg, rgba(110, 231, 255, 0.14), rgba(255, 203, 27, 0.07));
+  border: 1px solid rgba(110, 231, 255, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.2) inset,
+    0 4px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    border-color 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+    box-shadow 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+    transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.dsf-section--alt .dsf-card__icon-wrap {
+  color: var(--color-primary);
+  background: linear-gradient(145deg, rgba(110, 231, 255, 0.1), rgba(255, 203, 27, 0.09));
+  border-color: rgba(110, 231, 255, 0.22);
+}
+
+.dsf-card__icon-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(255, 203, 27, 0.2) 52%,
+    transparent 64%
+  );
+  opacity: 0;
+  transform: translateX(-55%) rotate(11deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dsf-icon-svg {
+  position: relative;
+  z-index: 2;
+  width: 1.85rem;
+  height: 1.85rem;
+  overflow: visible;
+}
+
+.dsf-icon-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dsf-icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.dsf-icon-path--draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-card__icon-wrap::after {
+    animation: dsf-icon-shimmer 6s ease-in-out infinite;
+    animation-delay: calc(var(--icon-delay) + 0.4s);
+  }
+
+  .dsf-icon-svg {
+    animation: dsf-icon-wow 5.4s ease-in-out infinite;
+    animation-delay: var(--icon-delay);
+    filter: drop-shadow(0 0 10px rgba(110, 231, 255, 0.28));
+  }
+
+  .dsf-icon-path--draw {
+    animation: dsf-icon-draw-loop 5.5s ease-in-out infinite;
+    animation-delay: calc(var(--icon-delay) + 0.15s);
+  }
+
+  .dsf-card:hover .dsf-card__icon-wrap,
+  .dsf-card:focus-within .dsf-card__icon-wrap {
+    transform: translateY(-5px) scale(1.05);
+    border-color: rgba(255, 203, 27, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(255, 203, 27, 0.15) inset,
+      0 10px 36px rgba(0, 0, 0, 0.35),
+      0 0 28px rgba(110, 231, 255, 0.22),
+      0 0 40px rgba(255, 203, 27, 0.12);
+  }
+
+  .dsf-card:hover .dsf-icon-svg,
+  .dsf-card:focus-within .dsf-icon-svg {
+    animation-duration: 3.1s;
+    filter: drop-shadow(0 0 16px rgba(255, 203, 27, 0.45));
+  }
+
+  .dsf-card:hover .dsf-icon-path--draw,
+  .dsf-card:focus-within .dsf-icon-path--draw {
+    animation-duration: 3.1s;
+  }
+
+  #concept .dsf-grid--3 .dsf-card:nth-child(1) .dsf-card__icon-wrap {
+    --icon-delay: 0s;
+  }
+
+  #concept .dsf-grid--3 .dsf-card:nth-child(2) .dsf-card__icon-wrap {
+    --icon-delay: 0.18s;
+  }
+
+  #concept .dsf-grid--3 .dsf-card:nth-child(3) .dsf-card__icon-wrap {
+    --icon-delay: 0.36s;
+  }
+
+  #pourquoi .dsf-grid--2 .dsf-card:nth-child(1) .dsf-card__icon-wrap {
+    --icon-delay: 0s;
+  }
+
+  #pourquoi .dsf-grid--2 .dsf-card:nth-child(2) .dsf-card__icon-wrap {
+    --icon-delay: 0.14s;
+  }
+
+  #pourquoi .dsf-grid--2 .dsf-card:nth-child(3) .dsf-card__icon-wrap {
+    --icon-delay: 0.28s;
+  }
+
+  #pourquoi .dsf-grid--2 .dsf-card:nth-child(4) .dsf-card__icon-wrap {
+    --icon-delay: 0.42s;
+  }
+}
+
+@keyframes dsf-icon-wow {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  22% {
+    transform: translateY(-4px) scale(1.06) rotate(-2.5deg);
+  }
+  48% {
+    transform: translateY(-2px) scale(1.08) rotate(2deg);
+  }
+  72% {
+    transform: translateY(-5px) scale(1.04) rotate(-1.2deg);
+  }
+}
+
+@keyframes dsf-icon-shimmer {
+  0%,
+  72% {
+    opacity: 0;
+    transform: translateX(-55%) rotate(11deg);
+  }
+  78% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0;
+    transform: translateX(55%) rotate(11deg);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dsf-icon-draw-loop {
+  0%,
+  12% {
+    stroke-dashoffset: 100;
+    opacity: 0.65;
+  }
+  42%,
+  58% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  88%,
+  100% {
+    stroke-dashoffset: 100;
+    opacity: 0.65;
+  }
 }
 
 .dsf-card__title {
@@ -937,7 +1124,8 @@ body {
   left: 0.45rem;
   top: 0.1rem;
   width: 3px;
-  height: 30%;
+  height: calc(100% / 7);
+  max-height: 18%;
   border-radius: 999px;
   background: linear-gradient(180deg, var(--color-accent), rgba(253, 201, 27, 0.05));
   box-shadow: 0 0 24px rgba(253, 201, 27, 0.42);
@@ -967,7 +1155,7 @@ body {
   .dsf-timeline--dynamic::after {
     left: 2%;
     top: 0.55rem;
-    width: 30%;
+    width: calc((100% - 4%) / 7);
     height: 3px;
     background: linear-gradient(90deg, var(--color-accent), rgba(253, 201, 27, 0.05));
     box-shadow: 0 0 22px rgba(253, 201, 27, 0.42);
@@ -1229,7 +1417,6 @@ body {
 /* Zone formulaire */
 #postuler.dsf-section {
   scroll-margin-top: var(--header-offset);
-  border-top: 4px solid var(--color-accent);
 }
 
 .dsf-form-wrap {
@@ -1449,19 +1636,19 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
 
 .dsf-faq-chevron {
   flex-shrink: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: var(--color-dark);
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  transition: transform 0.25s ease;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.35rem;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .dsf-faq-item[open] .dsf-faq-chevron {
-  transform: rotate(180deg);
+  transform: rotate(225deg);
 }
 
 .dsf-faq-item__body {
