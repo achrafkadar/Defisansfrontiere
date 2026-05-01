@@ -159,10 +159,13 @@ body {
   min-height: min(100svh, 900px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.75rem, 3vw, 1.5rem)) clamp(1rem, 4vw, 2rem)
-    clamp(1.5rem, 4vw, 3rem);
+  /* Carte plus haute dans l’écran (mobile + bureau) */
+  padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.35rem, 2vw, 0.9rem));
+  padding-right: clamp(1rem, 4vw, 2rem);
+  padding-bottom: clamp(1.75rem, 4vw, 3rem);
+  padding-left: clamp(1rem, 4vw, 2rem);
   color: var(--color-white);
   isolation: isolate;
   overflow: hidden;
@@ -2280,6 +2283,28 @@ html.no-js .dsf-noscript {
 @media (min-width: 480px) {
   .dsf-hero__inner {
     max-width: min(100%, 35rem);
+  }
+}
+
+/* Bureau / tablette : carte plus large + titre plus grand */
+@media (min-width: 768px) {
+  .dsf-hero__inner {
+    max-width: min(100%, 42.5rem);
+  }
+
+  .dsf-hero__h1 {
+    font-size: clamp(2.55rem, 3.4vw, 3.85rem);
+    margin-bottom: 1.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dsf-hero__inner {
+    max-width: min(100%, 46rem);
+  }
+
+  .dsf-hero__h1 {
+    font-size: clamp(2.75rem, 3.1vw, 4.15rem);
   }
 }
 
