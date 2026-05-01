@@ -66,9 +66,9 @@
   }
 
   /**
-   * URL absolue de merci.html. FormSubmit exige https:// complète ; une valeur relative
-   * ou vide renvoie souvent à l’accueil après le captcha.
-   * Priorité : meta name="dsf-merci-page" (prod) sauf en local / file.
+   * URL absolue de merci.html.
+   * Priorité : même origine que la page actuelle (évite les surprises inter-domaines),
+   * puis fallback meta `dsf-merci-page`.
    */
   function merciPageAbsoluteUrl() {
     var meta = document.querySelector('meta[name="dsf-merci-page"]');
@@ -78,10 +78,6 @@
       host === "localhost" ||
       host === "127.0.0.1" ||
       window.location.protocol === "file:";
-
-    if (fromMeta && /^https:\/\//i.test(fromMeta) && !isLocal) {
-      return fromMeta;
-    }
 
     try {
       var u = new URL(window.location.href);
@@ -96,10 +92,10 @@
       u.search = "";
       u.hash = "";
       var out = u.toString();
-      if (/^https:\/\//i.test(out)) return out;
+      if (/^https?:\/\//i.test(out)) return out;
     } catch (e) {}
 
-    if (fromMeta && /^https:\/\//i.test(fromMeta)) return fromMeta;
+    if (fromMeta && /^https?:\/\//i.test(fromMeta) && !isLocal) return fromMeta;
     try {
       return new URL("merci.html", window.location.href).href;
     } catch (e2) {
