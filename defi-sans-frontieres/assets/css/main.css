@@ -159,12 +159,12 @@ body {
   min-height: min(100svh, 900px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  /* Carte plus haute dans l’écran (mobile + bureau) */
-  padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.35rem, 2vw, 0.9rem));
+  /* Centré verticalement : marge haute pour ne pas passer sous le header sticky */
+  padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.5rem, 2vw, 1rem));
   padding-right: clamp(1rem, 4vw, 2rem);
-  padding-bottom: clamp(1.75rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
   padding-left: clamp(1rem, 4vw, 2rem);
   color: var(--color-white);
   isolation: isolate;
