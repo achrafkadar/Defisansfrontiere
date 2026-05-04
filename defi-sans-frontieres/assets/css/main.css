@@ -977,14 +977,27 @@ body {
 
 #filtres.dsf-section {
   --section-image: url("../img/filtres-bg.jpg"), url("../img/hero-desert-placeholder.svg");
-  --section-image-opacity: 0.28;
+  /* Un peu plus lisible : 28 % + voile bleu = visuel invisible sur certains écrans */
+  --section-image-opacity: 0.46;
   --section-image-position: center 42%;
 }
 
 #postuler.dsf-section {
   --section-image: url("../img/postuler-bg.jpg"), url("../img/hero-desert-placeholder.svg");
-  --section-image-opacity: 0.28;
+  /* Idem + la règle « section adjacente » assombrit encore ::after (voir correctif ci-dessous) */
+  --section-image-opacity: 0.5;
   --section-image-position: center 48%;
+}
+
+/*
+ * #postuler suit directement #filtres : `.dsf-section + .dsf-section::after` ajoute un dégradé
+ * supplémentaire très sombre — sans override, postuler-bg.jpg semble « absent » malgré un fichier OK.
+ */
+#filtres.dsf-section::after,
+#postuler.dsf-section::after {
+  background:
+    linear-gradient(180deg, rgba(18, 21, 31, 0.42) 0, rgba(18, 21, 31, 0) clamp(1.75rem, 5vw, 4.25rem)),
+    linear-gradient(180deg, rgba(14, 27, 44, 0.34), rgba(14, 27, 44, 0.52));
 }
 
 #stephane.dsf-section {
