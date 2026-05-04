@@ -3,80 +3,87 @@
 
   var data = {
     jour1: {
-      label: "Jour 1",
-      title: "Arrivee au Maroc",
-      lead: "Accueil de l'equipe, installation et premiere immersion pour lancer l'aventure dans de bonnes conditions.",
+      label: "Jours 1 et 2",
+      title: "Marrakech et les premières montagnes",
+      lead:
+        "Vol vers Marrakech, puis le guide vous conduit au village d'Aït Ourir, au pied du Haut Atlas : première immersion entre montagnes et art de vivre local.",
       details: [
-        "Arrivee a l'aeroport et transfert vers l'hebergement.",
-        "Brief securite et presentation du parcours complet.",
-        "Verification du materiel de trek et des sacs.",
-        "Soiree d'integration avec l'equipe de production."
+        "Vol de nuit pour Marrakech (selon programmation des vols).",
+        "Transfert vers Aït Ourir : maison d'hôte construite en terre de façon traditionnelle.",
+        "Temps libre pour se détendre au bord de la piscine et parcourir le jardin potager, avec vue sur les montagnes.",
+        "Nuit en maison d'hôte."
       ]
     },
     jours2a5: {
-      label: "Jours 2 a 5",
-      title: "Trek du Saghro",
-      lead: "Une sequence exigeante et magnifique dans le massif volcanique du Saghro, entre roches, reliefs et villages berberes.",
+      label: "Jours 3 à 7",
+      title: "Approche du Saghro et trek volcanique",
+      lead:
+        "Traversée du Haut Atlas par le col du Tizi n'Tichka, puis entrée dans le massif du Saghro : paysages volcaniques, sentiers rocailleux, mules pour le matériel.",
       details: [
-        "Etapes quotidiennes avec denivele progressif et adaptation au rythme du groupe.",
-        "Passage dans des paysages mineraux et zones culturelles berberes.",
-        "Nuits en bivouac/gite avec debrief de la journee.",
-        "Captation documentaire sur l'effort, l'entraide et le depassement."
+        "Jour 3 : transfert vers la vallée du Dadès (~6 h de route), arrêt déjeuner vers Ouarzazate ; à Aït Youl, l'équipe de muletiers attend — premier campement.",
+        "Jours 4 à 7 : trek dans les montagnes volcaniques — mules pour vivres, affaires et matériel commun ; cols, villages dans les canyons, sortie par l'oued Afourar face aux aiguilles de Bab N'Ali.",
+        "Sentiers sauvages et superbes, nuits en campement ; une nuit en gîte chez l'habitant en fin de trek.",
+        "Niveau modéré : en moyenne 5 à 6 h de marche par jour dans le Saghro ; vous ne portez que votre sac de jour."
       ]
     },
     jour6: {
-      label: "Jour 6",
-      title: "Transition vers le desert",
-      lead: "Journee de liaison pour entrer dans l'ambiance saharienne et preparer le second chapitre du parcours.",
+      label: "Jour 8",
+      title: "De la vallée du Drâa aux dunes",
+      lead:
+        "Route vers le sud : l'oued Drâa dessine une coulée de verdure, ksours et oasis, jusqu'au campement au pied des dunes de Regabi Hniti.",
       details: [
-        "Route panoramique vers le sud marocain.",
-        "Pause recuperation et hydratation renforcee.",
-        "Reorganisation logistique pour la partie desert.",
-        "Brief de nuit sur les conditions du Sahara."
+        "Environ 4 h de route vers la vallée du Drâa : palmiers doum, ksours fortifiés, Zagora puis les dunes de Tidri.",
+        "Découverte du reg : vaste plaine de cailloux, paysage de plus en plus désertique.",
+        "Fin d'après-midi : courte marche vers un campement entre dunes et palmeraie ; possibilité de dormir à la belle étoile si la nuit est claire.",
+        "Nuit en campement sous les étoiles."
       ]
     },
     jours7a11: {
-      label: "Jours 7 a 11",
-      title: "Trek saharien",
-      lead: "Le coeur de l'experience: dunes, silence, bivouacs et cohesion totale du groupe dans la vallee du Draa.",
+      label: "Jours 9 à 12",
+      title: "Trek saharien dans la vallée du Drâa",
+      lead:
+        "Immensité et solitude : hamada, palmeraies et kasbahs, nomades Aït Atta et Nouaji — logistique portée par les dromadaires.",
       details: [
-        "Marche encadree avec gestion de l'effort sur sable et pistes.",
-        "Bivouacs sous tente et vie collective dans le desert.",
-        "Captations au lever/coucher du soleil pour le documentaire.",
-        "Moments forts d'introspection et d'esprit d'equipe."
+        "Marche le long de la hamada du Drâa, palmeraies et kasbahs ; après le lit asséché de l'oued et les villages, l'éloignement du tourisme de masse.",
+        "Nomades Aït Atta : hiver dans le Sud avant la transhumance vers le Haut Atlas ; grandes tentes en poils de chameau et de chèvre.",
+        "Puis territoire des Nouaji — nuits au creux des dunes, dernières étapes vers Bounou et le campement d'Ouled Driss.",
+        "Marches d'environ 4 à 6 h par jour ; randonnée chamelière — les dromadaires portent toute la logistique."
       ]
     },
     jour12: {
-      label: "Jour 12",
-      title: "Retour vers Marrakech",
-      lead: "Sortie progressive du desert et retour vers la ville rouge pour cloturer la partie trek.",
+      label: "Jour 13",
+      title: "Route vers Marrakech",
+      lead:
+        "Remontée vers Marrakech par Tamgroute : patrimoine et artisans, puis installation au cœur de la médina.",
       details: [
-        "Derniere etape du parcours terrain.",
-        "Transfert retour avec haltes panoramiques.",
-        "Recuperation active et suivi du groupe.",
-        "Preparation de la conclusion du documentaire."
+        "Route pour Marrakech en passant par Tamgroute.",
+        "Visite possible de la bibliothèque coranique (manuscrits anciens ; fermée le samedi — entrée non incluse).",
+        "Tamgroute est aussi réputée pour ses potiers.",
+        "Arrivée à Marrakech en fin d'après-midi : installation en riad au cœur de la médina."
       ]
     },
     jour13: {
-      label: "Jour 13",
+      label: "Jour 14",
       title: "Marrakech",
-      lead: "Journee de respiration: celebration, bilans individuels et images finales en contexte urbain.",
+      lead:
+        "Journée libre dans la « perle du Sud » : médina, souks et place Jemâa el-Fna — repas du midi à votre charge.",
       details: [
-        "Temps libre encadre et decouverte de la medina.",
-        "Entretiens camera de fin d'aventure.",
-        "Soiree de cloture avec l'equipe.",
-        "Mise en perspective de l'impact pour la cause."
+        "Journée libre à Marrakech pour explorer la médina à votre rythme.",
+        "Repas du midi non inclus (comme au programme Karavaniers).",
+        "La ville mêle patrimoine et modernité : souks, riads, fontaines et art de vivre marocain.",
+        "Deux nuits en riad."
       ]
     },
     jour14: {
-      label: "Jour 14",
-      title: "Retour",
-      lead: "Derniere journee du defi: depart, souvenirs et retour avec une transformation personnelle durable.",
+      label: "Jour 15",
+      title: "Vol de retour",
+      lead:
+        "Transfert aéroport selon l'horaire du vol ; retour vers le Québec. L'itinéraire sur le terrain peut évoluer selon la météo, la sécurité ou de belles opportunités locales.",
       details: [
-        "Checkout et transfert aeroport.",
-        "Retour vers le Canada.",
-        "Debut du suivi post-aventure par l'equipe FSO.",
-        "Suite du projet documentaire et communications."
+        "Transfert à l'aéroport en fonction de l'heure de décollage.",
+        "Vol de retour vers le Québec.",
+        "Rappel : rien n'est figé — imprévus ou découvertes peuvent adapter le parcours sous la responsabilité du guide.",
+        "Informations détaillées et tarifs : Karavaniers (514 281-0799, expeditions@karavaniers.com)."
       ]
     }
   };
@@ -99,9 +106,11 @@
       titleEl.textContent = item.title;
       labelEl.textContent = item.label;
       leadEl.textContent = item.lead;
-      detailsEl.innerHTML = item.details.map(function (line) {
-        return "<li>" + line + "</li>";
-      }).join("");
+      detailsEl.innerHTML = item.details
+        .map(function (line) {
+          return "<li>" + line + "</li>";
+        })
+        .join("");
       return true;
     }
 
@@ -158,4 +167,3 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
