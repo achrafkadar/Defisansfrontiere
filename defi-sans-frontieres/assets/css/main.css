@@ -279,22 +279,56 @@ body {
   padding-inline: 0.5rem;
   flex-shrink: 0;
   transform-style: preserve-3d;
-  will-change: transform;
   display: flex;
   justify-content: center;
+  /* Remonte le bloc pour un équilibre visuel (optique) dans le hero plein écran */
+  transform: translateY(calc(-1.1rem - 1.2vh));
 }
 
-/* Carte glassmorphism (version de référence) */
+/* Carte glassmorphism + cadrage « luxe » (halo, brillance) */
 .dsf-hero__card {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
   width: 100%;
   text-align: center;
   padding: clamp(1.75rem, 4.5vw, 2.75rem) clamp(1.35rem, 3.5vw, 2rem);
   border-radius: var(--radius-card);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(15, 18, 28, 0.42);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 4px 28px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 0 48px rgba(255, 203, 27, 0.08);
+}
+
+.dsf-hero__card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.07) 45%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.05) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%) skewX(-12deg);
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Contenu au-dessus du balayage lumineux */
+.dsf-hero__card > * {
+  position: relative;
+  z-index: 1;
 }
 
 @supports (backdrop-filter: blur(14px)) or (-webkit-backdrop-filter: blur(14px)) {
@@ -374,6 +408,23 @@ body {
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .dsf-hero__h1 {
+    background-image: linear-gradient(
+      188deg,
+      #ffffff 0%,
+      #faf6ef 35%,
+      var(--color-sand-light) 72%,
+      rgba(255, 230, 160, 0.95) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 3px 28px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 36px rgba(255, 203, 27, 0.15));
+  }
 }
 
 .dsf-hero__h1-line {
@@ -531,45 +582,53 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .dsf-hero__eyebrow {
     opacity: 0;
-    transform: translateY(16px);
-    animation: dsf-hero-in 0.72s ease 0.12s forwards;
+    transform: translateY(1.1rem) scale(0.99);
+    animation: dsf-hero-in 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
   }
 
   .dsf-hero__h1 {
     opacity: 0;
-    transform: translateY(22px);
-    animation: dsf-hero-in 0.78s ease 0.18s forwards;
+    transform: translateY(1.5rem) scale(0.985);
+    animation: dsf-hero-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.16s forwards;
   }
 
   .dsf-hero__baseline {
     opacity: 0;
-    transform: translateY(16px);
-    animation: dsf-hero-in 0.72s ease 0.3s forwards;
+    transform: translateY(1.1rem) scale(0.99);
+    animation: dsf-hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
   }
 
   .dsf-hero__story {
     opacity: 0;
-    transform: translateY(14px);
-    animation: dsf-hero-in 0.72s ease 0.42s forwards;
+    transform: translateY(0.95rem) scale(0.992);
+    animation: dsf-hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
   }
 
   .dsf-hero__cta {
     opacity: 0;
-    transform: translateY(12px);
-    animation: dsf-hero-in 0.68s ease 0.54s forwards;
+    transform: translateY(0.85rem) scale(0.99);
+    animation: dsf-hero-in 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.52s forwards;
   }
 
   .dsf-hero__meta {
     opacity: 0;
-    transform: translateY(10px);
-    animation: dsf-hero-in 0.65s ease 0.66s forwards;
+    transform: translateY(0.7rem) scale(0.995);
+    animation: dsf-hero-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.64s forwards;
+  }
+
+  .dsf-hero__card {
+    animation: dsf-hero-card-ambient 7.5s ease-in-out infinite;
+  }
+
+  .dsf-hero__card::after {
+    animation: dsf-hero-card-shine-sweep 7s ease-in-out 1.2s infinite;
   }
 }
 
 @keyframes dsf-hero-in {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -621,6 +680,65 @@ body {
   100% {
     opacity: 0;
     transform: translateX(120%) skewX(-14deg);
+  }
+}
+
+/* Carte hero : flottement + halo (or / cyan) + brillance */
+@keyframes dsf-hero-card-ambient {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow:
+      0 4px 28px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.07) inset,
+      0 1px 0 rgba(255, 255, 255, 0.15) inset,
+      0 0 40px rgba(255, 203, 27, 0.1),
+      0 0 64px rgba(110, 231, 255, 0.05);
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      0 1px 0 rgba(255, 255, 255, 0.2) inset,
+      0 0 56px rgba(255, 203, 27, 0.2),
+      0 0 100px rgba(110, 231, 255, 0.12);
+  }
+}
+
+@keyframes dsf-hero-card-shine-sweep {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateX(-130%) skewX(-12deg);
+  }
+  48% {
+    opacity: 0.75;
+  }
+  55%,
+  100% {
+    opacity: 0;
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-hero__chip {
+    animation: dsf-hero-chip-soft 5.5s ease-in-out infinite;
+  }
+}
+
+@keyframes dsf-hero-chip-soft {
+  0%,
+  100% {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.35),
+      0 0 24px rgba(255, 203, 27, 0.22);
+    border-color: rgba(255, 255, 255, 0.38);
   }
 }
 
@@ -2542,6 +2660,10 @@ html.no-js .dsf-noscript {
 
   .dsf-hero {
     min-height: 90vh;
+  }
+
+  .dsf-hero__inner {
+    transform: translateY(calc(-0.45rem - 0.7vh));
   }
 
   .dsf-hero__top {
