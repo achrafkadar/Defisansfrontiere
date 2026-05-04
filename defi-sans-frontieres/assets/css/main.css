@@ -155,16 +155,17 @@ body {
 
 /* ------------------------------------------------------------------------- Hero */
 .dsf-hero {
+  --hero-pad-y: clamp(0.75rem, 2vw, 1.25rem);
   position: relative;
   min-height: min(100svh, 900px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  /* Padding vertical symétrique + zone header : l’espace restant est réparti au-dessus / au-dessous de la carte (voir .dsf-hero__inner) */
-  padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.5rem, 2vw, 1rem));
+  /* Le header est au-dessus du hero dans le flux : pas de réserve « header » ici. Padding bloc symétrique (safe-area + même gouttière). */
+  padding-top: calc(env(safe-area-inset-top, 0px) + var(--hero-pad-y));
   padding-right: clamp(1rem, 4vw, 2rem);
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(0.5rem, 2vw, 1rem));
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--hero-pad-y));
   padding-left: clamp(1rem, 4vw, 2rem);
   color: var(--color-white);
   isolation: isolate;
@@ -274,15 +275,13 @@ body {
   z-index: 3;
   width: 100%;
   max-width: min(100%, 36rem);
-  margin-block: auto;
   margin-inline: auto;
   padding-inline: 0.5rem;
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  min-height: 0;
   transform-style: preserve-3d;
   display: flex;
   justify-content: center;
-  /* Remonte le bloc pour un équilibre visuel (optique) dans le hero plein écran */
-  transform: translateY(calc(-1.1rem - 1.2vh));
 }
 
 /* Carte glassmorphism + cadrage « luxe » (halo, brillance) */
@@ -2659,11 +2658,7 @@ html.no-js .dsf-noscript {
   }
 
   .dsf-hero {
-    min-height: 90vh;
-  }
-
-  .dsf-hero__inner {
-    transform: translateY(calc(-0.45rem - 0.7vh));
+    min-height: min(100svh, 900px);
   }
 
   .dsf-hero__top {
