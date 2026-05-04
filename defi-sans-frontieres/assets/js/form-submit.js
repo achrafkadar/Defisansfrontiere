@@ -47,16 +47,6 @@
         return false;
       }
     }
-    if (input.type === "file" && input.files && input.files.length > 0) {
-      var maxBytes = 10 * 1024 * 1024;
-      if (input.files[0].size > maxBytes) {
-        setFieldError(
-          input,
-          "Le fichier dépasse 10 Mo (limite d’envoi). Réduis la taille ou indique un lien (YouTube, Vimeo…) dans le champ prévu."
-        );
-        return false;
-      }
-    }
     setFieldError(input, "");
     return true;
   }
@@ -67,11 +57,6 @@
         if (el.type === "checkbox") return;
         validateField(el);
       });
-      if (el.type === "file") {
-        el.addEventListener("change", function () {
-          validateField(el);
-        });
-      }
     });
   }
 
@@ -136,14 +121,12 @@
 
     bindBlurValidation(form);
 
-    var videoFileInput = document.getElementById("field_video_file");
     var videoChosenEl = document.getElementById("video_file_chosen");
-    if (videoFileInput && videoChosenEl) {
-      videoFileInput.addEventListener("change", function () {
-        var f = videoFileInput.files && videoFileInput.files[0];
-        videoChosenEl.textContent = f
-          ? "Fichier sélectionné : " + f.name + " (" + (f.size / (1024 * 1024)).toFixed(2) + " Mo)"
-          : "";
+    var uploadcareInput = document.getElementById("field_uploadcare");
+    if (uploadcareInput && videoChosenEl) {
+      uploadcareInput.addEventListener("change", function () {
+        var v = uploadcareInput.value ? String(uploadcareInput.value).trim() : "";
+        videoChosenEl.textContent = v ? "Vidéo enregistrée : " + v : "";
       });
     }
 
@@ -165,12 +148,7 @@
         return;
       }
 
-      var vf = document.getElementById("field_video_file");
       var vu = document.getElementById("field_video_url");
-      if (vf && !validateField(vf)) {
-        e.preventDefault();
-        return;
-      }
       if (vu && !validateField(vu)) {
         e.preventDefault();
         return;

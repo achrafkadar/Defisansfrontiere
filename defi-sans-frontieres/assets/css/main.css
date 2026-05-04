@@ -2094,6 +2094,16 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   min-height: 0;
 }
 
+.dsf-uploadcare-slot {
+  margin-top: 0.15rem;
+  min-height: 2.75rem;
+}
+
+.dsf-field--uploadcare .uploadcare--widget,
+.dsf-field--uploadcare .uploadcare--widget__button {
+  max-width: 100%;
+}
+
 .dsf-field input.dsf-input-invalid,
 .dsf-field textarea.dsf-input-invalid {
   border-color: var(--color-error);
