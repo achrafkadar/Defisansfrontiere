@@ -433,10 +433,12 @@
         id="dsf-candidature-form"
         method="post"
         action="https://formsubmit.co/ads@wenov.ca"
+        enctype="multipart/form-data"
         novalidate
       >
         <!--
           Envoi via FormSubmit (https://formsubmit.co) vers ads@wenov.ca.
+          enctype multipart : pièce jointe vidéo (taille totale des fichiers limitée côté FormSubmit, ~10 Mo).
           _next : page merci.html (URL absolue définie par assets/js/form-submit.js au chargement et à la soumission).
           TODO FSO prod : WPForms / Gravity + SMTP ou API Resend côté serveur (ne jamais exposer la clé API au navigateur).
         -->
@@ -620,10 +622,35 @@
                   <div class="dsf-char"><span id="count_plan">0</span>/500</div>
                 </div>
                 <div class="dsf-field">
-                  <label for="field_video">As-tu déjà un lien vers ta vidéo de présentation?</label>
-                  <span class="hint">Optionnel — les instructions détaillées suivent par courriel après la soumission.</span>
-                  <input type="url" id="field_video" name="video_url" autocomplete="url" placeholder="https://…" aria-describedby="err_video" />
+                  <label for="field_video_file">Vidéo de présentation</label>
+                  <span class="hint" id="hint_video">
+                    <strong>Une petite vidéo suffit</strong> — viser environ <strong>60 secondes</strong>, fichier
+                    <strong>sous ~10 Mo</strong> (limite d’envoi du formulaire). MP4, MOV ou WebM. Si le fichier dépasse la limite,
+                    compresse-le (export 720p, bitrate plus bas) ou utilise le champ « lien » ci-dessous. Ce champ est optionnel ;
+                    des précisions peuvent aussi t’être envoyées par courriel après la soumission.
+                  </span>
+                  <input
+                    type="file"
+                    id="field_video_file"
+                    name="video_presentation"
+                    accept="video/mp4,video/quicktime,video/webm,.mp4,.mov,.webm"
+                    aria-describedby="hint_video err_video video_file_chosen"
+                  />
+                  <p class="dsf-video-file-chosen" id="video_file_chosen" aria-live="polite"></p>
                   <p class="dsf-field-error" id="err_video" role="alert"></p>
+                </div>
+                <div class="dsf-field">
+                  <label for="field_video_url">Lien vers ta vidéo (optionnel)</label>
+                  <span class="hint">Si tu préfères un lien (YouTube non répertorié, Vimeo, nuage…) ou si ton fichier dépasse ~10 Mo.</span>
+                  <input
+                    type="url"
+                    id="field_video_url"
+                    name="video_url"
+                    autocomplete="url"
+                    placeholder="https://…"
+                    aria-describedby="err_video_url"
+                  />
+                  <p class="dsf-field-error" id="err_video_url" role="alert"></p>
                 </div>
 
                 <div class="dsf-field">

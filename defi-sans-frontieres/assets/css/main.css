@@ -159,12 +159,12 @@ body {
   min-height: min(100svh, 900px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  /* Centré verticalement : marge haute pour ne pas passer sous le header sticky */
+  /* Padding vertical symétrique + zone header : l’espace restant est réparti au-dessus / au-dessous de la carte (voir .dsf-hero__inner) */
   padding-top: calc(var(--header-offset) + env(safe-area-inset-top, 0px) + clamp(0.5rem, 2vw, 1rem));
   padding-right: clamp(1rem, 4vw, 2rem);
-  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(0.5rem, 2vw, 1rem));
   padding-left: clamp(1rem, 4vw, 2rem);
   color: var(--color-white);
   isolation: isolate;
@@ -273,9 +273,11 @@ body {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: min(100%, 31rem);
+  max-width: min(100%, 36rem);
+  margin-block: auto;
   margin-inline: auto;
   padding-inline: 0.5rem;
+  flex-shrink: 0;
   transform-style: preserve-3d;
   will-change: transform;
   display: flex;
@@ -1368,10 +1370,76 @@ body {
   border-color: var(--color-border-dark);
 }
 
+/* Cartes parcours cliquables : léger zoom + halo néon au survol / focus (popup détail) */
+.dsf-phase[data-parcours-key]::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-card) + 3px);
+  pointer-events: none;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg,
+    rgba(110, 231, 255, 0.95),
+    rgba(255, 203, 27, 0.98),
+    rgba(101, 192, 221, 0.92),
+    rgba(255, 203, 27, 0.88),
+    rgba(110, 231, 255, 0.95)
+  );
+  padding: 2px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.dsf-phase[data-parcours-key] > * {
+  position: relative;
+  z-index: 2;
+}
+
 .dsf-phase:hover {
   transform: translateY(-4px);
   border-color: rgba(101, 192, 221, 0.75);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dsf-phase[data-parcours-key]:hover,
+  .dsf-phase[data-parcours-key]:focus-visible {
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  .dsf-phase[data-parcours-key]::after {
+    animation: dsf-phase-neon-orbit 2.6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .dsf-phase[data-parcours-key]:hover::after,
+  .dsf-phase[data-parcours-key]:focus-visible::after {
+    opacity: 1;
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dsf-phase[data-parcours-key]:hover::after,
+  .dsf-phase[data-parcours-key]:focus-visible::after {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+@keyframes dsf-phase-neon-orbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dsf-phase__dot {
@@ -1997,6 +2065,35 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   color: var(--color-text);
 }
 
+.dsf-field input[type="file"] {
+  padding: 0.55rem 0.65rem;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.dsf-field input[type="file"]::file-selector-button {
+  font: inherit;
+  font-weight: 600;
+  margin-right: 0.85rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--color-border);
+  background: rgba(255, 203, 27, 0.18);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.dsf-field input[type="file"]:hover::file-selector-button {
+  background: rgba(255, 203, 27, 0.28);
+}
+
+.dsf-video-file-chosen {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  min-height: 0;
+}
+
 .dsf-field input.dsf-input-invalid,
 .dsf-field textarea.dsf-input-invalid {
   border-color: var(--color-error);
@@ -2453,14 +2550,14 @@ html.no-js .dsf-noscript {
 
 @media (min-width: 480px) {
   .dsf-hero__inner {
-    max-width: min(100%, 35rem);
+    max-width: min(100%, 40rem);
   }
 }
 
 /* Bureau / tablette : carte plus large + titre plus grand */
 @media (min-width: 768px) {
   .dsf-hero__inner {
-    max-width: min(100%, 42.5rem);
+    max-width: min(100%, 48rem);
   }
 
   .dsf-hero__h1 {
@@ -2471,7 +2568,7 @@ html.no-js .dsf-noscript {
 
 @media (min-width: 1024px) {
   .dsf-hero__inner {
-    max-width: min(100%, 46rem);
+    max-width: min(100%, 52rem);
   }
 
   .dsf-hero__h1 {
