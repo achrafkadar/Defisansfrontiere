@@ -1972,6 +1972,64 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   gap: 1rem;
 }
 
+.dsf-form-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  padding: 1rem 1.1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.dsf-form-fieldset__legend {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0 0.35rem;
+}
+
+.dsf-field-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.dsf-field-label .hint {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.dsf-radio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: flex-start;
+}
+
+.dsf-check-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+label.dsf-check {
+  cursor: pointer;
+  font-size: 0.98rem;
+  align-items: flex-start;
+}
+
+.dsf-check input[type="radio"] {
+  width: 1.35rem;
+  height: 1.35rem;
+  min-width: 1.35rem;
+  min-height: 1.35rem;
+  margin-top: 0.15rem;
+  accent-color: var(--color-accent);
+}
+
 @media (min-width: 768px) {
   .dsf-form__row2 {
     display: grid;
@@ -1984,6 +2042,10 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+}
+
+.dsf-field--sep {
+  margin-top: 1rem;
 }
 
 .dsf-field label {

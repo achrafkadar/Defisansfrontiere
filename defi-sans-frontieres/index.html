@@ -464,82 +464,32 @@
 
         <section id="filtres" class="dsf-section" aria-labelledby="titre-filtres">
           <div class="dsf-container dsf-container--narrow">
-            <h2 id="titre-filtres" class="dsf-section__title">Avant de postuler — lis et coche</h2>
+            <h2 id="titre-filtres" class="dsf-section__title">Avant de postuler</h2>
             <p class="dsf-section__lead">
-              Ces engagements sont obligatoires. Prends le temps de bien les lire. La pub t’a donné le goût de
-              l’aventure ; ici, on s’assure que personne ne parte à l’aveuglette.
+              Ce formulaire est la <strong>première étape de sélection</strong>. Seuls les candidats retenus seront
+              contactés pour la prochaine phase (entrevue / casting).
             </p>
 
             <div class="dsf-filters">
               <fieldset class="dsf-filters__fieldset">
-                <legend class="dsf-filters__legend">Engagements obligatoires</legend>
+                <legend class="dsf-filters__legend">Accès au formulaire</legend>
                 <ul class="dsf-filters__list">
                   <li class="dsf-check">
-                    <input type="checkbox" id="f1" name="engage_collecte" data-dsf-filter="1" required />
-                    <label for="f1"
-                      >Je m’engage à amasser un minimum de <strong>10 000 $</strong> via ma collecte de fonds avant le
-                      départ.</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f2" name="engage_casting" data-dsf-filter="1" required />
-                    <label for="f2"
-                      >Je suis disponible la fin de semaine du <strong>23 mai 2026</strong> pour passer le casting en
-                      personne à Gatineau (date exacte confirmée par courriel après pré-sélection).</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f3" name="engage_voyage" data-dsf-filter="1" required />
-                    <label for="f3"
-                      >Je suis disponible pour voyager au Maroc entre le <strong>30 octobre</strong> et le
-                      <strong>15 novembre 2026</strong> (dates exactes confirmées avant la signature du contrat).</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f4" name="engage_tournage" data-dsf-filter="1" required />
-                    <label for="f4"
-                      >Je suis disponible pour des séances de tournage ponctuelles entre juin et octobre 2026 (environ
-                      une fois aux deux semaines).</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f5" name="engage_image" data-dsf-filter="1" required />
-                    <label for="f5"
-                      >J’accepte que mon image soit captée et diffusée dans un documentaire web public. Je comprends que
-                      la propriété intellectuelle du contenu appartient à la Fondation Santé Outaouais.</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f6" name="engage_sante" data-dsf-filter="1" required />
-                    <label for="f6"
-                      >Je déclare ne pas avoir, à ma connaissance, de condition médicale qui pourrait m’empêcher de
-                      réaliser un trek physique de plusieurs jours dans le désert. Je comprends qu’un certificat médical
-                      sera exigé si je suis sélectionné et que la décision finale d’aptitude revient à l’organisateur du
-                      voyage.</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f7" name="engage_frais" data-dsf-filter="1" required />
-                    <label for="f7"
-                      >Je comprends que les vaccins, l’assurance voyage et le matériel personnel restent à ma
-                      charge.</label
-                    >
-                  </li>
-                  <li class="dsf-check">
-                    <input type="checkbox" id="f8" name="engage_contrat" data-dsf-filter="1" required />
-                    <label for="f8"
-                      >J’ai lu et j’accepte ces conditions préalables. Je comprends que si je suis sélectionné, je devrai
-                      signer un contrat plus détaillé avec la Fondation.</label
+                    <input type="checkbox" id="gate_intro" name="gate_intro_lu" data-dsf-filter="1" required />
+                    <label for="gate_intro"
+                      >J’ai lu ce message et je comprends que seuls les candidats retenus seront contactés pour la suite
+                      du processus.</label
                     >
                   </li>
                 </ul>
               </fieldset>
 
               <div class="dsf-filter-meta" role="status" aria-live="polite">
-                <span id="dsf-filter-count" class="dsf-badge-count">0/8 cases cochées</span>
+                <span id="dsf-filter-count" class="dsf-badge-count">0/1 case cochée</span>
                 <span id="dsf-unlock-icon" class="dsf-unlock-icon" aria-hidden="true">🔒</span>
                 <span id="dsf-filter-msg" class="dsf-filter-msg dsf-filter-msg--err"
-                  >Coche toutes les cases pour accéder au formulaire.</span>
+                  >Coche la case pour accéder au formulaire.</span
+                >
               </div>
             </div>
           </div>
@@ -564,116 +514,260 @@
 
             <div class="dsf-form-wrap" id="dsf-form-inner">
               <div class="dsf-form">
-                <div class="dsf-form__row2">
+                <!-- DSF_FORM_INNER -->
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 1 — Informations générales</legend>
                   <div class="dsf-field">
-                    <label for="field_prenom">Prénom</label>
-                    <input type="text" id="field_prenom" name="prenom" required autocomplete="given-name" aria-describedby="err_prenom" />
-                    <p class="dsf-field-error" id="err_prenom" role="alert"></p>
+                    <label for="field_nom_complet">Nom complet</label>
+                    <input type="text" id="field_nom_complet" name="nom_complet" required autocomplete="name" aria-describedby="err_nom_complet" />
+                    <p class="dsf-field-error" id="err_nom_complet" role="alert"></p>
                   </div>
-                  <div class="dsf-field">
-                    <label for="field_nom">Nom</label>
-                    <input type="text" id="field_nom" name="nom" required autocomplete="family-name" aria-describedby="err_nom" />
-                    <p class="dsf-field-error" id="err_nom" role="alert"></p>
-                  </div>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_courriel">Courriel</label>
-                  <input type="email" id="field_courriel" name="courriel" required autocomplete="email" aria-describedby="err_courriel" />
-                  <p class="dsf-field-error" id="err_courriel" role="alert"></p>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_tel">Téléphone</label>
-                  <input
-                    type="tel"
-                    id="field_tel"
-                    name="telephone"
-                    required
-                    autocomplete="tel"
-                    placeholder="819-555-1234"
-                    aria-describedby="err_tel hint_tel"
-                  />
-                  <span class="hint" id="hint_tel">Format suggéré : 819-XXX-XXXX</span>
-                  <p class="dsf-field-error" id="err_tel" role="alert"></p>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_ville">Ville ou municipalité</label>
-                  <input type="text" id="field_ville" name="ville" required autocomplete="address-level2" aria-describedby="err_ville" />
-                  <p class="dsf-field-error" id="err_ville" role="alert"></p>
-                </div>
-                <div class="dsf-form__row2">
-                  <div class="dsf-field">
-                    <label for="field_age">Âge</label>
-                    <input type="number" id="field_age" name="age" min="18" max="75" required inputmode="numeric" aria-describedby="err_age" />
-                    <p class="dsf-field-error" id="err_age" role="alert"></p>
+                  <div class="dsf-form__row2">
+                    <div class="dsf-field">
+                      <label for="field_age">Âge</label>
+                      <input type="number" id="field_age" name="age" min="18" max="99" required inputmode="numeric" aria-describedby="err_age" />
+                      <p class="dsf-field-error" id="err_age" role="alert"></p>
+                    </div>
+                    <div class="dsf-field">
+                      <label for="field_ville">Ville de résidence</label>
+                      <input type="text" id="field_ville" name="ville" required autocomplete="address-level2" aria-describedby="err_ville" />
+                      <p class="dsf-field-error" id="err_ville" role="alert"></p>
+                    </div>
                   </div>
                   <div class="dsf-field">
-                    <label for="field_profession">Profession</label>
-                    <input type="text" id="field_profession" name="profession" required autocomplete="organization-title" aria-describedby="err_profession" />
-                    <p class="dsf-field-error" id="err_profession" role="alert"></p>
+                    <label for="field_courriel">Adresse courriel</label>
+                    <input type="email" id="field_courriel" name="courriel" required autocomplete="email" aria-describedby="err_courriel" />
+                    <p class="dsf-field-error" id="err_courriel" role="alert"></p>
                   </div>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_motivation">Pourquoi toi? Raconte-nous en trois phrases pourquoi tu devrais être dans les 30.</label>
-                  <span class="hint">500 caractères max.</span>
-                  <textarea id="field_motivation" name="motivation" maxlength="500" required aria-describedby="err_motivation"></textarea>
-                  <p class="dsf-field-error" id="err_motivation" role="alert"></p>
-                  <div class="dsf-char"><span id="count_motivation">0</span>/500</div>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_plan">Comment comptes-tu lever 10 000 $? Décris ton plan en grandes lignes.</label>
-                  <span class="hint">500 caractères max.</span>
-                  <textarea id="field_plan" name="plan_levee" maxlength="500" required aria-describedby="err_plan"></textarea>
-                  <p class="dsf-field-error" id="err_plan" role="alert"></p>
-                  <div class="dsf-char"><span id="count_plan">0</span>/500</div>
-                </div>
-                <div class="dsf-field dsf-field--uploadcare">
-                  <label for="field_uploadcare">Vidéo de présentation</label>
-                  <span class="hint" id="hint_video">
-                    Merci d’envoyer une vidéo d’environ <strong>45 à 60 secondes</strong> dans laquelle tu indiques ton
-                    <strong>prénom</strong>, ton <strong>nom</strong>, ton <strong>âge</strong> et ta <strong>motivation</strong> :
-                    pourquoi tu veux participer au défi. Tu peux utiliser le bouton ci-dessous (Uploadcare — fichiers volumineux
-                    possibles selon ton forfait) ou, si tu préfères, le champ « lien » juste en dessous.
-                  </span>
-                  <div class="dsf-uploadcare-slot">
-                    <input
-                      type="hidden"
-                      role="uploadcare-uploader"
-                      name="video_uploadcare"
-                      id="field_uploadcare"
-                      data-input-accept="video/*"
-                      aria-describedby="hint_video err_video video_file_chosen"
-                    />
+                  <div class="dsf-field">
+                    <label for="field_tel">Numéro de téléphone</label>
+                    <input type="tel" id="field_tel" name="telephone" required autocomplete="tel" placeholder="819-555-1234" aria-describedby="err_tel hint_tel" />
+                    <span class="hint" id="hint_tel">Format suggéré : 819-XXX-XXXX</span>
+                    <p class="dsf-field-error" id="err_tel" role="alert"></p>
                   </div>
-                  <p class="dsf-video-file-chosen" id="video_file_chosen" aria-live="polite"></p>
-                  <p class="dsf-field-error" id="err_video" role="alert"></p>
-                </div>
-                <div class="dsf-field">
-                  <label for="field_video_url">Lien vers ta vidéo (optionnel)</label>
-                  <span class="hint"
-                    >YouTube (non répertorié possible), Vimeo, Google Drive, etc. — utile si tu n’as pas utilisé le bouton d’envoi.</span>
-                  <input
-                    type="url"
-                    id="field_video_url"
-                    name="video_url"
-                    autocomplete="url"
-                    placeholder="https://…"
-                    aria-describedby="err_video_url"
-                  />
-                  <p class="dsf-field-error" id="err_video_url" role="alert"></p>
-                </div>
+                </fieldset>
 
-                <div class="dsf-field">
-                  <div class="dsf-check">
-                    <input type="checkbox" id="consent_candidature" name="consent_candidature" required />
-                    <label for="consent_candidature">J’accepte que la FSO communique avec moi dans le cadre de cette candidature.</label>
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 2 — Profil &amp; motivation</legend>
+                  <div class="dsf-field">
+                    <label for="field_s2_pourquoi">Pourquoi souhaitez-vous participer à ce défi caritatif au Maroc ?</label>
+                    <textarea id="field_s2_pourquoi" name="motif_participation_maroc" maxlength="1200" required rows="4"></textarea>
+                    <div class="dsf-char"><span id="count_s2a">0</span>/1200</div>
                   </div>
-                  <div class="dsf-check">
-                    <input type="checkbox" id="consent_marketing" name="consent_marketing" />
-                    <label for="consent_marketing"
-                      >J’accepte de recevoir des communications de la FSO sur d’autres projets (optionnel).</label
-                    >
+                  <div class="dsf-field">
+                    <label for="field_s2_cause">Quelle cause vous motive le plus dans ce projet ?</label>
+                    <textarea id="field_s2_cause" name="cause_motivation" maxlength="1200" required rows="4"></textarea>
+                    <div class="dsf-char"><span id="count_s2b">0</span>/1200</div>
                   </div>
-                </div>
+                  <div class="dsf-field">
+                    <label for="field_s2_defi">Parlez-nous d’un défi personnel ou physique que vous avez déjà relevé.</label>
+                    <textarea id="field_s2_defi" name="defi_physique_passe" maxlength="1200" required rows="4"></textarea>
+                    <div class="dsf-char"><span id="count_s2c">0</span>/1200</div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_s2_distinction">Qu’est-ce qui vous distingue des autres candidats ?</label>
+                    <textarea id="field_s2_distinction" name="distinction_candidat" maxlength="1200" required rows="4"></textarea>
+                    <div class="dsf-char"><span id="count_s2d">0</span>/1200</div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 3 — Condition physique &amp; expérience</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_cond">Comment évaluez-vous votre condition physique ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_cond">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="condition_physique" value="excellente" required /> Excellente</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="condition_physique" value="bonne" /> Bonne</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="condition_physique" value="moyenne" /> Moyenne</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="condition_physique" value="a_ameliorer" /> À améliorer</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_trek">Avez-vous déjà fait du trek ou une expédition similaire ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_trek">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="trek_expedition" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="trek_expedition" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_trek_precisions">Si oui, précisez</label>
+                    <textarea id="field_trek_precisions" name="trek_expedition_precisions" maxlength="600" rows="3"></textarea>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_marche">Êtes-vous capable de marcher plusieurs heures par jour pendant plusieurs jours consécutifs ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_marche">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="marche_multi_jours" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="marche_multi_jours" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_limitations">Avez-vous des limitations physiques ou conditions médicales à déclarer ?</label>
+                    <textarea id="field_limitations" name="limitations_medicales" maxlength="1200" rows="4"></textarea>
+                  </div>
+                </fieldset>
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 4 — Disponibilités &amp; engagement</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_dispo_dates">Êtes-vous disponible du 29 octobre au 12 novembre inclus ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_dispo_dates">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="dispo_dates_oct_nov" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="dispo_dates_oct_nov" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_dispo_types">Êtes-vous disponible pour : <span class="hint">(coche tout ce qui s’applique)</span></p>
+                    <div class="dsf-check-stack" aria-labelledby="lbl_dispo_types">
+                      <label class="dsf-check"><input type="checkbox" name="dispo_casting_entrevue" value="oui" /> Un casting / entrevue</label>
+                      <label class="dsf-check"><input type="checkbox" name="dispo_rencontres_prep" value="oui" /> Des rencontres de préparation</label>
+                      <label class="dsf-check"><input type="checkbox" name="dispo_activites_groupe" value="oui" /> Des activités de groupe avant le départ</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 5 — Levée de fonds</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_10k">Êtes-vous prêt à amasser un minimum de 10 000 $ ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_10k">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_minimum_10000" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_minimum_10000" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_levee">Avez-vous déjà fait de la levée de fonds ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_levee">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="experience_levee_fonds" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="experience_levee_fonds" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_levee_precisions">Si oui, précisez</label>
+                    <textarea id="field_levee_precisions" name="experience_levee_fonds_precisions" maxlength="600" rows="3"></textarea>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_strategie_10k">Quelle serait votre stratégie pour atteindre cet objectif ?</label>
+                    <textarea id="field_strategie_10k" name="strategie_levee_fonds" maxlength="1200" required rows="4"></textarea>
+                    <div class="dsf-char"><span id="count_strategie">0</span>/1200</div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 6 — Réseaux sociaux &amp; visibilité</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_camera">Êtes-vous à l’aise devant la caméra (vidéo / photo) ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_camera">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="aise_camera" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="aise_camera" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_reseaux">Quels sont vos réseaux sociaux ? (Instagram, Facebook, TikTok, LinkedIn, etc.)</label>
+                    <textarea id="field_reseaux" name="reseaux_sociaux" maxlength="800" rows="3"></textarea>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_promo">Seriez-vous prêt à promouvoir activement le défi sur vos plateformes ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_promo">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="promotion_plateformes" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="promotion_plateformes" value="non" /> Non</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 7 — Engagement &amp; autorisations</legend>
+                  <p class="dsf-field-label">Acceptez-vous : <span class="hint">(obligatoire)</span></p>
+                  <div class="dsf-check-stack">
+                    <label class="dsf-check"><input type="checkbox" name="accept_filme" value="oui" required /> D’être filmé(e) et photographié(e)</label>
+                    <label class="dsf-check"><input type="checkbox" name="accept_image_promo" value="oui" required /> L’utilisation de votre image à des fins promotionnelles</label>
+                    <label class="dsf-check"><input type="checkbox" name="accept_contenu" value="oui" required /> De participer à la création de contenu</label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 8 — Logistique &amp; compréhension</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_inclusions">Confirmez-vous avoir pris connaissance des inclusions / exclusions du voyage ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_inclusions">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="connaissance_inclusions" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="connaissance_inclusions" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_charges">Êtes-vous conscient(e) que les éléments suivants sont à votre charge :</p>
+                    <div class="dsf-check-stack" aria-labelledby="lbl_charges">
+                      <label class="dsf-check"><input type="checkbox" name="charge_assurances" value="oui" required /> Assurances voyage</label>
+                      <label class="dsf-check"><input type="checkbox" name="charge_equipement" value="oui" required /> Équipement personnel</label>
+                      <label class="dsf-check"><input type="checkbox" name="charge_depenses_perso" value="oui" required /> Dépenses personnelles</label>
+                      <label class="dsf-check"><input type="checkbox" name="charge_pourboires" value="oui" required /> Pourboires</label>
+                      <label class="dsf-check"><input type="checkbox" name="charge_certains_repas" value="oui" required /> Certains repas</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 9 — Questions finales</legend>
+                  <div class="dsf-field">
+                    <p class="dsf-field-label" id="lbl_confort">Êtes-vous prêt(e) à sortir de votre zone de confort et vivre une expérience exigeante ?</p>
+                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_confort">
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_zone_confort" value="oui" required /> Oui</label>
+                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_zone_confort" value="non" /> Non</label>
+                    </div>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_contraintes">Si vous êtes sélectionné(e), y a-t-il des contraintes dont nous devrions être informés ?</label>
+                    <textarea id="field_contraintes" name="contraintes_selection" maxlength="1200" rows="4"></textarea>
+                  </div>
+                  <div class="dsf-field dsf-field--uploadcare">
+                    <label for="field_uploadcare">Vidéo de présentation <span class="hint">(Upload — fortement recommandé)</span></label>
+                    <span class="hint" id="hint_video">
+                      Envoie une courte vidéo (environ 45–60 s) : présentation, motivation, ce qui te distingue. Tu peux utiliser le bouton ci-dessous (Uploadcare) ou uniquement le champ « lien » sous cette zone.
+                    </span>
+                    <div class="dsf-uploadcare-slot">
+                      <input
+                        type="hidden"
+                        role="uploadcare-uploader"
+                        name="video_uploadcare"
+                        id="field_uploadcare"
+                        data-input-accept="video/*"
+                        aria-describedby="hint_video err_video video_file_chosen"
+                      />
+                    </div>
+                    <p class="dsf-video-file-chosen" id="video_file_chosen" aria-live="polite"></p>
+                    <p class="dsf-field-error" id="err_video" role="alert"></p>
+                  </div>
+                  <div class="dsf-field">
+                    <label for="field_video_url">Lien vers ta vidéo <span class="hint">(YouTube, Google Drive, etc. — recommandé si pas d’upload)</span></label>
+                    <input
+                      type="url"
+                      id="field_video_url"
+                      name="video_url"
+                      autocomplete="url"
+                      placeholder="https://…"
+                      aria-describedby="err_video_url"
+                    />
+                    <p class="dsf-field-error" id="err_video_url" role="alert"></p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="dsf-form-fieldset">
+                  <legend class="dsf-form-fieldset__legend">Section 10 — Engagement final</legend>
+                  <p class="dsf-field-label">Je confirme que : <span class="hint">(obligatoire)</span></p>
+                  <div class="dsf-check-stack">
+                    <label class="dsf-check"><input type="checkbox" name="confirm_infos_exactes" value="oui" required /> Toutes les informations fournies sont exactes</label>
+                    <label class="dsf-check"><input type="checkbox" name="confirm_exigences" value="oui" required /> Je comprends les exigences du défi</label>
+                    <label class="dsf-check"><input type="checkbox" name="confirm_engagement_complet" value="oui" required /> Je suis prêt(e) à m’engager pleinement dans ce projet</label>
+                  </div>
+                  <div class="dsf-field dsf-field--sep">
+                    <div class="dsf-check">
+                      <input type="checkbox" id="consent_candidature" name="consent_candidature" required />
+                      <label for="consent_candidature">J’accepte que la FSO communique avec moi dans le cadre de cette candidature.</label>
+                    </div>
+                    <div class="dsf-check">
+                      <input type="checkbox" id="consent_marketing" name="consent_marketing" />
+                      <label for="consent_marketing">J’accepte de recevoir des communications de la FSO sur d’autres projets (optionnel).</label>
+                    </div>
+                  </div>
+                </fieldset>
 
                 <div class="dsf-form__actions">
                   <button type="submit" class="dsf-btn dsf-btn--primary" id="dsf-submit-btn" data-dsf-cta="submit_form">

@@ -21,7 +21,8 @@
   }
 
   function allChecked() {
-    return filterInputs.length > 0 && countChecked() === filterInputs.length;
+    if (filterInputs.length === 0) return true;
+    return countChecked() === filterInputs.length;
   }
 
   function updateUI() {

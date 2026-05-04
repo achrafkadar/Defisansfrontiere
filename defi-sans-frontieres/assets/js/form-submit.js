@@ -111,8 +111,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    bindCharCount("field_motivation", "count_motivation");
-    bindCharCount("field_plan", "count_plan");
+    bindCharCount("field_s2_pourquoi", "count_s2a");
+    bindCharCount("field_s2_cause", "count_s2b");
+    bindCharCount("field_s2_defi", "count_s2c");
+    bindCharCount("field_s2_distinction", "count_s2d");
+    bindCharCount("field_strategie_10k", "count_strategie");
 
     var form = document.getElementById("dsf-candidature-form");
     if (!form) return;
@@ -161,9 +164,14 @@
       var replyto = document.getElementById("dsf-form-replyto");
       if (courriel && replyto) replyto.value = courriel.value.trim();
 
-      var prenomEl = document.getElementById("field_prenom");
+      var nomCompletEl = document.getElementById("field_nom_complet");
+      var prenomFromComplet = "";
+      if (nomCompletEl && nomCompletEl.value) {
+        var parts = String(nomCompletEl.value).trim().split(/\s+/);
+        prenomFromComplet = parts.length ? parts[0] : "";
+      }
       try {
-        sessionStorage.setItem("dsf_merci_prenom", (prenomEl && prenomEl.value ? prenomEl.value : "").trim());
+        sessionStorage.setItem("dsf_merci_prenom", prenomFromComplet);
       } catch (err) {}
 
       if (window.DSF && window.DSF.analytics) {
