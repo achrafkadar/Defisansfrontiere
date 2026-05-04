@@ -472,23 +472,71 @@
 
             <div class="dsf-filters">
               <fieldset class="dsf-filters__fieldset">
-                <legend class="dsf-filters__legend">Accès au formulaire</legend>
+                <legend class="dsf-filters__legend">Conditions préalables — coche chaque case pour continuer</legend>
                 <ul class="dsf-filters__list">
                   <li class="dsf-check">
-                    <input type="checkbox" id="gate_intro" name="gate_intro_lu" data-dsf-filter="1" required />
-                    <label for="gate_intro"
-                      >J’ai lu ce message et je comprends que seuls les candidats retenus seront contactés pour la suite
-                      du processus.</label
+                    <input type="checkbox" id="gate_10000" name="gate_engagement_10000" data-dsf-filter="1" required />
+                    <label for="gate_10000"
+                      >Je m’engage à amasser un minimum de 10 000 $ via ma collecte de fonds avant le départ.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_casting" name="gate_casting_gatineau_mai2026" data-dsf-filter="1" required />
+                    <label for="gate_casting"
+                      >Je suis disponible la fin de semaine du 23 mai 2026 pour passer le casting en personne à Gatineau
+                      (date exacte confirmée par courriel après pré-sélection).</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_maroc" name="gate_voyage_maroc_oct_nov" data-dsf-filter="1" required />
+                    <label for="gate_maroc"
+                      >Je suis disponible pour voyager au Maroc entre le 30 octobre et le 15 novembre 2026 (dates exactes
+                      confirmées avant la signature du contrat).</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_tournage" name="gate_tournage_juin_oct" data-dsf-filter="1" required />
+                    <label for="gate_tournage"
+                      >Je suis disponible pour des séances de tournage ponctuelles entre juin et octobre 2026 (environ une
+                      fois aux deux semaines).</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_image_doc" name="gate_image_documentaire_fso" data-dsf-filter="1" required />
+                    <label for="gate_image_doc"
+                      >J’accepte que mon image soit captée et diffusée dans un documentaire web public. Je comprends que la
+                      propriété intellectuelle du contenu appartient à la Fondation Santé Outaouais.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_medical" name="gate_declaration_medicale" data-dsf-filter="1" required />
+                    <label for="gate_medical"
+                      >Je déclare ne pas avoir, à ma connaissance, de condition médicale qui pourrait m’empêcher de réaliser
+                      un trek physique de plusieurs jours dans le désert. Je comprends qu’un certificat médical sera exigé si
+                      je suis sélectionné et que la décision finale d’aptitude revient à l’organisateur du voyage.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_frais" name="gate_frais_vaccins_assurance_materiel" data-dsf-filter="1" required />
+                    <label for="gate_frais"
+                      >Je comprends que les vaccins, l’assurance voyage et le matériel personnel restent à ma charge.</label
+                    >
+                  </li>
+                  <li class="dsf-check">
+                    <input type="checkbox" id="gate_contrat" name="gate_acceptation_prealable_contrat" data-dsf-filter="1" required />
+                    <label for="gate_contrat"
+                      >J’ai lu et j’accepte ces conditions préalables. Je comprends que si je suis sélectionné, je devrai
+                      signer un contrat plus détaillé avec la Fondation.</label
                     >
                   </li>
                 </ul>
               </fieldset>
 
               <div class="dsf-filter-meta" role="status" aria-live="polite">
-                <span id="dsf-filter-count" class="dsf-badge-count">0/1 case cochée</span>
+                <span id="dsf-filter-count" class="dsf-badge-count">0/8 cases cochées</span>
                 <span id="dsf-unlock-icon" class="dsf-unlock-icon" aria-hidden="true">🔒</span>
                 <span id="dsf-filter-msg" class="dsf-filter-msg dsf-filter-msg--err"
-                  >Coche la case pour accéder au formulaire.</span
+                  >Coche toutes les cases pour accéder au formulaire.</span
                 >
               </div>
             </div>
@@ -606,33 +654,7 @@
                   </div>
                 </fieldset>
                 <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 4 — Disponibilités &amp; engagement</legend>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_dispo_dates">Êtes-vous disponible du 29 octobre au 12 novembre inclus ?</p>
-                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_dispo_dates">
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="dispo_dates_oct_nov" value="oui" required /> Oui</label>
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="dispo_dates_oct_nov" value="non" /> Non</label>
-                    </div>
-                  </div>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_dispo_types">Êtes-vous disponible pour : <span class="hint">(coche tout ce qui s’applique)</span></p>
-                    <div class="dsf-check-stack" aria-labelledby="lbl_dispo_types">
-                      <label class="dsf-check"><input type="checkbox" name="dispo_casting_entrevue" value="oui" /> Un casting / entrevue</label>
-                      <label class="dsf-check"><input type="checkbox" name="dispo_rencontres_prep" value="oui" /> Des rencontres de préparation</label>
-                      <label class="dsf-check"><input type="checkbox" name="dispo_activites_groupe" value="oui" /> Des activités de groupe avant le départ</label>
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 5 — Levée de fonds</legend>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_10k">Êtes-vous prêt à amasser un minimum de 10 000 $ ?</p>
-                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_10k">
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_minimum_10000" value="oui" required /> Oui</label>
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="pret_minimum_10000" value="non" /> Non</label>
-                    </div>
-                  </div>
+                  <legend class="dsf-form-fieldset__legend">Section 4 — Levée de fonds</legend>
                   <div class="dsf-field">
                     <p class="dsf-field-label" id="lbl_levee">Avez-vous déjà fait de la levée de fonds ?</p>
                     <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_levee">
@@ -652,60 +674,15 @@
                 </fieldset>
 
                 <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 6 — Réseaux sociaux &amp; visibilité</legend>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_camera">Êtes-vous à l’aise devant la caméra (vidéo / photo) ?</p>
-                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_camera">
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="aise_camera" value="oui" required /> Oui</label>
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="aise_camera" value="non" /> Non</label>
-                    </div>
-                  </div>
+                  <legend class="dsf-form-fieldset__legend">Section 5 — Réseaux sociaux &amp; visibilité</legend>
                   <div class="dsf-field">
                     <label for="field_reseaux">Quels sont vos réseaux sociaux ? (Instagram, Facebook, TikTok, LinkedIn, etc.)</label>
                     <textarea id="field_reseaux" name="reseaux_sociaux" maxlength="800" rows="3"></textarea>
                   </div>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_promo">Seriez-vous prêt à promouvoir activement le défi sur vos plateformes ?</p>
-                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_promo">
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="promotion_plateformes" value="oui" required /> Oui</label>
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="promotion_plateformes" value="non" /> Non</label>
-                    </div>
-                  </div>
                 </fieldset>
 
                 <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 7 — Engagement &amp; autorisations</legend>
-                  <p class="dsf-field-label">Acceptez-vous : <span class="hint">(obligatoire)</span></p>
-                  <div class="dsf-check-stack">
-                    <label class="dsf-check"><input type="checkbox" name="accept_filme" value="oui" required /> D’être filmé(e) et photographié(e)</label>
-                    <label class="dsf-check"><input type="checkbox" name="accept_image_promo" value="oui" required /> L’utilisation de votre image à des fins promotionnelles</label>
-                    <label class="dsf-check"><input type="checkbox" name="accept_contenu" value="oui" required /> De participer à la création de contenu</label>
-                  </div>
-                </fieldset>
-
-                <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 8 — Logistique &amp; compréhension</legend>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_inclusions">Confirmez-vous avoir pris connaissance des inclusions / exclusions du voyage ?</p>
-                    <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_inclusions">
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="connaissance_inclusions" value="oui" required /> Oui</label>
-                      <label class="dsf-check dsf-check--radio"><input type="radio" name="connaissance_inclusions" value="non" /> Non</label>
-                    </div>
-                  </div>
-                  <div class="dsf-field">
-                    <p class="dsf-field-label" id="lbl_charges">Êtes-vous conscient(e) que les éléments suivants sont à votre charge :</p>
-                    <div class="dsf-check-stack" aria-labelledby="lbl_charges">
-                      <label class="dsf-check"><input type="checkbox" name="charge_assurances" value="oui" required /> Assurances voyage</label>
-                      <label class="dsf-check"><input type="checkbox" name="charge_equipement" value="oui" required /> Équipement personnel</label>
-                      <label class="dsf-check"><input type="checkbox" name="charge_depenses_perso" value="oui" required /> Dépenses personnelles</label>
-                      <label class="dsf-check"><input type="checkbox" name="charge_pourboires" value="oui" required /> Pourboires</label>
-                      <label class="dsf-check"><input type="checkbox" name="charge_certains_repas" value="oui" required /> Certains repas</label>
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 9 — Questions finales</legend>
+                  <legend class="dsf-form-fieldset__legend">Section 6 — Questions finales</legend>
                   <div class="dsf-field">
                     <p class="dsf-field-label" id="lbl_confort">Êtes-vous prêt(e) à sortir de votre zone de confort et vivre une expérience exigeante ?</p>
                     <div class="dsf-radio-grid" role="radiogroup" aria-labelledby="lbl_confort">
@@ -750,7 +727,7 @@
                 </fieldset>
 
                 <fieldset class="dsf-form-fieldset">
-                  <legend class="dsf-form-fieldset__legend">Section 10 — Engagement final</legend>
+                  <legend class="dsf-form-fieldset__legend">Section 7 — Engagement final</legend>
                   <p class="dsf-field-label">Je confirme que : <span class="hint">(obligatoire)</span></p>
                   <div class="dsf-check-stack">
                     <label class="dsf-check"><input type="checkbox" name="confirm_infos_exactes" value="oui" required /> Toutes les informations fournies sont exactes</label>

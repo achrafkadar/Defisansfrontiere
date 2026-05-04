@@ -1,6 +1,6 @@
 /**
- * Verrou du formulaire : les engagements (section 7) doivent être tous cochés
- * avant de déflouter / déverrouiller la zone de candidature (section 8).
+ * Verrou du formulaire : toutes les cases « conditions préalables » (data-dsf-filter)
+ * doivent être cochées avant de déverrouiller la zone de candidature (#dsf-form-inner).
  * S’appuie sur la classe html.dsf-enhanced (ajoutée ici au chargement).
  */
 (function () {
