@@ -1370,40 +1370,7 @@ body {
   border-color: var(--color-border-dark);
 }
 
-/* Cartes parcours cliquables : léger zoom + halo néon au survol / focus (popup détail) */
-.dsf-phase[data-parcours-key]::after {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  border-radius: calc(var(--radius-card) + 3px);
-  pointer-events: none;
-  z-index: 1;
-  background: conic-gradient(
-    from 0deg,
-    rgba(110, 231, 255, 0.95),
-    rgba(255, 203, 27, 0.98),
-    rgba(101, 192, 221, 0.92),
-    rgba(255, 203, 27, 0.88),
-    rgba(110, 231, 255, 0.95)
-  );
-  padding: 2px;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.28s ease;
-}
-
-.dsf-phase[data-parcours-key] > * {
-  position: relative;
-  z-index: 2;
-}
-
+/* Cartes parcours cliquables : léger zoom au survol / focus (popup détail) */
 .dsf-phase:hover {
   transform: translateY(-4px);
   border-color: rgba(101, 192, 221, 0.75);
@@ -1413,32 +1380,7 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .dsf-phase[data-parcours-key]:hover,
   .dsf-phase[data-parcours-key]:focus-visible {
-    transform: translateY(-5px) scale(1.02);
-  }
-
-  .dsf-phase[data-parcours-key]::after {
-    animation: dsf-phase-neon-orbit 2.6s linear infinite;
-    animation-play-state: paused;
-  }
-
-  .dsf-phase[data-parcours-key]:hover::after,
-  .dsf-phase[data-parcours-key]:focus-visible::after {
-    opacity: 1;
-    animation-play-state: running;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dsf-phase[data-parcours-key]:hover::after,
-  .dsf-phase[data-parcours-key]:focus-visible::after {
-    opacity: 1;
-    animation: none;
-  }
-}
-
-@keyframes dsf-phase-neon-orbit {
-  to {
-    transform: rotate(360deg);
+    transform: translateY(-4px) scale(1.02);
   }
 }
 
