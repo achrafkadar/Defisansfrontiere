@@ -1098,7 +1098,7 @@ body {
   }
 }
 
-/* ------------------------------------------------------------------------- Compte à rebours (lux · après vidéo) */
+/* ------------------------------------------------------------------------- Compte à rebours (lux · bloc vidéo + compte à rebours) */
 .dsf-countdown {
   position: relative;
   isolation: isolate;

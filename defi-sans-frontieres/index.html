@@ -116,33 +116,9 @@
         </div>
       </section>
 
-      <!-- SECTION 2 — VIDÉO + compte à rebours (même fond que le compte à rebours) -->
+      <!-- SECTION 2 — Compte à rebours puis vidéo (même fond partagé) -->
       <div class="dsf-video-countdown-wrap">
         <div class="dsf-countdown__ambient" aria-hidden="true"></div>
-        <section id="video" class="dsf-section dsf-section--alt" aria-labelledby="titre-video">
-          <div class="dsf-container">
-            <h2 id="titre-video" class="dsf-section__title">30 places · Un désert · Un documentaire · Une cause</h2>
-            <div class="dsf-video">
-              <div
-                class="dsf-video__frame dsf-video__frame--cover"
-                data-video-embed="https://vimeo.com/1189117951?share=copy&fl=sv&fe=ci"
-                data-video-title="Vidéo de présentation — Défi Sans Frontières Maroc 2026"
-              >
-                <!-- data-video-embed : URL d’intégration (/embed/…) OU lien youtube.com/watch?v=… / youtu.be/… (converti automatiquement) -->
-                <button class="dsf-video__cover" type="button" id="dsf-video-play" aria-label="Lire la vidéo de présentation">
-                  <img
-                    class="dsf-video__thumb"
-                    src="assets/img/Video-thumbnail.jpg"
-                    alt="Aperçu vidéo — Défi Sans Frontières Maroc 2026"
-                    loading="lazy"
-                  />
-                  <span class="dsf-video__play" aria-hidden="true">▶</span>
-                </button>
-              </div>
-              <p class="dsf-section__lead" style="margin-top: 0.75rem"></p>
-            </div>
-          </div>
-        </section>
 
         <!-- Compte à rebours candidatures -->
         <section id="compte-rebours" class="dsf-countdown" aria-labelledby="titre-compte-rebours">
@@ -176,6 +152,31 @@
                 <span class="dsf-countdown__value" id="dsf-cd-seconds">—</span>
                 <span class="dsf-countdown__label">Secondes</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="video" class="dsf-section dsf-section--alt" aria-labelledby="titre-video">
+          <div class="dsf-container">
+            <h2 id="titre-video" class="dsf-section__title">30 places · Un désert · Un documentaire · Une cause</h2>
+            <div class="dsf-video">
+              <div
+                class="dsf-video__frame dsf-video__frame--cover"
+                data-video-embed="https://vimeo.com/1189117951?share=copy&fl=sv&fe=ci"
+                data-video-title="Vidéo de présentation — Défi Sans Frontières Maroc 2026"
+              >
+                <!-- data-video-embed : URL d’intégration (/embed/…) OU lien youtube.com/watch?v=… / youtu.be/… (converti automatiquement) -->
+                <button class="dsf-video__cover" type="button" id="dsf-video-play" aria-label="Lire la vidéo de présentation">
+                  <img
+                    class="dsf-video__thumb"
+                    src="assets/img/Video-thumbnail.jpg"
+                    alt="Aperçu vidéo — Défi Sans Frontières Maroc 2026"
+                    loading="lazy"
+                  />
+                  <span class="dsf-video__play" aria-hidden="true">▶</span>
+                </button>
+              </div>
+              <p class="dsf-section__lead" style="margin-top: 0.75rem"></p>
             </div>
           </div>
         </section>
