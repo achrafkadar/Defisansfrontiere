@@ -116,6 +116,47 @@
         </div>
       </section>
 
+      <!-- Compte à rebours candidatures -->
+      <section
+        id="compte-rebours"
+        class="dsf-countdown"
+        aria-labelledby="titre-compte-rebours"
+      >
+        <div class="dsf-countdown__ambient" aria-hidden="true"></div>
+        <div class="dsf-container">
+          <p class="dsf-countdown__eyebrow">Dernière ligne droite</p>
+          <h2 id="titre-compte-rebours" class="dsf-countdown__title">
+            Candidatures jusqu’au <span class="dsf-countdown__title-strong">20 mai 2026</span>
+          </h2>
+          <p class="dsf-countdown__note">Clôture le 20 mai 2026 à 23 h 59 · heure locale</p>
+          <div
+            id="dsf-countdown"
+            class="dsf-countdown__grid"
+            role="timer"
+            aria-live="polite"
+            aria-atomic="true"
+            aria-label="Temps restant avant la clôture des candidatures"
+          >
+            <div class="dsf-countdown__unit">
+              <span class="dsf-countdown__value" id="dsf-cd-days">—</span>
+              <span class="dsf-countdown__label">Jours</span>
+            </div>
+            <div class="dsf-countdown__unit">
+              <span class="dsf-countdown__value" id="dsf-cd-hours">—</span>
+              <span class="dsf-countdown__label">Heures</span>
+            </div>
+            <div class="dsf-countdown__unit">
+              <span class="dsf-countdown__value" id="dsf-cd-minutes">—</span>
+              <span class="dsf-countdown__label">Minutes</span>
+            </div>
+            <div class="dsf-countdown__unit">
+              <span class="dsf-countdown__value" id="dsf-cd-seconds">—</span>
+              <span class="dsf-countdown__label">Secondes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- SECTION 2 — VIDÉO -->
       <section id="video" class="dsf-section dsf-section--alt" aria-labelledby="titre-video">
         <div class="dsf-container">
@@ -1072,6 +1113,7 @@
     <script defer src="assets/js/analytics.js"></script>
     <script defer src="assets/js/smooth-scroll.js"></script>
     <script defer src="assets/js/design-motion.js"></script>
+    <script defer src="assets/js/countdown.js"></script>
     <script defer src="assets/js/video-cover.js"></script>
     <script defer src="assets/js/form-gate.js"></script>
     <script defer src="assets/js/form-submit.js"></script>
