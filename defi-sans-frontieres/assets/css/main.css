@@ -810,8 +810,39 @@ body {
   background-color: var(--color-bg-alt);
 }
 
-/* Coller la transition vidéo -> concept */
-#video.dsf-section + .dsf-concept-parcours-wrap {
+/* Bloc vidéo + compte à rebours : un seul fond (dégradés type compte à rebours) */
+.dsf-video-countdown-wrap {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: -1px;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(110, 231, 255, 0.12), transparent 55%),
+    radial-gradient(ellipse 90% 60% at 80% 100%, rgba(255, 203, 27, 0.08), transparent 50%),
+    linear-gradient(180deg, #0a0d14 0%, #12151f 45%, #0d1018 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dsf-video-countdown-wrap .dsf-countdown {
+  background: transparent;
+  border: none;
+  margin-top: 0;
+}
+
+.dsf-video-countdown-wrap #video.dsf-section {
+  --section-image: none;
+  --section-image-opacity: 0;
+  background: transparent;
+}
+
+.dsf-video-countdown-wrap #video.dsf-section::before,
+.dsf-video-countdown-wrap #video.dsf-section::after {
+  display: none;
+}
+
+/* Coller la transition bloc vidéo+compte à rebours -> concept */
+.dsf-video-countdown-wrap + .dsf-concept-parcours-wrap {
   margin-top: -1px;
 }
 
@@ -1067,7 +1098,7 @@ body {
   }
 }
 
-/* ------------------------------------------------------------------------- Compte à rebours (lux · hero → vidéo) */
+/* ------------------------------------------------------------------------- Compte à rebours (lux · après vidéo) */
 .dsf-countdown {
   position: relative;
   isolation: isolate;
