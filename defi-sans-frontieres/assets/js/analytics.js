@@ -5,8 +5,8 @@
 (function () {
   "use strict";
 
-  var GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
-  var META_PIXEL_ID = "XXXXXXXXXXXXXXX";
+  var GA_MEASUREMENT_ID = "G-YB8V8LS6YD";
+  var META_PIXEL_ID = "1569680114265654";
 
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
   var STORAGE_KEY = "dsf_utm_params";
@@ -143,8 +143,35 @@
         if (window.fbq) {
           window.fbq("trackCustom", "CTAClick", { button_label: label });
         }
+        if (
+          label === "header_postule" ||
+          label === "hero_postule" ||
+          label === "submit_form"
+        ) {
+          safeDataLayer({ event: "postuler_click", button_label: label });
+          if (window.gtag) {
+            window.gtag("event", "postuler_click", { button_label: label });
+          }
+          if (window.fbq) {
+            window.fbq("trackCustom", "PostulerClick", { button_label: label });
+          }
+        }
       });
     });
+  }
+
+  function trackThankYouPageView() {
+    var p = (window.location.pathname || "").toLowerCase();
+    if (p.indexOf("merci.html") === -1) return;
+
+    safeDataLayer({ event: "thank_you_page_view" });
+    if (window.gtag) {
+      window.gtag("event", "thank_you_page_view");
+      window.gtag("event", "generate_lead", { form_id: "dsf_maroc_2026" });
+    }
+    if (window.fbq) {
+      window.fbq("track", "Lead");
+    }
   }
 
   function trackFilterCheckbox(name) {
@@ -215,6 +242,7 @@
       trackScrollDepth();
       bindCtaTracking();
       trackFormStart();
+      trackThankYouPageView();
     },
     trackFilterCheckbox: trackFilterCheckbox,
     trackFilterAllChecked: trackFilterAllChecked,
