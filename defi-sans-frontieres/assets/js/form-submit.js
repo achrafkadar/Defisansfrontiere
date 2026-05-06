@@ -110,6 +110,22 @@
     if (url) next.value = url;
   }
 
+  function formSubmitAjaxUrl(actionUrl) {
+    if (!actionUrl) return "";
+    try {
+      var u = new URL(actionUrl, window.location.href);
+      if (u.hostname !== "formsubmit.co") return u.toString();
+      if (u.pathname.indexOf("/ajax/") === 0) return u.toString();
+      u.pathname = "/ajax" + (u.pathname.charAt(0) === "/" ? u.pathname : "/" + u.pathname);
+      return u.toString();
+    } catch (e) {
+      if (actionUrl.indexOf("https://formsubmit.co/") === 0 && actionUrl.indexOf("https://formsubmit.co/ajax/") !== 0) {
+        return actionUrl.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
+      }
+      return actionUrl;
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     bindCharCount("field_s2_pourquoi", "count_s2a");
     bindCharCount("field_s2_cause", "count_s2b");
@@ -134,9 +150,9 @@
     }
 
     form.addEventListener("submit", function (e) {
+      e.preventDefault();
       var inner = document.getElementById("dsf-form-inner");
       if (inner && inner.classList.contains("dsf-form-locked")) {
-        e.preventDefault();
         if (window.DSF && window.DSF.analytics) {
           window.DSF.analytics.trackFormError("form_locked");
         }
@@ -144,7 +160,6 @@
       }
 
       if (typeof form.reportValidity === "function" && !form.reportValidity()) {
-        e.preventDefault();
         if (window.DSF && window.DSF.analytics) {
           window.DSF.analytics.trackFormError("reportValidity");
         }
@@ -153,7 +168,6 @@
 
       var vu = document.getElementById("field_video_url");
       if (vu && !validateField(vu)) {
-        e.preventDefault();
         return;
       }
 
@@ -174,13 +188,43 @@
         sessionStorage.setItem("dsf_merci_prenom", prenomFromComplet);
       } catch (err) {}
 
-      if (window.DSF && window.DSF.analytics) {
-        window.DSF.analytics.trackFormSubmitSuccess();
-      }
-
       var btn = document.getElementById("dsf-submit-btn");
       if (btn) btn.classList.add("is-loading");
-      /* Pas de preventDefault : navigation POST vers FormSubmit puis _next */
+      var ajaxAction = formSubmitAjaxUrl(form.getAttribute("action") || "");
+      var thankYouUrl = merciPageAbsoluteUrl();
+      var fd = new FormData(form);
+
+      fetch(ajaxAction, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: fd,
+      })
+        .then(function (res) {
+          return res.json().catch(function () {
+            return { success: "false", message: "Réponse invalide de FormSubmit." };
+          });
+        })
+        .then(function (data) {
+          var ok = data && (data.success === true || data.success === "true");
+          if (!ok) {
+            throw new Error((data && data.message) || "Soumission impossible pour le moment.");
+          }
+          if (window.DSF && window.DSF.analytics) {
+            window.DSF.analytics.trackFormSubmitSuccess();
+          }
+          window.location.href = thankYouUrl || "merci.html";
+        })
+        .catch(function (err) {
+          if (btn) btn.classList.remove("is-loading");
+          if (window.DSF && window.DSF.analytics) {
+            window.DSF.analytics.trackFormError("ajax_submit_failed");
+          }
+          window.alert(
+            "La soumission a échoué (" +
+              (err && err.message ? err.message : "erreur inconnue") +
+              "). Merci de réessayer."
+          );
+        });
     });
   });
 })();

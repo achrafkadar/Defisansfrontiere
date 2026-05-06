@@ -164,14 +164,35 @@
   function trackThankYouPageView() {
     var p = (window.location.pathname || "").toLowerCase();
     if (p.indexOf("merci.html") === -1) return;
+    var purchaseTracked = false;
+    try {
+      if (sessionStorage.getItem("dsf_purchase_tracked") === "1") {
+        purchaseTracked = true;
+      } else {
+        sessionStorage.setItem("dsf_purchase_tracked", "1");
+      }
+    } catch (e) {}
 
     safeDataLayer({ event: "thank_you_page_view" });
     if (window.gtag) {
       window.gtag("event", "thank_you_page_view");
       window.gtag("event", "generate_lead", { form_id: "dsf_maroc_2026" });
+      if (!purchaseTracked) {
+        window.gtag("event", "purchase", {
+          currency: "CAD",
+          value: 1,
+          transaction_id: "dsf_" + Date.now(),
+        });
+      }
     }
     if (window.fbq) {
       window.fbq("track", "Lead");
+      if (!purchaseTracked) {
+        window.fbq("track", "Purchase", {
+          currency: "CAD",
+          value: 1,
+        });
+      }
     }
   }
 
