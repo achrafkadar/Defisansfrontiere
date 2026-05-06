@@ -82,8 +82,7 @@
       details: [
         "Transfert à l'aéroport en fonction de l'heure de décollage.",
         "Vol de retour vers le Québec.",
-        "Rappel : rien n'est figé — imprévus ou découvertes peuvent adapter le parcours sous la responsabilité du guide.",
-        "Informations détaillées et tarifs : Karavaniers (514 281-0799, expeditions@karavaniers.com)."
+        "Rappel : rien n'est figé — imprévus ou découvertes peuvent adapter le parcours sous la responsabilité du guide."
       ]
     }
   };
