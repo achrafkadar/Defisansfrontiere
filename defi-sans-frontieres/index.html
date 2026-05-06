@@ -482,7 +482,7 @@
         novalidate
       >
         <!--
-          Envoi via FormSubmit (https://formsubmit.co) vers ads@wenov.ca + copies à wenovsolutions@gmail.com et info@fondationsanteoutaouais.ca.
+          Envoi via FormSubmit (https://formsubmit.co) vers ads@wenov.ca + copies à wenovsolutions@gmail.com, abenzakour@fondationsanteoutaouais.ca, icarbonneau@fondationsanteoutaouais.ca et jpigeon@fondationsanteoutaouais.ca.
           Vidéo : Uploadcare (clé meta uploadcare-public-key) — URL envoyée dans le champ video_uploadcare ; pas de pièce jointe lourde vers FormSubmit.
           _next : page merci.html (URL absolue définie par assets/js/form-submit.js au chargement et à la soumission).
           TODO FSO prod : WPForms / Gravity + SMTP ou API Resend côté serveur (ne jamais exposer la clé API au navigateur).
@@ -498,7 +498,11 @@
         />
         <!-- Désactive reCAPTCHA : évite l’étape intermédiaire qui casse souvent _next. Réactiver (retirer ce champ) si le spam augmente. -->
         <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_cc" value="wenovsolutions@gmail.com,info@fondationsanteoutaouais.ca" />
+        <input
+          type="hidden"
+          name="_cc"
+          value="wenovsolutions@gmail.com,abenzakour@fondationsanteoutaouais.ca,icarbonneau@fondationsanteoutaouais.ca,jpigeon@fondationsanteoutaouais.ca"
+        />
         <input type="hidden" name="_replyto" id="dsf-form-replyto" value="" />
         <!-- Anti-robots (laisser vide) -->
         <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" />
