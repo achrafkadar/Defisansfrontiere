@@ -153,6 +153,7 @@
             window.gtag("event", "postuler_click", { button_label: label });
           }
           if (window.fbq) {
+            window.fbq("track", "InitiateCheckout");
             window.fbq("trackCustom", "PostulerClick", { button_label: label });
           }
         }
