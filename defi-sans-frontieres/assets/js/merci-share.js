@@ -15,6 +15,12 @@
     }
   }
 
+  function trackShare(method) {
+    if (window.DSF && window.DSF.analytics && typeof window.DSF.analytics.trackMerciShare === "function") {
+      window.DSF.analytics.trackMerciShare(method);
+    }
+  }
+
   function shareUrl() {
     var base = landingUrlFromMeta();
     if (!base) return "";
@@ -44,6 +50,9 @@
 
     if (link && url) {
       link.setAttribute("href", url);
+      link.addEventListener("click", function () {
+        trackShare("open_link");
+      });
     }
 
     function showFeedback(msg) {
@@ -55,6 +64,7 @@
     if (copyBtn && url) {
       copyBtn.addEventListener("click", function () {
         function ok() {
+          trackShare("copy_link");
           showFeedback("Lien copié dans le presse-papiers.");
         }
         function fail() {
@@ -77,6 +87,9 @@
             title: "Défi Sans Frontières — Maroc 2026",
             text: "Je postule au défi — et toi ?",
             url: url,
+          })
+          .then(function () {
+            trackShare("native_share");
           })
           .catch(function () {});
       });

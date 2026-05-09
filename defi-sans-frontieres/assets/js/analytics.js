@@ -255,6 +255,21 @@
     }
   }
 
+  /**
+   * Page merci — partage bouche-à-oreille (UTMs).
+   * share_method: copy_link | native_share | open_link
+   */
+  function trackMerciShare(shareMethod) {
+    var method = shareMethod || "unknown";
+    safeDataLayer({ event: "merci_share", share_method: method });
+    if (window.gtag) {
+      window.gtag("event", "merci_share", { share_method: method });
+    }
+    if (window.fbq) {
+      window.fbq("trackCustom", "MerciShare", { share_method: method });
+    }
+  }
+
   window.DSF = window.DSF || {};
   window.DSF.analytics = {
     init: function () {
@@ -271,6 +286,7 @@
     trackFormSubmitSuccess: trackFormSubmitSuccess,
     trackFormError: trackFormError,
     trackVideoPlay: trackVideoPlay,
+    trackMerciShare: trackMerciShare,
   };
 
   document.addEventListener("DOMContentLoaded", function () {
