@@ -113,7 +113,7 @@ require_once get_stylesheet_directory() . '/defi-sans-frontieres/wp-template/fun
 
 ### Domaine
 
-- [ ] `fso.defisansfrontieres.ca` → landing `/defi-sans-frontieres/`
+- [ ] `fso.defisansfrontieres.ca` → landing à la racine (`/` et `/merci.html` après soumission)
 - [ ] Redirections obsolètes retirées (Patrick Sinsen)
 - [ ] HTTPS + choix www cohérent avec le site FSO
 
