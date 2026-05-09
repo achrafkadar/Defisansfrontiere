@@ -113,7 +113,7 @@ require_once get_stylesheet_directory() . '/defi-sans-frontieres/wp-template/fun
 
 ### Domaine
 
-- [ ] `defisansfrontieres.com` → page WP `/defi-sans-frontieres`
+- [ ] `fso.defisansfrontieres.ca` → landing `/defi-sans-frontieres/`
 - [ ] Redirections obsolètes retirées (Patrick Sinsen)
 - [ ] HTTPS + choix www cohérent avec le site FSO
 
@@ -130,4 +130,4 @@ require_once get_stylesheet_directory() . '/defi-sans-frontieres/wp-template/fun
 7. **Configurer** le courriel transactionnel dans WPForms en t’inspirant de `email-templates/confirmation-soumission.html` (souvent les clients mail stripent le CSS — tester Gmail / Outlook / Apple Mail).
 8. **Copier** `page-defi-sans-frontieres.php` à la racine du thème enfant et vérifier le slug de page `defi-sans-frontieres`.
 9. **Tester** sur staging : formulaire réel, courriel, CRM, pas de `console.log` de données personnelles.
-10. **Lancer** Lighthouse + axe DevTools + test clavier complet, puis bascule DNS / redirection `defisansfrontieres.com` le jour J.
+10. **Lancer** Lighthouse + axe DevTools + test clavier complet, puis bascule DNS / redirection `fso.defisansfrontieres.ca` le jour J.
