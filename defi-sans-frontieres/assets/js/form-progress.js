@@ -1,6 +1,6 @@
 /**
  * Barre de progression du formulaire (étapes 1–4).
- * Détection au scroll + focus (plus fiable que seul IntersectionObserver sur de longs blocs).
+ * Scroll + interactions (focus, clic, saisie) pour une mise à jour fiable.
  */
 (function () {
   "use strict";
@@ -17,22 +17,39 @@
     return STEPS[i];
   }
 
+  function clampStep(s) {
+    return Math.min(Math.max(s, 1), STEPS.length);
+  }
+
   /**
-   * Dernière section (ordre du document) dont le haut est au-dessus de la ligne de repère
-   * — même logique qu’un scrollspy : on suit la progression réelle du formulaire.
+   * 1) Section dont la zone englobe la « ligne de lecture » (~20 % du haut du viewport).
+   * 2) Sinon, scrollspy : dernière section dont le haut a dépassé cette ligne (ordre du document).
    */
   function computeStepFromScroll(fieldsets) {
-    var lineY = Math.min(window.innerHeight * 0.22, 280);
+    var h = window.innerHeight || 600;
+    var marker = Math.min(h * 0.2, 220);
     var active = 1;
+    var i;
+
+    for (i = 0; i < fieldsets.length; i++) {
+      var fs = fieldsets[i];
+      var r = fs.getBoundingClientRect();
+      var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
+      if (isNaN(s)) continue;
+      if (r.top <= marker && r.bottom >= marker) {
+        return clampStep(s);
+      }
+    }
+
     fieldsets.forEach(function (fs) {
       var r = fs.getBoundingClientRect();
       var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
       if (isNaN(s)) return;
-      if (r.top <= lineY) {
+      if (r.top <= marker) {
         active = s;
       }
     });
-    return Math.min(Math.max(active, 1), STEPS.length);
+    return clampStep(active);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -74,8 +91,19 @@
       });
     }
 
-    function update() {
+    function updateFromScroll() {
       render(computeStepFromScroll(fieldsets));
+    }
+
+    function updateFromFieldsetInteraction(ev) {
+      var t = ev.target;
+      if (!t || !t.closest) return;
+      var fs = t.closest("[data-dsf-step]");
+      if (!fs || !wrap.contains(fs)) return;
+      var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
+      if (isNaN(s)) return;
+      lastRendered = 0;
+      render(s);
     }
 
     var ticking = false;
@@ -84,30 +112,21 @@
       ticking = true;
       window.requestAnimationFrame(function () {
         ticking = false;
-        update();
+        updateFromScroll();
       });
     }
 
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("scroll", onScrollOrResize, { passive: true, capture: true });
+    document.addEventListener("scroll", onScrollOrResize, { passive: true, capture: true });
     window.addEventListener("resize", onScrollOrResize, { passive: true });
 
-    wrap.addEventListener(
-      "focusin",
-      function (e) {
-        var fs = e.target.closest ? e.target.closest("[data-dsf-step]") : null;
-        if (!fs || !wrap.contains(fs)) return;
-        var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
-        if (!isNaN(s)) {
-          lastRendered = 0;
-          render(s);
-        }
-      },
-      true
-    );
+    wrap.addEventListener("focusin", updateFromFieldsetInteraction, true);
+    wrap.addEventListener("pointerdown", updateFromFieldsetInteraction, true);
+    wrap.addEventListener("input", updateFromFieldsetInteraction, true);
 
     lastRendered = 0;
-    update();
-    window.setTimeout(update, 100);
-    window.setTimeout(update, 400);
+    updateFromScroll();
+    window.setTimeout(updateFromScroll, 80);
+    window.setTimeout(updateFromScroll, 350);
   });
 })();
