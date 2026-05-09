@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Merci — Défi Sans Frontières Maroc 2026 | Fondation Santé Outaouais</title>
+    <!-- URL de la landing pour le lien de partage (UTMs). À aligner avec le domaine réel en production. -->
+    <meta name="dsf-share-landing" content="https://defisansfrontieres.com/" />
     <meta name="robots" content="noindex" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -47,22 +49,43 @@
             On a bien reçu ton formulaire. C’est déjà un pas que peu de gens osent faire, et on tient à te le dire.
           </p>
 
-          <p class="dsf-merci-page__lead">Voici ce qui arrive maintenant :</p>
+          <p class="dsf-merci-page__lead">Les prochaines étapes :</p>
 
-          <ul class="dsf-merci-page__list">
+          <ol class="dsf-merci-page__steps">
             <li>
-              Notre équipe va prendre le temps de visionner chaque candidature, une par une. On cherche
-              <strong>60 finalistes</strong> qui seront invités au casting en personne à Gatineau le
-              <strong>23 mai 2026</strong>.
+              <strong>Analyse du dossier.</strong> Notre équipe prend le temps de lire et visionner chaque candidature avec
+              attention.
             </li>
             <li>
-              Tu recevras un courriel d’ici le <strong>20 mai</strong> pour t’annoncer le résultat de cette première
-              étape, qu’il soit positif ou non. Pas de mauvaise surprise, pas de silence radio.
+              <strong>Réponse par courriel d’ici le 20 mai.</strong> On te communiquera le résultat de la pré-sélection,
+              qu’il soit positif ou non — pas de silence radio.
             </li>
             <li>
-              D’ici là, parle de ton projet autour de toi. Le bouche-à-oreille fait partie de l’aventure.
+              <strong>Si tu es invité au casting</strong> — le <strong>23 mai 2026 à 11 h</strong>, à la salle
+              <strong>La Basoche</strong>, <strong>120 rue Principale, Gatineau (QC) J9H 3M3</strong>. On cherche jusqu’à
+              <strong>60 finalistes</strong> pour cette étape en personne.
             </li>
-          </ul>
+            <li>
+              <strong>Annonce des 30 participants</strong> le <strong>1er juin 2026</strong>, puis mise en ligne de la page
+              de collecte pour ceux qui sont sélectionnés.
+            </li>
+          </ol>
+
+          <section class="dsf-merci-share" aria-labelledby="merci-share-title">
+            <h2 id="merci-share-title" class="dsf-merci-share__title">Invite un ami à postuler</h2>
+            <p class="dsf-merci-share__text">
+              Partage le lien vers la page du défi : les paramètres UTM permettent de repérer les candidatures issues du
+              bouche-à-oreille dans tes rapports.
+            </p>
+            <div class="dsf-merci-share__actions">
+              <a id="dsf-share-link" class="dsf-btn dsf-btn--primary" href="index.html#filtres">Ouvrir la page du défi</a>
+              <button type="button" class="dsf-btn dsf-btn--outline" id="dsf-share-copy">Copier le lien</button>
+              <button type="button" class="dsf-btn dsf-btn--outline dsf-merci-share__native" id="dsf-share-native" hidden>
+                Partager…
+              </button>
+            </div>
+            <p class="dsf-merci-share__feedback" id="dsf-share-feedback" role="status" aria-live="polite" hidden></p>
+          </section>
 
           <p>
             Une question entre-temps ? Écris-nous à
@@ -103,5 +126,6 @@
       })();
     </script>
     <script defer src="assets/js/analytics.js"></script>
+    <script defer src="assets/js/merci-share.js"></script>
   </body>
 </html>

@@ -2313,6 +2313,91 @@ html.dsf-enhanced .dsf-form-wrap.dsf-form-locked {
   gap: 1rem;
 }
 
+/* Progression du formulaire (4 étapes) */
+.dsf-form-progress {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + var(--header-offset));
+  z-index: 40;
+  margin: 0 0 0.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--color-border);
+  background: rgba(8, 12, 20, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.dsf-form-progress__meta {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.dsf-form-progress__total {
+  font-weight: 800;
+}
+
+.dsf-form-progress__dash {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+#dsf-form-step-name {
+  color: var(--color-primary);
+}
+
+.dsf-form-progress__track {
+  height: 0.45rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.dsf-form-progress__fill {
+  height: 100%;
+  width: 25%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  transition: width 0.35s ease;
+}
+
+@media (max-width: 767px) {
+  #postuler .dsf-field label,
+  #postuler .dsf-field-label {
+    font-size: 1rem;
+  }
+
+  #postuler .dsf-form-fieldset__legend {
+    font-size: 1.1rem;
+    line-height: 1.35;
+  }
+
+  #postuler .dsf-field .hint,
+  #postuler .dsf-field-label .hint {
+    font-size: 0.9375rem;
+    color: #c8d0dc;
+  }
+
+  #filtres .dsf-check label {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: #e6eaef;
+  }
+
+  #postuler .dsf-char {
+    font-size: 0.875rem;
+    color: #b4becb;
+  }
+
+  label.dsf-check {
+    font-size: 1rem;
+  }
+}
+
 .dsf-form-fieldset {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-button);
@@ -2625,6 +2710,62 @@ label.dsf-check {
 
 .dsf-merci-page__list li:last-child {
   margin-bottom: 0;
+}
+
+.dsf-merci-page__steps {
+  margin: 0 auto 1.5rem;
+  padding-left: 1.35rem;
+  max-width: 52rem;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.55;
+}
+
+.dsf-merci-page__steps li {
+  margin-bottom: 0.85rem;
+}
+
+.dsf-merci-page__steps li:last-child {
+  margin-bottom: 0;
+}
+
+.dsf-merci-share {
+  margin: 1.75rem auto 1.5rem;
+  padding: 1.25rem 1.15rem;
+  max-width: 42rem;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.dsf-merci-share__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  color: var(--color-accent);
+  margin: 0 0 0.65rem;
+}
+
+.dsf-merci-share__text {
+  margin: 0 0 1rem !important;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.9) !important;
+  max-width: 48ch !important;
+}
+
+.dsf-merci-share__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.dsf-merci-share__feedback {
+  margin: 0.85rem 0 0 !important;
+  font-size: 0.92rem !important;
+  color: var(--color-success) !important;
 }
 
 .dsf-merci-page__signoff {

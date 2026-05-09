@@ -89,6 +89,7 @@ function dsf_enqueue_landing_assets() {
 		'dsf-smooth'     => '/assets/js/smooth-scroll.js',
 		'dsf-design-motion' => '/assets/js/design-motion.js',
 		'dsf-form-gate'  => '/assets/js/form-gate.js',
+		'dsf-form-progress' => '/assets/js/form-progress.js',
 		'dsf-form-submit' => '/assets/js/form-submit.js',
 	);
 
@@ -131,7 +132,7 @@ add_filter( 'body_class', 'dsf_body_class' );
  * @return string
  */
 function dsf_defer_scripts( $tag, $handle ) {
-	$dsf_handles = array( 'dsf-analytics', 'dsf-smooth', 'dsf-design-motion', 'dsf-form-gate', 'dsf-form-submit' );
+	$dsf_handles = array( 'dsf-analytics', 'dsf-smooth', 'dsf-design-motion', 'dsf-form-gate', 'dsf-form-progress', 'dsf-form-submit' );
 	if ( in_array( $handle, $dsf_handles, true ) && false === strpos( $tag, 'defer' ) ) {
 		return str_replace( ' src', ' defer src', $tag );
 	}

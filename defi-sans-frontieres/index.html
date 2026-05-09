@@ -619,7 +619,26 @@
             <div class="dsf-form-wrap" id="dsf-form-inner">
               <div class="dsf-form">
                 <!-- DSF_FORM_INNER -->
-                <fieldset class="dsf-form-fieldset">
+                <div class="dsf-form-progress" id="dsf-form-progress">
+                  <p class="dsf-form-progress__meta" id="dsf-form-progress-label">
+                    Étape <span id="dsf-form-step-current">1</span> sur
+                    <span class="dsf-form-progress__total">4</span><span class="dsf-form-progress__dash"> — </span>
+                    <span id="dsf-form-step-name">Profil &amp; motivation</span>
+                  </p>
+                  <div
+                    class="dsf-form-progress__track"
+                    id="dsf-form-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="1"
+                    aria-valuenow="1"
+                    aria-valuemax="4"
+                    aria-valuetext="Étape 1 sur 4 — Profil &amp; motivation"
+                    aria-labelledby="dsf-form-progress-label"
+                  >
+                    <div class="dsf-form-progress__fill" id="dsf-form-progress-fill"></div>
+                  </div>
+                </div>
+                <fieldset class="dsf-form-fieldset" data-dsf-step="1">
                   <legend class="dsf-form-fieldset__legend">Section 1 — Informations générales</legend>
                   <div class="dsf-field">
                     <label for="field_nom_complet">Nom complet</label>
@@ -651,7 +670,7 @@
                   </div>
                 </fieldset>
 
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="1">
                   <legend class="dsf-form-fieldset__legend">Section 2 — Profil &amp; motivation</legend>
                   <div class="dsf-field">
                     <label for="field_s2_pourquoi">Pourquoi souhaitez-vous participer à ce défi caritatif au Maroc ?</label>
@@ -675,7 +694,7 @@
                   </div>
                 </fieldset>
 
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="2">
                   <legend class="dsf-form-fieldset__legend">Section 3 — Condition physique &amp; expérience</legend>
                   <div class="dsf-field">
                     <p class="dsf-field-label" id="lbl_cond">Comment évaluez-vous votre condition physique ?</p>
@@ -709,7 +728,7 @@
                     <textarea id="field_limitations" name="limitations_medicales" maxlength="1200" rows="4"></textarea>
                   </div>
                 </fieldset>
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="2">
                   <legend class="dsf-form-fieldset__legend">Section 4 — Levée de fonds</legend>
                   <div class="dsf-field">
                     <p class="dsf-field-label" id="lbl_levee">Avez-vous déjà fait de la levée de fonds ?</p>
@@ -729,7 +748,7 @@
                   </div>
                 </fieldset>
 
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="3">
                   <legend class="dsf-form-fieldset__legend">Section 5 — Réseaux sociaux &amp; visibilité</legend>
                   <div class="dsf-field">
                     <label for="field_reseaux">Quels sont vos réseaux sociaux ? (Instagram, Facebook, TikTok, LinkedIn, etc.)</label>
@@ -737,7 +756,7 @@
                   </div>
                 </fieldset>
 
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="3">
                   <legend class="dsf-form-fieldset__legend">Section 6 — Questions finales</legend>
                   <div class="dsf-field">
                     <p class="dsf-field-label" id="lbl_confort">Êtes-vous prêt(e) à sortir de votre zone de confort et vivre une expérience exigeante ?</p>
@@ -782,7 +801,7 @@
                   </div>
                 </fieldset>
 
-                <fieldset class="dsf-form-fieldset">
+                <fieldset class="dsf-form-fieldset" data-dsf-step="4">
                   <legend class="dsf-form-fieldset__legend">Section 7 — Engagement final</legend>
                   <p class="dsf-field-label">Je confirme que : <span class="hint">(obligatoire)</span></p>
                   <div class="dsf-check-stack">
@@ -1132,6 +1151,7 @@
     <script defer src="assets/js/countdown.js"></script>
     <script defer src="assets/js/video-cover.js"></script>
     <script defer src="assets/js/form-gate.js"></script>
+    <script defer src="assets/js/form-progress.js"></script>
     <script defer src="assets/js/form-submit.js"></script>
     <script defer src="assets/js/parcours-popup.js"></script>
   </body>
