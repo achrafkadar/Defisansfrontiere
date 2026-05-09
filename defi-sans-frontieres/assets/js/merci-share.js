@@ -1,32 +1,34 @@
 /**
  * Lien de partage avec UTMs (bouche-à-oreille) sur la page merci.
+ * L’URL de la landing est déduite du chemin actuel pour fonctionner sur GitHub Pages,
+ * sous-dossier ou domaine custom — pas seulement depuis la meta « prod ».
  */
 (function () {
   "use strict";
 
-  function landingUrlFromMeta() {
-    var meta = document.querySelector('meta[name="dsf-share-landing"]');
-    var raw = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
-    if (raw && /^https?:\/\//i.test(raw)) return raw;
+  /**
+   * URL absolue du fichier index.html du défi (sans hash ni query).
+   * - merci dans defi-sans-frontieres/ → index.html voisin
+   * - merci à la racine du repo → defi-sans-frontieres/index.html
+   */
+  function resolveLandingIndexUrl() {
     try {
-      return new URL("index.html", window.location.href).href;
+      var path = window.location.pathname || "";
+      var atRepoRootMerci = /\/merci\.html$/i.test(path) && path.indexOf("defi-sans-frontieres") === -1;
+      if (atRepoRootMerci) {
+        return new URL("defi-sans-frontieres/index.html", window.location.href).href.split(/[?#]/)[0];
+      }
+      return new URL("index.html", window.location.href).href.split(/[?#]/)[0];
     } catch (e) {
       return "";
     }
   }
 
-  function trackShare(method) {
-    if (window.DSF && window.DSF.analytics && typeof window.DSF.analytics.trackMerciShare === "function") {
-      window.DSF.analytics.trackMerciShare(method);
-    }
-  }
-
   function shareUrl() {
-    var base = landingUrlFromMeta();
+    var base = resolveLandingIndexUrl();
     if (!base) return "";
     try {
-      var root = base.split(/[?#]/)[0];
-      var u = new URL("index.html", root.endsWith("/") ? root : root + "/");
+      var u = new URL(base);
       u.searchParams.set("utm_source", "referral");
       u.searchParams.set("utm_medium", "share");
       u.searchParams.set("utm_campaign", "defi_maroc_2026");
@@ -39,6 +41,12 @@
         (base.indexOf("?") === -1 ? "?" : "&") +
         "utm_source=referral&utm_medium=share&utm_campaign=defi_maroc_2026&utm_content=merci_invite_friend#filtres"
       );
+    }
+  }
+
+  function trackShare(method) {
+    if (window.DSF && window.DSF.analytics && typeof window.DSF.analytics.trackMerciShare === "function") {
+      window.DSF.analytics.trackMerciShare(method);
     }
   }
 
