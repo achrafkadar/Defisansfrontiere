@@ -1,5 +1,6 @@
 /**
- * Barre de progression du formulaire (étapes 1–4) selon la section visible.
+ * Barre de progression du formulaire (étapes 1–4).
+ * Détection au scroll + focus (plus fiable que seul IntersectionObserver sur de longs blocs).
  */
 (function () {
   "use strict";
@@ -16,6 +17,24 @@
     return STEPS[i];
   }
 
+  /**
+   * Dernière section (ordre du document) dont le haut est au-dessus de la ligne de repère
+   * — même logique qu’un scrollspy : on suit la progression réelle du formulaire.
+   */
+  function computeStepFromScroll(fieldsets) {
+    var lineY = Math.min(window.innerHeight * 0.22, 280);
+    var active = 1;
+    fieldsets.forEach(function (fs) {
+      var r = fs.getBoundingClientRect();
+      var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
+      if (isNaN(s)) return;
+      if (r.top <= lineY) {
+        active = s;
+      }
+    });
+    return Math.min(Math.max(active, 1), STEPS.length);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     var wrap = document.getElementById("dsf-form-inner");
     if (!wrap) return;
@@ -25,26 +44,16 @@
     var barEl = document.getElementById("dsf-form-progress-bar");
     var currentEl = document.getElementById("dsf-form-step-current");
     var nameEl = document.getElementById("dsf-form-step-name");
+    var pills = wrap.querySelectorAll("[data-dsf-progress-step]");
 
     if (!fieldsets.length || !fillEl || !barEl) return;
 
-    var visible = new Map();
-    fieldsets.forEach(function (fs) {
-      visible.set(fs, false);
-    });
-
-    function maxVisibleStep() {
-      var max = 1;
-      fieldsets.forEach(function (fs) {
-        if (visible.get(fs)) {
-          var n = parseInt(fs.getAttribute("data-dsf-step"), 10);
-          if (!isNaN(n) && n > max) max = n;
-        }
-      });
-      return max;
-    }
+    var lastRendered = 0;
 
     function render(stepNum) {
+      if (stepNum === lastRendered) return;
+      lastRendered = stepNum;
+
       var meta = stepMeta(stepNum);
       var pct = (stepNum / STEPS.length) * 100;
       fillEl.style.width = pct + "%";
@@ -56,26 +65,49 @@
       );
       if (currentEl) currentEl.textContent = String(stepNum);
       if (nameEl) nameEl.textContent = meta.title;
+
+      pills.forEach(function (pill) {
+        var sn = parseInt(pill.getAttribute("data-dsf-progress-step"), 10);
+        if (isNaN(sn)) return;
+        pill.classList.toggle("is-current", sn === stepNum);
+        pill.classList.toggle("is-done", sn < stepNum);
+      });
     }
 
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (en) {
-          visible.set(en.target, en.isIntersecting && en.intersectionRatio > 0.08);
-        });
-        render(maxVisibleStep());
+    function update() {
+      render(computeStepFromScroll(fieldsets));
+    }
+
+    var ticking = false;
+    function onScrollOrResize() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    wrap.addEventListener(
+      "focusin",
+      function (e) {
+        var fs = e.target.closest ? e.target.closest("[data-dsf-step]") : null;
+        if (!fs || !wrap.contains(fs)) return;
+        var s = parseInt(fs.getAttribute("data-dsf-step"), 10);
+        if (!isNaN(s)) {
+          lastRendered = 0;
+          render(s);
+        }
       },
-      {
-        root: null,
-        rootMargin: "-14% 0px -46% 0px",
-        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-      }
+      true
     );
 
-    fieldsets.forEach(function (fs) {
-      io.observe(fs);
-    });
-
-    render(1);
+    lastRendered = 0;
+    update();
+    window.setTimeout(update, 100);
+    window.setTimeout(update, 400);
   });
 })();
