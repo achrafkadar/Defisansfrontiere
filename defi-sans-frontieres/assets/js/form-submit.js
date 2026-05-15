@@ -183,8 +183,9 @@
     return LEGACY_STRIP.indexOf(name) !== -1;
   }
 
-  function buildWeb3FormsPayload(form) {
-    var key = web3formsAccessKey();
+  function prepareWeb3FormsData(form, fd) {
+    var keyInput = form.querySelector('input[name="access_key"]');
+    var key = (keyInput && keyInput.value ? keyInput.value.trim() : "") || web3formsAccessKey();
     if (!key) {
       throw new Error(
         "Configuration formulaire incomplète. Utilise Basin (meta dsf-form-endpoint) ou une clé Web3Forms."
@@ -193,37 +194,29 @@
 
     assertNotSpam(form);
 
-    var payload = {
-      access_key: key,
-      from_name: "Défi Sans Frontières — FSO",
-    };
+    LEGACY_STRIP.forEach(function (name) {
+      fd.delete(name);
+    });
 
-    var subjectEl = form.querySelector('input[name="_subject"]');
-    if (subjectEl && subjectEl.value) {
-      payload.subject = subjectEl.value;
-    }
+    if (!fd.has("access_key")) fd.set("access_key", key);
 
     var courriel = document.getElementById("field_courriel");
     var emailVal = courriel && courriel.value ? String(courriel.value).trim() : "";
     if (emailVal) {
-      payload.email = emailVal;
-      payload.replyto = emailVal;
+      fd.set("email", emailVal);
+      fd.set("replyto", emailVal);
     }
 
-    form.querySelectorAll("input, textarea, select").forEach(function (el) {
-      var name = el.name;
-      if (shouldSkipFieldName(name)) return;
-      if (el.type === "checkbox" || el.type === "radio") {
-        if (!el.checked) return;
-      }
-      if (el.type === "file") return;
-      if (el.disabled) return;
-      var val = el.value;
-      if (val === undefined || val === null) return;
-      payload[name] = String(val);
-    });
+    if (!fd.has("from_name")) {
+      fd.set("from_name", "Défi Sans Frontières — FSO");
+    }
 
-    return payload;
+    var subjectHidden = form.querySelector('input[name="subject"]');
+    if (subjectHidden && subjectHidden.value) {
+      fd.set("subject", subjectHidden.value);
+    }
+
+    return fd;
   }
 
   function prepareFormData(form, fd) {
@@ -255,19 +248,12 @@
   function sendForm(form, btn, thankYouUrl) {
     var endpoint = getSubmitUrl(form);
 
+    var fd = new FormData(form);
     if (isWeb3FormsUrl(endpoint)) {
-      var payload = buildWeb3FormsPayload(form);
-      return fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      fd = prepareWeb3FormsData(form, fd);
+    } else {
+      fd = prepareFormData(form, fd);
     }
-
-    var fd = prepareFormData(form, new FormData(form));
     return fetch(endpoint, {
       method: "POST",
       headers: { Accept: "application/json" },

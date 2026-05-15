@@ -489,10 +489,12 @@
         novalidate
       >
         <!--
-          Envoi via Web3Forms (https://web3forms.com) — meta web3forms-access-key. Destinataire principal : wenovsolutions@gmail.com (dashboard Web3Forms).
-          Copies (_cc) : ads@wenov.ca, abenzakour@fondationsanteoutaouais.ca, icarbonneau@fondationsanteoutaouais.ca, jpigeon@fondationsanteoutaouais.ca.
-          Vidéo : Uploadcare — URL dans video_uploadcare. Redirection merci : form-submit.js (inchangé).
+          Web3Forms : access_key (doc officielle) + subject / email mappés dans form-submit.js.
+          Si erreur « security reasons » sur fso.defisansfrontieres.ca → meta dsf-form-endpoint (Basin).
         -->
+        <input type="hidden" name="access_key" value="ab04556d-21de-40a8-aab0-5e0f9cc15a0f" />
+        <input type="hidden" name="subject" value="Candidature — Défi Sans Frontières Maroc 2026" />
+        <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" style="display: none" aria-hidden="true" />
         <input type="hidden" name="_subject" value="Candidature — Défi Sans Frontières Maroc 2026" />
         <input type="hidden" name="_template" value="table" />
         <!-- Redirection fiable : URL complète (FormSubmit ignore les chemins relatifs). Valeur par défaut + écrasée par form-submit.js si besoin. -->
