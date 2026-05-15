@@ -148,6 +148,30 @@
       );
     }
 
+    var honey = form.querySelector('input[name="_honey"]');
+    if (honey && String(honey.value || "").trim()) {
+      throw new Error("Soumission bloquée (anti-spam).");
+    }
+
+    var botcheck = form.querySelector('input[name="botcheck"]');
+    if (botcheck && botcheck.checked) {
+      throw new Error("Soumission bloquée (anti-spam).");
+    }
+
+    /* Champs FormSubmit / legacy : ne pas les envoyer à Web3Forms (ccemail = Pro uniquement). */
+    [
+      "_template",
+      "_captcha",
+      "_next",
+      "_replyto",
+      "_cc",
+      "_subject",
+      "_honey",
+      "redirect",
+    ].forEach(function (name) {
+      fd.delete(name);
+    });
+
     if (!fd.has("access_key")) fd.append("access_key", key);
 
     var courriel = document.getElementById("field_courriel");
@@ -160,24 +184,6 @@
     var subjectEl = form.querySelector('input[name="_subject"]');
     if (subjectEl && subjectEl.value && !fd.has("subject")) {
       fd.append("subject", subjectEl.value);
-    }
-
-    var ccEl = form.querySelector('input[name="_cc"]');
-    if (ccEl && ccEl.value && !fd.has("ccemail")) {
-      fd.append(
-        "ccemail",
-        String(ccEl.value)
-          .split(/[,;]/)
-          .map(function (s) {
-            return s.trim();
-          })
-          .filter(Boolean)
-          .join(";")
-      );
-    }
-
-    if (!fd.has("botcheck")) {
-      fd.append("botcheck", "");
     }
 
     return fd;
