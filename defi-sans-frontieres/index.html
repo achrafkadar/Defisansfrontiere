@@ -13,6 +13,10 @@
       Pour un test rapide, tu peux temporairement utiliser la clé démo : demopublickey
     -->
     <meta name="uploadcare-public-key" content="4f2fe31ce78d1ca1fa92" />
+    <!-- Si le sous-domaine *.ucarecd.net ne s’ouvre pas (NXDOMAIN), forcer ucarecdn.com pour les nouveaux uploads — doc https://uploadcare.com/docs/delivery/cdn/ — mettre content="disabled" pour le défaut Uploadcare -->
+    <meta name="uploadcare-cdn-base" content="https://ucarecdn.com" />
+    <!-- Plan B envoi formulaire (Web3Forms) : clé gratuite sur https://web3forms.com → coller ici. CC : champ _cc ci-dessous (Pro Web3Forms) ou configurer les copies dans le dashboard Web3Forms. -->
+    <meta name="web3forms-access-key" content="ab04556d-21de-40a8-aab0-5e0f9cc15a0f" />
     <title>Défi Sans Frontières — Maroc 2026 | Fondation Santé Outaouais</title>
     <meta
       name="description"
@@ -480,14 +484,13 @@
       <form
         id="dsf-candidature-form"
         method="post"
-        action="https://formsubmit.co/wenovsolutions@gmail.com"
+        action="https://api.web3forms.com/submit"
         novalidate
       >
         <!--
-          Envoi via FormSubmit (https://formsubmit.co) vers wenovsolutions@gmail.com + copies à ads@wenov.ca, abenzakour@fondationsanteoutaouais.ca, icarbonneau@fondationsanteoutaouais.ca et jpigeon@fondationsanteoutaouais.ca.
-          Vidéo : Uploadcare (clé meta uploadcare-public-key) — URL envoyée dans le champ video_uploadcare ; pas de pièce jointe lourde vers FormSubmit.
-          _next : page merci.html (URL absolue définie par assets/js/form-submit.js au chargement et à la soumission).
-          TODO FSO prod : WPForms / Gravity + SMTP ou API Resend côté serveur (ne jamais exposer la clé API au navigateur).
+          Envoi via Web3Forms (https://web3forms.com) — meta web3forms-access-key. Destinataire principal : wenovsolutions@gmail.com (dashboard Web3Forms).
+          Copies (_cc) : ads@wenov.ca, abenzakour@fondationsanteoutaouais.ca, icarbonneau@fondationsanteoutaouais.ca, jpigeon@fondationsanteoutaouais.ca.
+          Vidéo : Uploadcare — URL dans video_uploadcare. Redirection merci : form-submit.js (inchangé).
         -->
         <input type="hidden" name="_subject" value="Candidature — Défi Sans Frontières Maroc 2026" />
         <input type="hidden" name="_template" value="table" />

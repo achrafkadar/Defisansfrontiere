@@ -1,6 +1,6 @@
 /**
- * Validation, compteurs de caractères, soumission vers FormSubmit (courriel ads@wenov.ca).
- * Sur WordPress avec WPForms, remplacer l’action du formulaire et retirer la logique FormSubmit.
+ * Validation, compteurs de caractères, soumission AJAX (Web3Forms ou legacy FormSubmit).
+ * Sur WordPress avec WPForms, remplacer l’action du formulaire et retirer cette logique.
  */
 (function () {
   "use strict";
@@ -65,11 +65,6 @@
     if (el) el.value = new Date().toISOString();
   }
 
-  /**
-   * URL absolue de merci.html.
-   * Priorité : même origine que la page actuelle (évite les surprises inter-domaines),
-   * puis fallback meta `dsf-merci-page`.
-   */
   function merciPageAbsoluteUrl() {
     var meta = document.querySelector('meta[name="dsf-merci-page"]');
     var fromMeta = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
@@ -110,20 +105,98 @@
     if (url) next.value = url;
   }
 
-  function formSubmitAjaxUrl(actionUrl) {
+  function web3formsAccessKey() {
+    var meta = document.querySelector('meta[name="web3forms-access-key"]');
+    var k = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
+    if (!k || /^YOUR_|^REPLACE/i.test(k)) return "";
+    return k;
+  }
+
+  function resolveSubmitUrl(actionUrl) {
     if (!actionUrl) return "";
     try {
       var u = new URL(actionUrl, window.location.href);
-      if (u.hostname !== "formsubmit.co") return u.toString();
-      if (u.pathname.indexOf("/ajax/") === 0) return u.toString();
-      u.pathname = "/ajax" + (u.pathname.charAt(0) === "/" ? u.pathname : "/" + u.pathname);
+      if (u.hostname === "formsubmit.co") {
+        if (u.pathname.indexOf("/ajax/") === 0) return u.toString();
+        u.pathname = "/ajax" + (u.pathname.charAt(0) === "/" ? u.pathname : "/" + u.pathname);
+        return u.toString();
+      }
       return u.toString();
     } catch (e) {
-      if (actionUrl.indexOf("https://formsubmit.co/") === 0 && actionUrl.indexOf("https://formsubmit.co/ajax/") !== 0) {
+      if (
+        actionUrl.indexOf("https://formsubmit.co/") === 0 &&
+        actionUrl.indexOf("https://formsubmit.co/ajax/") !== 0
+      ) {
         return actionUrl.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
       }
       return actionUrl;
     }
+  }
+
+  function isWeb3FormsUrl(url) {
+    return url.indexOf("api.web3forms.com") !== -1;
+  }
+
+  function prepareFormData(form, fd) {
+    var action = resolveSubmitUrl(form.getAttribute("action") || "");
+    if (!isWeb3FormsUrl(action)) return fd;
+
+    var key = web3formsAccessKey();
+    if (!key) {
+      throw new Error(
+        "Clé Web3Forms manquante. Ajoute ta access key dans la meta web3forms-access-key (voir web3forms.com)."
+      );
+    }
+
+    if (!fd.has("access_key")) fd.append("access_key", key);
+
+    var courriel = document.getElementById("field_courriel");
+    var emailVal = courriel && courriel.value ? String(courriel.value).trim() : "";
+    if (emailVal) {
+      if (!fd.has("email")) fd.append("email", emailVal);
+      if (!fd.has("replyto")) fd.append("replyto", emailVal);
+    }
+
+    var subjectEl = form.querySelector('input[name="_subject"]');
+    if (subjectEl && subjectEl.value && !fd.has("subject")) {
+      fd.append("subject", subjectEl.value);
+    }
+
+    var ccEl = form.querySelector('input[name="_cc"]');
+    if (ccEl && ccEl.value && !fd.has("ccemail")) {
+      fd.append(
+        "ccemail",
+        String(ccEl.value)
+          .split(/[,;]/)
+          .map(function (s) {
+            return s.trim();
+          })
+          .filter(Boolean)
+          .join(";")
+      );
+    }
+
+    if (!fd.has("botcheck")) {
+      fd.append("botcheck", "");
+    }
+
+    return fd;
+  }
+
+  function parseSubmitSuccess(data, res) {
+    if (data && data.error) {
+      return { ok: false, message: String(data.error) };
+    }
+    if (data && (data.success === true || data.success === "true")) {
+      return { ok: true };
+    }
+    if (res.ok && data && !data.error && data.success !== false && data.success !== "false") {
+      return { ok: true };
+    }
+    return {
+      ok: false,
+      message: (data && data.message) || "Soumission impossible pour le moment.",
+    };
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -137,7 +210,6 @@
     if (!form) return;
 
     setFormSubmitNextUrl();
-
     bindBlurValidation(form);
 
     var videoChosenEl = document.getElementById("video_file_chosen");
@@ -190,9 +262,17 @@
 
       var btn = document.getElementById("dsf-submit-btn");
       if (btn) btn.classList.add("is-loading");
-      var ajaxAction = formSubmitAjaxUrl(form.getAttribute("action") || "");
+      var ajaxAction = resolveSubmitUrl(form.getAttribute("action") || "");
       var thankYouUrl = merciPageAbsoluteUrl();
-      var fd = new FormData(form);
+      var fd;
+
+      try {
+        fd = prepareFormData(form, new FormData(form));
+      } catch (prepErr) {
+        if (btn) btn.classList.remove("is-loading");
+        window.alert(prepErr.message || "Configuration du formulaire incomplète.");
+        return;
+      }
 
       fetch(ajaxAction, {
         method: "POST",
@@ -201,13 +281,15 @@
       })
         .then(function (res) {
           return res.json().catch(function () {
-            return { success: "false", message: "Réponse invalide de FormSubmit." };
+            return { success: "false", message: "Réponse invalide du service d’envoi." };
+          }).then(function (data) {
+            return { res: res, data: data };
           });
         })
-        .then(function (data) {
-          var ok = data && (data.success === true || data.success === "true");
-          if (!ok) {
-            throw new Error((data && data.message) || "Soumission impossible pour le moment.");
+        .then(function (payload) {
+          var parsed = parseSubmitSuccess(payload.data, payload.res);
+          if (!parsed.ok) {
+            throw new Error(parsed.message);
           }
           if (window.DSF && window.DSF.analytics) {
             window.DSF.analytics.trackFormSubmitSuccess();
