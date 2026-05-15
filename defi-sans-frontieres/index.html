@@ -13,8 +13,8 @@
       Pour un test rapide, tu peux temporairement utiliser la clé démo : demopublickey
     -->
     <meta name="uploadcare-public-key" content="4f2fe31ce78d1ca1fa92" />
-    <!-- Si le sous-domaine *.ucarecd.net ne s’ouvre pas (NXDOMAIN), forcer ucarecdn.com pour les nouveaux uploads — doc https://uploadcare.com/docs/delivery/cdn/ — mettre content="disabled" pour le défaut Uploadcare -->
-    <meta name="uploadcare-cdn-base" content="https://ucarecdn.com" />
+    <!-- Base CDN du projet (Dashboard Uploadcare → Delivery). Ne pas utiliser ucarecdn.com si les fichiers sont sur *.ucarecd.net — doc https://uploadcare.com/docs/delivery/cdn/ -->
+    <meta name="uploadcare-cdn-base" content="https://34r2hrlv7b.ucarecd.net" />
     <!-- OBLIGATOIRE en prod : URL Google Apps Script /exec (Resend : scripts/google-apps-script-resend-mailer.gs) ou Basin. Ne jamais mettre la clé Resend ici. Web3Forms bloque ce domaine. -->
     <meta name="dsf-form-endpoint" content="https://script.google.com/macros/s/AKfycbyyjjdyl1VOCWenbL_s6ihgGgI2IDJhrVIxdxbLI_kvtKYK-b7pdSspt7HtR9vNHLOedg/exec" />
     <meta name="web3forms-access-key" content="ab04556d-21de-40a8-aab0-5e0f9cc15a0f" />
@@ -799,6 +799,7 @@
                         name="video_uploadcare"
                         id="field_uploadcare"
                         data-input-accept="video/*"
+                        data-cdn-base="https://34r2hrlv7b.ucarecd.net"
                         aria-describedby="hint_video err_video video_file_chosen"
                       />
                     </div>

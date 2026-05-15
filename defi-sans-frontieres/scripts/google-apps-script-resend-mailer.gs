@@ -52,6 +52,8 @@ var CONFIG = {
     "jpigeon@fondationsanteoutaouais.ca",
   ],
   defaultSubject: "Candidature — Défi Sans Frontières Maroc 2026",
+  /** Même valeur que meta uploadcare-cdn-base dans index.html (Dashboard → Delivery) */
+  uploadcareCdnBase: "https://34r2hrlv7b.ucarecd.net",
 };
 
 function doPost(e) {
@@ -265,6 +267,15 @@ function escapeHtml_(s) {
     .replace(/"/g, "&quot;");
 }
 
+/** ucarecdn.com/UUID renvoie 404 pour ce projet — livraison sur *.ucarecd.net */
+function normalizeUploadcareUrl_(raw) {
+  var v = String(raw || "").trim();
+  if (!v) return v;
+  var m = v.match(/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
+  if (!m || !CONFIG.uploadcareCdnBase) return v;
+  return String(CONFIG.uploadcareCdnBase).replace(/\/$/, "") + "/" + m[1] + "/";
+}
+
 function formatFieldValue_(key, raw) {
   if (raw === undefined || raw === null || String(raw).trim() === "") {
     return "—";
@@ -272,6 +283,9 @@ function formatFieldValue_(key, raw) {
   var v = String(raw).trim();
   if (v === "on" || v === "oui") return "Oui";
   if (v === "off" || v === "non") return "Non";
+  if (key.indexOf("video_") === 0) {
+    v = normalizeUploadcareUrl_(v);
+  }
   if (key.indexOf("video_") === 0 || key === "referrer" || /^https?:\/\//i.test(v)) {
     var safe = escapeHtml_(v);
     return '<a href="' + safe + '" style="color:#0a3d91">' + safe + "</a>";

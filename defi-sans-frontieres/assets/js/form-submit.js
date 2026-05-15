@@ -124,6 +124,29 @@
     return v;
   }
 
+  function uploadcareCdnBase() {
+    var meta = document.querySelector('meta[name="uploadcare-cdn-base"]');
+    var v = meta && meta.getAttribute("content") ? String(meta.getAttribute("content")).trim() : "";
+    if (!v || /^disabled$/i.test(v)) return "";
+    return v.replace(/\/$/, "");
+  }
+
+  /** Corrige ucarecdn.com/UUID (404) → CDN projet *.ucarecd.net */
+  function normalizeUploadcareVideoUrl(raw) {
+    var v = String(raw || "").trim();
+    if (!v) return v;
+    var base = uploadcareCdnBase();
+    var m = v.match(/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
+    if (!m || !base) return v;
+    return base + "/" + m[1] + "/";
+  }
+
+  function fixUploadcareFieldBeforeSubmit(form) {
+    var el = form.querySelector("#field_uploadcare, [name=video_uploadcare]");
+    if (!el || !el.value) return;
+    el.value = normalizeUploadcareVideoUrl(el.value);
+  }
+
   function web3formsAccessKey() {
     var meta = document.querySelector('meta[name="web3forms-access-key"]');
     var k = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
@@ -360,6 +383,7 @@
 
       setTimestamp();
       setFormSubmitNextUrl();
+      fixUploadcareFieldBeforeSubmit(form);
 
       var courriel = document.getElementById("field_courriel");
       var replyto = document.getElementById("dsf-form-replyto");

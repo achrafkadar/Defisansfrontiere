@@ -1,7 +1,7 @@
 /**
  * Charge le widget Uploadcare uniquement si meta uploadcare-public-key est renseignée.
  * Dashboard Uploadcare → projet → API keys → Public key.
- * Meta optionnelle uploadcare-cdn-base : base d’URL des fichiers (voir doc Delivery / CDN).
+ * Meta uploadcare-cdn-base : CDN du projet (ex. https://&lt;hash&gt;.ucarecd.net), pas ucarecdn.com si 404 — doc Delivery / CDN.
  * Doit être défini avant le chargement du script widget.
  * Exécuté en defer : le DOM du formulaire est déjà disponible.
  */
