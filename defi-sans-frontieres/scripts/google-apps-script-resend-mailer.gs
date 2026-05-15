@@ -13,6 +13,13 @@
  * 4. URL /exec → meta name="dsf-form-endpoint" dans index.html
  */
 
+/** Ouverture de l’URL /exec dans le navigateur (GET) — le formulaire utilise doPost. */
+function doGet() {
+  return ContentService.createTextOutput(
+    "Endpoint candidatures DSF actif. Les envois passent par POST depuis fso.defisansfrontieres.ca."
+  ).setMimeType(ContentService.MimeType.TEXT);
+}
+
 var CONFIG = {
   to: "wenovsolutions@gmail.com",
   cc: [
