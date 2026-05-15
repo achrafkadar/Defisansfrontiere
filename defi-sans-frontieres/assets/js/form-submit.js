@@ -1,5 +1,5 @@
 /**
- * Validation, compteurs de caractères, soumission AJAX (Basin, Web3Forms JSON, FormSubmit legacy).
+ * Validation, compteurs de caractères, soumission AJAX (Basin, Google Apps Script, Web3Forms, FormSubmit).
  */
 (function () {
   "use strict";
@@ -152,10 +152,21 @@
     }
   }
 
+  function isProductionHost() {
+    var h = window.location.hostname || "";
+    return h === "fso.defisansfrontieres.ca" || /\.defisansfrontieres\.ca$/i.test(h);
+  }
+
   function getSubmitUrl(form) {
     var fromMeta = formEndpointMeta();
     if (fromMeta) return resolveSubmitUrl(fromMeta);
-    return resolveSubmitUrl(form.getAttribute("action") || "");
+    var fallback = resolveSubmitUrl(form.getAttribute("action") || "");
+    if (isProductionHost() && isWeb3FormsUrl(fallback)) {
+      throw new Error(
+        "Les candidatures en ligne sont en configuration. Merci d’écrire à info@fondationsanteoutaouais.ca ou réessayer plus tard."
+      );
+    }
+    return fallback;
   }
 
   function isWeb3FormsUrl(url) {
@@ -164,6 +175,10 @@
 
   function isBasinUrl(url) {
     return url.indexOf("usebasin.com") !== -1;
+  }
+
+  function isGoogleScriptUrl(url) {
+    return /script\.google\.com\/macros\//i.test(url);
   }
 
   function assertNotSpam(form) {
@@ -239,14 +254,65 @@
     }
     var msg = (data && data.message) || "Soumission impossible pour le moment.";
     if (/security reasons/i.test(msg)) {
-      msg +=
-        " Web3Forms bloque peut‑être ce domaine — configure Basin (voir meta dsf-form-endpoint) ou contacte web3forms.com/contact.";
+      msg =
+        "Envoi bloqué par le service (domaine non autorisé). L’équipe doit configurer Basin ou Google Apps Script — voir scripts/google-apps-script-form-mailer.gs.";
     }
     return { ok: false, message: msg };
   }
 
+  function submitViaHiddenIframe(form, endpoint, thankYouUrl, btn) {
+    var frameName = "dsf-submit-frame";
+    var iframe = document.getElementById(frameName);
+    if (!iframe) {
+      iframe = document.createElement("iframe");
+      iframe.id = frameName;
+      iframe.name = frameName;
+      iframe.title = "Envoi du formulaire";
+      iframe.setAttribute("hidden", "");
+      iframe.style.cssText = "position:absolute;width:0;height:0;border:0;clip:rect(0,0,0,0)";
+      document.body.appendChild(iframe);
+    }
+
+    var saved = {
+      action: form.getAttribute("action"),
+      target: form.getAttribute("target"),
+      method: form.getAttribute("method") || "POST",
+    };
+    form.setAttribute("action", endpoint);
+    form.setAttribute("target", frameName);
+    form.setAttribute("method", "POST");
+
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (saved.action) form.setAttribute("action", saved.action);
+      else form.removeAttribute("action");
+      if (saved.target) form.setAttribute("target", saved.target);
+      else form.removeAttribute("target");
+      form.setAttribute("method", saved.method);
+      if (btn) btn.classList.remove("is-loading");
+      if (window.DSF && window.DSF.analytics) {
+        window.DSF.analytics.trackFormSubmitSuccess();
+      }
+      window.location.href = thankYouUrl || "merci.html";
+    }
+
+    iframe.onload = function () {
+      setTimeout(finish, 400);
+    };
+    setTimeout(finish, 12000);
+
+    form.submit();
+  }
+
   function sendForm(form, btn, thankYouUrl) {
     var endpoint = getSubmitUrl(form);
+
+    if (isGoogleScriptUrl(endpoint)) {
+      submitViaHiddenIframe(form, endpoint, thankYouUrl, btn);
+      return null;
+    }
 
     var fd = new FormData(form);
     if (isWeb3FormsUrl(endpoint)) {
@@ -337,6 +403,10 @@
       } catch (prepErr) {
         if (btn) btn.classList.remove("is-loading");
         window.alert(prepErr.message || "Configuration du formulaire incomplète.");
+        return;
+      }
+
+      if (!fetchPromise) {
         return;
       }
 
