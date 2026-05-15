@@ -68,10 +68,10 @@ function doPost(e) {
         via = "resend";
       } catch (err) {
         Logger.log("Resend échec, repli Gmail : " + err);
-        sendViaGmail_(subject, replyTo, textBody);
+        sendViaGmail_(subject, replyTo, htmlBody, textBody);
       }
     } else {
-      sendViaGmail_(subject, replyTo, textBody);
+      sendViaGmail_(subject, replyTo, htmlBody, textBody);
     }
 
     return json_({ success: true, via: via });
@@ -86,11 +86,12 @@ function doPost(e) {
   }
 }
 
-function sendViaGmail_(subject, replyTo, textBody) {
+function sendViaGmail_(subject, replyTo, htmlBody, textBody) {
   var opts = {
     to: CONFIG.to,
     cc: CONFIG.cc.join(","),
     subject: subject,
+    htmlBody: htmlBody,
     body: textBody,
   };
   if (replyTo) opts.replyTo = replyTo;
@@ -144,49 +145,248 @@ function parseBody_(e) {
   return e.parameter || {};
 }
 
-function formatBodyText_(data) {
-  var skip = { access_key: 1, botcheck: 1, _honey: 1 };
-  var lines = ["Nouvelle candidature — Défi Sans Frontières", ""];
-  Object.keys(data)
-    .sort()
-    .forEach(function (key) {
-      if (skip[key] || (key.charAt(0) === "_" && key !== "_subject")) return;
-      var val = data[key];
-      if (val === undefined || val === null || val === "") return;
-      lines.push(key + ":\n" + val);
-      lines.push("");
-    });
-  return lines.join("\n");
+/** Sections et libellés — style proche FormSubmit (_template=table). */
+var EMAIL_SECTIONS = [
+  {
+    title: "Attribution & suivi",
+    fields: [
+      ["utm_source", "utm_source"],
+      ["utm_medium", "utm_medium"],
+      ["utm_campaign", "utm_campaign"],
+      ["utm_content", "utm_content"],
+      ["utm_term", "utm_term"],
+      ["referrer", "referrer"],
+      ["timestamp_submit", "timestamp_submit"],
+    ],
+  },
+  {
+    title: "Profil",
+    fields: [
+      ["nom_complet", "nom_complet"],
+      ["age", "age"],
+      ["ville", "ville"],
+      ["courriel", "courriel"],
+      ["telephone", "telephone"],
+    ],
+  },
+  {
+    title: "Motivation",
+    fields: [
+      ["motif_participation_maroc", "motif_participation_maroc"],
+      ["cause_motivation", "cause_motivation"],
+      ["defi_physique_passe", "defi_physique_passe"],
+      ["distinction_candidat", "distinction_candidat"],
+    ],
+  },
+  {
+    title: "Physique & expérience",
+    fields: [
+      ["condition_physique", "condition_physique"],
+      ["trek_expedition", "trek_expedition"],
+      ["trek_expedition_precisions", "trek_expedition_precisions"],
+      ["marche_multi_jours", "marche_multi_jours"],
+      ["limitations_medicales", "limitations_medicales"],
+    ],
+  },
+  {
+    title: "Collecte de fonds",
+    fields: [
+      ["experience_levee_fonds", "experience_levee_fonds"],
+      ["experience_levee_fonds_precisions", "experience_levee_fonds_precisions"],
+      ["strategie_levee_fonds", "strategie_levee_fonds"],
+    ],
+  },
+  {
+    title: "Réseaux & vidéo",
+    fields: [
+      ["reseaux_sociaux", "reseaux_sociaux"],
+      ["pret_zone_confort", "pret_zone_confort"],
+      ["contraintes_selection", "contraintes_selection"],
+      ["video_uploadcare", "video_uploadcare"],
+      ["video_url", "video_url"],
+    ],
+  },
+  {
+    title: "Conditions préalables (filtres)",
+    fields: [
+      ["gate_age_majorite", "gate_age_majorite"],
+      ["gate_engagement_10000", "gate_engagement_10000"],
+      ["gate_casting_gatineau_mai2026", "gate_casting_gatineau_mai2026"],
+      ["gate_voyage_maroc_oct_nov", "gate_voyage_maroc_oct_nov"],
+      ["gate_tournage_juin_oct", "gate_tournage_juin_oct"],
+      ["gate_image_documentaire_fso", "gate_image_documentaire_fso"],
+      ["gate_declaration_medicale", "gate_declaration_medicale"],
+      ["gate_frais_vaccins_assurance_materiel", "gate_frais_vaccins_assurance_materiel"],
+      ["gate_acceptation_prealable_contrat", "gate_acceptation_prealable_contrat"],
+      ["gate_consentement_reglements_renseignements_personnels", "gate_consentement_reglements_renseignements_personnels"],
+    ],
+  },
+  {
+    title: "Engagement final",
+    fields: [
+      ["confirm_infos_exactes", "confirm_infos_exactes"],
+      ["confirm_exigences", "confirm_exigences"],
+      ["confirm_engagement_complet", "confirm_engagement_complet"],
+      ["consent_candidature", "consent_candidature"],
+      ["consent_marketing", "consent_marketing"],
+    ],
+  },
+];
+
+var SKIP_FIELDS = {
+  access_key: 1,
+  botcheck: 1,
+  _honey: 1,
+  subject: 1,
+  email: 1,
+  replyto: 1,
+};
+
+function escapeHtml_(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatFieldValue_(key, raw) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") {
+    return "—";
+  }
+  var v = String(raw).trim();
+  if (v === "on" || v === "oui") return "Oui";
+  if (v === "off" || v === "non") return "Non";
+  if (key.indexOf("video_") === 0 || key === "referrer" || /^https?:\/\//i.test(v)) {
+    var safe = escapeHtml_(v);
+    return '<a href="' + safe + '" style="color:#0a3d91">' + safe + "</a>";
+  }
+  return escapeHtml_(v).replace(/\n/g, "<br>");
+}
+
+function formatFieldValuePlain_(key, raw) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") {
+    return "—";
+  }
+  var v = String(raw).trim();
+  if (v === "on" || v === "oui") return "Oui";
+  if (v === "off" || v === "non") return "Non";
+  return v;
+}
+
+function collectUsedKeys_(data) {
+  var used = {};
+  Object.keys(data).forEach(function (k) {
+    used[k] = true;
+  });
+  return used;
 }
 
 function formatBodyHtml_(data) {
-  var skip = { access_key: 1, botcheck: 1, _honey: 1 };
-  var rows = [];
-  Object.keys(data)
+  var used = collectUsedKeys_(data);
+  var tableStyle =
+    "border-collapse:collapse;width:100%;max-width:720px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1a1a1a;margin:0 0 16px;";
+  var thStyle =
+    "padding:10px 14px;border:1px solid #d0d7de;background:#0a3d91;color:#ffffff;text-align:left;font-size:14px;font-weight:bold;";
+  var tdLabelStyle =
+    "padding:10px 12px;border:1px solid #d0d7de;background:#f6f8fa;font-weight:bold;vertical-align:top;width:36%;";
+  var tdValueStyle =
+    "padding:10px 12px;border:1px solid #d0d7de;vertical-align:top;background:#ffffff;";
+
+  var html = [
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1a1a1a;line-height:1.5;">',
+    '<p style="margin:0 0 20px;font-size:17px;color:#0a3d91;"><strong>Nouvelle candidature</strong><br><span style="font-size:14px;color:#333;">Défi Sans Frontières — Maroc 2026</span></p>',
+  ];
+
+  EMAIL_SECTIONS.forEach(function (section) {
+    var rows = [];
+    section.fields.forEach(function (pair) {
+      var key = pair[0];
+      var label = pair[1];
+      if (SKIP_FIELDS[key]) return;
+      rows.push(
+        "<tr><td style=\"" +
+          tdLabelStyle +
+          '">' +
+          escapeHtml_(label) +
+          '</td><td style="' +
+          tdValueStyle +
+          '">' +
+          formatFieldValue_(key, data[key]) +
+          "</td></tr>"
+      );
+      delete used[key];
+    });
+    if (rows.length) {
+      html.push(
+        '<p style="margin:20px 0 8px;font-size:13px;font-weight:bold;color:#0a3d91;text-transform:uppercase;letter-spacing:0.04em;">' +
+          escapeHtml_(section.title) +
+          "</p>",
+        '<table role="presentation" cellpadding="0" cellspacing="0" style="' +
+          tableStyle +
+          '"><thead><tr>',
+        '<th style="' + thStyle + '">Champ</th>',
+        '<th style="' + thStyle + '">Réponse</th>',
+        "</tr></thead><tbody>",
+        rows.join(""),
+        "</tbody></table>"
+      );
+    }
+  });
+
+  var extra = [];
+  Object.keys(used)
     .sort()
     .forEach(function (key) {
-      if (skip[key] || (key.charAt(0) === "_" && key !== "_subject")) return;
-      var val = data[key];
-      if (val === undefined || val === null || val === "") return;
-      var safe = String(val)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\n/g, "<br>");
-      rows.push(
-        "<tr><td style=\"padding:8px 12px;border:1px solid #ddd;font-weight:bold;vertical-align:top\">" +
-          key +
-          "</td><td style=\"padding:8px 12px;border:1px solid #ddd\">" +
-          safe +
+      if (SKIP_FIELDS[key] || key.charAt(0) === "_") return;
+      extra.push(
+        "<tr><td style=\"" +
+          tdLabelStyle +
+          '">' +
+          escapeHtml_(key) +
+          '</td><td style="' +
+          tdValueStyle +
+          '">' +
+          formatFieldValue_(key, data[key]) +
           "</td></tr>"
       );
     });
-  return (
-    "<h2 style=\"font-family:sans-serif\">Nouvelle candidature — Défi Sans Frontières</h2>" +
-    "<table style=\"border-collapse:collapse;font-family:sans-serif;font-size:14px\">" +
-    rows.join("") +
-    "</table>"
+  if (extra.length) {
+    html.push(
+      '<p style="margin:20px 0 8px;font-size:13px;font-weight:bold;color:#0a3d91;">Autres champs</p>',
+      '<table role="presentation" cellpadding="0" cellspacing="0" style="' +
+        tableStyle +
+        '"><thead><tr><th style="' +
+        thStyle +
+        '">Champ</th><th style="' +
+        thStyle +
+        '">Réponse</th></tr></thead><tbody>',
+      extra.join(""),
+      "</tbody></table>"
+    );
+  }
+
+  html.push(
+    '<p style="margin:24px 0 0;font-size:12px;color:#666;">Envoyé depuis le formulaire fso.defisansfrontieres.ca</p>',
+    "</div>"
   );
+
+  return html.join("");
+}
+
+function formatBodyText_(data) {
+  var lines = ["Nouvelle candidature — Défi Sans Frontières Maroc 2026", ""];
+  EMAIL_SECTIONS.forEach(function (section) {
+    lines.push("=== " + section.title + " ===");
+    section.fields.forEach(function (pair) {
+      var key = pair[0];
+      var label = pair[1];
+      if (SKIP_FIELDS[key]) return;
+      lines.push(label + ": " + formatFieldValuePlain_(key, data[key]));
+    });
+    lines.push("");
+  });
+  return lines.join("\n");
 }
 
 function json_(obj) {
