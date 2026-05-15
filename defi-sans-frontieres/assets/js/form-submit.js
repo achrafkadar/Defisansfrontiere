@@ -394,6 +394,15 @@
 
       fetchPromise
         .then(function (res) {
+          if (res && res.data !== undefined && res.res) {
+            return res;
+          }
+          if (!res || typeof res.json !== "function") {
+            return {
+              res: { ok: false },
+              data: { success: false, message: "Réponse invalide du service d’envoi." },
+            };
+          }
           return res.json().catch(function () {
             return { success: "false", message: "Réponse invalide du service d’envoi." };
           }).then(function (data) {
