@@ -92,7 +92,8 @@ function sendViaGmail_(subject, replyTo, htmlBody, textBody) {
     cc: CONFIG.cc.join(","),
     subject: subject,
     htmlBody: htmlBody,
-    body: textBody,
+    /* Pas de body texte : évite que Gmail affiche la version brute au lieu du tableau HTML. */
+    body: "Nouvelle candidature DSF — ouvrez ce message en HTML pour le tableau complet.",
   };
   if (replyTo) opts.replyTo = replyTo;
   MailApp.sendEmail(opts);
@@ -282,111 +283,72 @@ function collectUsedKeys_(data) {
   return used;
 }
 
-function formatBodyHtml_(data) {
-  var used = collectUsedKeys_(data);
-  var tableStyle =
-    "border-collapse:collapse;width:100%;max-width:720px;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1a1a1a;margin:0 0 16px;";
-  var thStyle =
-    "padding:10px 14px;border:1px solid #d0d7de;background:#0a3d91;color:#ffffff;text-align:left;font-size:14px;font-weight:bold;";
-  var tdLabelStyle =
-    "padding:10px 12px;border:1px solid #d0d7de;background:#f6f8fa;font-weight:bold;vertical-align:top;width:36%;";
-  var tdValueStyle =
-    "padding:10px 12px;border:1px solid #d0d7de;vertical-align:top;background:#ffffff;";
+function buildTableRows_(data, used) {
+  var rows = [];
+  var tdLabel =
+    'style="padding:10px 12px;border:1px solid #cccccc;background-color:#f4f4f4;font-weight:bold;vertical-align:top;width:32%;font-family:Arial,sans-serif;font-size:13px;"';
+  var tdVal =
+    'style="padding:10px 12px;border:1px solid #cccccc;vertical-align:top;background-color:#ffffff;font-family:Arial,sans-serif;font-size:13px;"';
 
-  var html = [
-    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1a1a1a;line-height:1.5;">',
-    '<p style="margin:0 0 20px;font-size:17px;color:#0a3d91;"><strong>Nouvelle candidature</strong><br><span style="font-size:14px;color:#333;">Défi Sans Frontières — Maroc 2026</span></p>',
-  ];
-
-  EMAIL_SECTIONS.forEach(function (section) {
-    var rows = [];
-    section.fields.forEach(function (pair) {
-      var key = pair[0];
-      var label = pair[1];
-      if (SKIP_FIELDS[key]) return;
-      rows.push(
-        "<tr><td style=\"" +
-          tdLabelStyle +
-          '">' +
-          escapeHtml_(label) +
-          '</td><td style="' +
-          tdValueStyle +
-          '">' +
-          formatFieldValue_(key, data[key]) +
-          "</td></tr>"
-      );
-      delete used[key];
-    });
-    if (rows.length) {
-      html.push(
-        '<p style="margin:20px 0 8px;font-size:13px;font-weight:bold;color:#0a3d91;text-transform:uppercase;letter-spacing:0.04em;">' +
-          escapeHtml_(section.title) +
-          "</p>",
-        '<table role="presentation" cellpadding="0" cellspacing="0" style="' +
-          tableStyle +
-          '"><thead><tr>',
-        '<th style="' + thStyle + '">Champ</th>',
-        '<th style="' + thStyle + '">Réponse</th>',
-        "</tr></thead><tbody>",
-        rows.join(""),
-        "</tbody></table>"
-      );
-    }
-  });
-
-  var extra = [];
-  Object.keys(used)
-    .sort()
-    .forEach(function (key) {
-      if (SKIP_FIELDS[key] || key.charAt(0) === "_") return;
-      extra.push(
-        "<tr><td style=\"" +
-          tdLabelStyle +
-          '">' +
-          escapeHtml_(key) +
-          '</td><td style="' +
-          tdValueStyle +
-          '">' +
-          formatFieldValue_(key, data[key]) +
-          "</td></tr>"
-      );
-    });
-  if (extra.length) {
-    html.push(
-      '<p style="margin:20px 0 8px;font-size:13px;font-weight:bold;color:#0a3d91;">Autres champs</p>',
-      '<table role="presentation" cellpadding="0" cellspacing="0" style="' +
-        tableStyle +
-        '"><thead><tr><th style="' +
-        thStyle +
-        '">Champ</th><th style="' +
-        thStyle +
-        '">Réponse</th></tr></thead><tbody>',
-      extra.join(""),
-      "</tbody></table>"
+  function addRow(label, key) {
+    if (SKIP_FIELDS[key]) return;
+    rows.push(
+      "<tr><td " +
+        tdLabel +
+        ">" +
+        escapeHtml_(label) +
+        "</td><td " +
+        tdVal +
+        ">" +
+        formatFieldValue_(key, data[key]) +
+        "</td></tr>"
     );
+    if (used) delete used[key];
   }
 
-  html.push(
-    '<p style="margin:24px 0 0;font-size:12px;color:#666;">Envoyé depuis le formulaire fso.defisansfrontieres.ca</p>',
-    "</div>"
-  );
+  EMAIL_SECTIONS.forEach(function (section) {
+    section.fields.forEach(function (pair) {
+      addRow(pair[1], pair[0]);
+    });
+  });
 
-  return html.join("");
+  if (used) {
+    Object.keys(used)
+      .sort()
+      .forEach(function (key) {
+        if (SKIP_FIELDS[key] || key.charAt(0) === "_") return;
+        addRow(key, key);
+      });
+  }
+
+  return rows;
+}
+
+/** Tableau unique style FormSubmit (_template=table), UTMs en tête. */
+function formatBodyHtml_(data) {
+  var used = collectUsedKeys_(data);
+  var rows = buildTableRows_(data, used);
+  var th =
+    'style="padding:10px 12px;border:1px solid #cccccc;background-color:#0a3d91;color:#ffffff;text-align:left;font-family:Arial,sans-serif;font-size:14px;font-weight:bold;"';
+
+  return (
+    '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:16px;font-family:Arial,sans-serif;">' +
+    '<p style="margin:0 0 12px;font-size:16px;color:#0a3d91;"><strong>Nouvelle candidature</strong> — Défi Sans Frontières Maroc 2026</p>' +
+    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:720px;border:1px solid #cccccc;">' +
+    "<thead><tr><th " +
+    th +
+    ">Champ</th><th " +
+    th +
+    ">Réponse</th></tr></thead><tbody>" +
+    rows.join("") +
+    "</tbody></table>" +
+    '<p style="margin:16px 0 0;font-size:11px;color:#888888;">fso.defisansfrontieres.ca</p>' +
+    "</body></html>"
+  );
 }
 
 function formatBodyText_(data) {
-  var lines = ["Nouvelle candidature — Défi Sans Frontières Maroc 2026", ""];
-  EMAIL_SECTIONS.forEach(function (section) {
-    lines.push("=== " + section.title + " ===");
-    section.fields.forEach(function (pair) {
-      var key = pair[0];
-      var label = pair[1];
-      if (SKIP_FIELDS[key]) return;
-      lines.push(label + ": " + formatFieldValuePlain_(key, data[key]));
-    });
-    lines.push("");
-  });
-  return lines.join("\n");
+  return "Nouvelle candidature DSF — consultez la version HTML du courriel pour le tableau complet.";
 }
 
 function json_(obj) {
