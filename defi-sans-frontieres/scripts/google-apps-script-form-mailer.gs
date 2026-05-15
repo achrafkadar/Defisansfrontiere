@@ -1,4 +1,8 @@
 /**
+ * ⚠️ OBSOLÈTE — ne plus utiliser pour le déploiement /exec du site.
+ * Ce fichier produit des emails « champ: » + valeur sur la ligne suivante (tri alphabétique).
+ * Utiliser à la place : google-apps-script-resend-mailer.gs (tableau HTML Champ | Réponse).
+ *
  * Défi Sans Frontières — envoi candidatures par Gmail (gratuit).
  *
  * Installation (une fois) :

@@ -23,10 +23,24 @@ function authorizeMailScope() {
   return "Autorisation OK — quota Gmail restant : " + quota;
 }
 
+/** Identifiant déploiement — si l’URL /exec ne l’affiche pas, mauvais projet ou ancienne version Web. */
+var SCRIPT_EMAIL_VERSION = "DSF-EMAIL-v3";
+
 function doGet() {
+  var stamp = Utilities.formatDate(new Date(), "GMT", "yyyy-MM-dd HH:mm:ss") + " UTC";
   return ContentService.createTextOutput(
-    "Endpoint candidatures DSF actif. Envoi via POST depuis le formulaire."
+    "OK " +
+      SCRIPT_EMAIL_VERSION +
+      " | deploye le " +
+      stamp +
+      " | Emails en tableau HTML Champ/Reponse. Ancien message sans « OK DSF-EMAIL-v3 » = autre projet Apps Script ou version Web pas mise a jour."
   ).setMimeType(ContentService.MimeType.TEXT);
+}
+
+/** Dans l’éditeur : choisir cette fonction → Exécuter. Doit afficher DSF-EMAIL-v3 (sans passer par /exec). */
+function testVersionDansEditeur() {
+  Logger.log(SCRIPT_EMAIL_VERSION);
+  return SCRIPT_EMAIL_VERSION;
 }
 
 var CONFIG = {
@@ -342,7 +356,9 @@ function formatBodyHtml_(data) {
     ">Réponse</th></tr></thead><tbody>" +
     rows.join("") +
     "</tbody></table>" +
-    '<p style="margin:16px 0 0;font-size:11px;color:#888888;">fso.defisansfrontieres.ca</p>' +
+    '<p style="margin:16px 0 0;font-size:11px;color:#888888;">fso.defisansfrontieres.ca · ' +
+    escapeHtml_(SCRIPT_EMAIL_VERSION) +
+    "</p>" +
     "</body></html>"
   );
 }
