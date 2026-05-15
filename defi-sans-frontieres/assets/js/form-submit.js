@@ -260,58 +260,40 @@
     return { ok: false, message: msg };
   }
 
-  function submitViaHiddenIframe(form, endpoint, thankYouUrl, btn) {
-    var frameName = "dsf-submit-frame";
-    var iframe = document.getElementById(frameName);
-    if (!iframe) {
-      iframe = document.createElement("iframe");
-      iframe.id = frameName;
-      iframe.name = frameName;
-      iframe.title = "Envoi du formulaire";
-      iframe.setAttribute("hidden", "");
-      iframe.style.cssText = "position:absolute;width:0;height:0;border:0;clip:rect(0,0,0,0)";
-      document.body.appendChild(iframe);
-    }
-
-    var saved = {
-      action: form.getAttribute("action"),
-      target: form.getAttribute("target"),
-      method: form.getAttribute("method") || "POST",
-    };
-    form.setAttribute("action", endpoint);
-    form.setAttribute("target", frameName);
-    form.setAttribute("method", "POST");
-
-    var finished = false;
-    function finish() {
-      if (finished) return;
-      finished = true;
-      if (saved.action) form.setAttribute("action", saved.action);
-      else form.removeAttribute("action");
-      if (saved.target) form.setAttribute("target", saved.target);
-      else form.removeAttribute("target");
-      form.setAttribute("method", saved.method);
-      if (btn) btn.classList.remove("is-loading");
-      if (window.DSF && window.DSF.analytics) {
-        window.DSF.analytics.trackFormSubmitSuccess();
+  function parseGoogleScriptJson(text) {
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch (e1) {
+      var m = String(text).match(/\{[\s\S]*\}/);
+      if (m) {
+        try {
+          return JSON.parse(m[0]);
+        } catch (e2) {
+          return {};
+        }
       }
-      window.location.href = thankYouUrl || "merci.html";
     }
+    return {};
+  }
 
-    iframe.onload = function () {
-      setTimeout(finish, 400);
-    };
-    setTimeout(finish, 12000);
-
-    form.submit();
+  function submitViaGoogleScript(form, endpoint) {
+    var fd = prepareFormData(form, new FormData(form));
+    return fetch(endpoint, {
+      method: "POST",
+      body: fd,
+    }).then(function (res) {
+      return res.text().then(function (text) {
+        return { res: res, data: parseGoogleScriptJson(text) };
+      });
+    });
   }
 
   function sendForm(form, btn, thankYouUrl) {
     var endpoint = getSubmitUrl(form);
 
     if (isGoogleScriptUrl(endpoint)) {
-      submitViaHiddenIframe(form, endpoint, thankYouUrl, btn);
-      return null;
+      return submitViaGoogleScript(form, endpoint);
     }
 
     var fd = new FormData(form);

@@ -1,22 +1,11 @@
 /**
- * Défi Sans Frontières — envoi candidatures via Resend (clé secrète côté serveur).
- *
- * NE JAMAIS coller la clé API Resend dans index.html ni sur GitHub.
- *
- * Installation :
- * 1. https://script.google.com → Nouveau projet → coller ce fichier
- * 2. Projet → Paramètres du projet → Propriétés du script → Ajouter :
- *    - RESEND_API_KEY  = ta clé (re_…)
- *    - RESEND_FROM     = ex. « Défi Sans Frontières <candidatures@defisansfrontieres.ca> »
- *      (domaine vérifié dans Resend ; sinon test : onboarding@resend.dev)
- * 3. Déployer → Application Web → Exécuter : Moi → Accès : Tous
- * 4. URL /exec → meta name="dsf-form-endpoint" dans index.html
+ * Défi Sans Frontières — candidatures : Resend si configuré, sinon Gmail (MailApp).
+ * Clé Resend : Propriétés du script → RESEND_API_KEY, RESEND_FROM (optionnel).
  */
 
-/** Ouverture de l’URL /exec dans le navigateur (GET) — le formulaire utilise doPost. */
 function doGet() {
   return ContentService.createTextOutput(
-    "Endpoint candidatures DSF actif. Les envois passent par POST depuis fso.defisansfrontieres.ca."
+    "Endpoint candidatures DSF actif. Envoi via POST depuis le formulaire."
   ).setMimeType(ContentService.MimeType.TEXT);
 }
 
@@ -46,17 +35,47 @@ function doPost(e) {
     var textBody = formatBodyText_(data);
     var htmlBody = formatBodyHtml_(data);
 
-    sendViaResend_(subject, replyTo, htmlBody, textBody);
-    return json_({ success: true });
+    var props = PropertiesService.getScriptProperties();
+    var resendKey = props.getProperty("RESEND_API_KEY");
+    var resendFrom = props.getProperty("RESEND_FROM") || "";
+    var resendOk =
+      resendKey && resendFrom && !/onboarding@resend\.dev/i.test(resendFrom);
+
+    var via = "gmail";
+    if (resendOk) {
+      try {
+        sendViaResend_(subject, replyTo, htmlBody, textBody);
+        via = "resend";
+      } catch (err) {
+        Logger.log("Resend échec, repli Gmail : " + err);
+        sendViaGmail_(subject, replyTo, textBody);
+      }
+    } else {
+      sendViaGmail_(subject, replyTo, textBody);
+    }
+
+    return json_({ success: true, via: via });
   } catch (err) {
+    Logger.log("doPost erreur : " + err);
     return json_({ success: false, message: String(err) });
   }
+}
+
+function sendViaGmail_(subject, replyTo, textBody) {
+  var opts = {
+    to: CONFIG.to,
+    cc: CONFIG.cc.join(","),
+    subject: subject,
+    body: textBody,
+  };
+  if (replyTo) opts.replyTo = replyTo;
+  MailApp.sendEmail(opts);
 }
 
 function sendViaResend_(subject, replyTo, html, text) {
   var key = PropertiesService.getScriptProperties().getProperty("RESEND_API_KEY");
   if (!key) {
-    throw new Error("RESEND_API_KEY manquant (Propriétés du script Google).");
+    throw new Error("RESEND_API_KEY manquant");
   }
 
   var from =
@@ -84,8 +103,9 @@ function sendViaResend_(subject, replyTo, html, text) {
   });
 
   var code = res.getResponseCode();
+  var body = res.getContentText();
   if (code < 200 || code >= 300) {
-    throw new Error("Resend HTTP " + code + " — " + res.getContentText());
+    throw new Error("Resend HTTP " + code + " — " + body);
   }
 }
 
