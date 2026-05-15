@@ -1,9 +1,21 @@
 /**
- * Validation, compteurs de caractères, soumission AJAX (Web3Forms ou legacy FormSubmit).
- * Sur WordPress avec WPForms, remplacer l’action du formulaire et retirer cette logique.
+ * Validation, compteurs de caractères, soumission AJAX (Basin, Web3Forms JSON, FormSubmit legacy).
  */
 (function () {
   "use strict";
+
+  var LEGACY_STRIP = [
+    "_template",
+    "_captcha",
+    "_next",
+    "_replyto",
+    "_cc",
+    "_subject",
+    "_honey",
+    "redirect",
+    "botcheck",
+    "access_key",
+  ];
 
   function bindCharCount(textareaId, outId) {
     var ta = document.getElementById(textareaId);
@@ -105,6 +117,13 @@
     if (url) next.value = url;
   }
 
+  function formEndpointMeta() {
+    var meta = document.querySelector('meta[name="dsf-form-endpoint"]');
+    var v = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
+    if (!v || /^YOUR_|^REPLACE/i.test(v)) return "";
+    return v;
+  }
+
   function web3formsAccessKey() {
     var meta = document.querySelector('meta[name="web3forms-access-key"]');
     var k = meta && meta.getAttribute("content") ? meta.getAttribute("content").trim() : "";
@@ -133,59 +152,85 @@
     }
   }
 
+  function getSubmitUrl(form) {
+    var fromMeta = formEndpointMeta();
+    if (fromMeta) return resolveSubmitUrl(fromMeta);
+    return resolveSubmitUrl(form.getAttribute("action") || "");
+  }
+
   function isWeb3FormsUrl(url) {
     return url.indexOf("api.web3forms.com") !== -1;
   }
 
-  function prepareFormData(form, fd) {
-    var action = resolveSubmitUrl(form.getAttribute("action") || "");
-    if (!isWeb3FormsUrl(action)) return fd;
+  function isBasinUrl(url) {
+    return url.indexOf("usebasin.com") !== -1;
+  }
 
-    var key = web3formsAccessKey();
-    if (!key) {
-      throw new Error(
-        "Clé Web3Forms manquante. Ajoute ta access key dans la meta web3forms-access-key (voir web3forms.com)."
-      );
-    }
-
+  function assertNotSpam(form) {
     var honey = form.querySelector('input[name="_honey"]');
     if (honey && String(honey.value || "").trim()) {
       throw new Error("Soumission bloquée (anti-spam).");
     }
-
     var botcheck = form.querySelector('input[name="botcheck"]');
     if (botcheck && botcheck.checked) {
       throw new Error("Soumission bloquée (anti-spam).");
     }
+  }
 
-    /* Champs FormSubmit / legacy : ne pas les envoyer à Web3Forms (ccemail = Pro uniquement). */
-    [
-      "_template",
-      "_captcha",
-      "_next",
-      "_replyto",
-      "_cc",
-      "_subject",
-      "_honey",
-      "redirect",
-    ].forEach(function (name) {
-      fd.delete(name);
-    });
+  function shouldSkipFieldName(name) {
+    if (!name) return true;
+    if (name.charAt(0) === "_") return true;
+    return LEGACY_STRIP.indexOf(name) !== -1;
+  }
 
-    if (!fd.has("access_key")) fd.append("access_key", key);
+  function buildWeb3FormsPayload(form) {
+    var key = web3formsAccessKey();
+    if (!key) {
+      throw new Error(
+        "Configuration formulaire incomplète. Utilise Basin (meta dsf-form-endpoint) ou une clé Web3Forms."
+      );
+    }
+
+    assertNotSpam(form);
+
+    var payload = {
+      access_key: key,
+      from_name: "Défi Sans Frontières — FSO",
+    };
+
+    var subjectEl = form.querySelector('input[name="_subject"]');
+    if (subjectEl && subjectEl.value) {
+      payload.subject = subjectEl.value;
+    }
 
     var courriel = document.getElementById("field_courriel");
     var emailVal = courriel && courriel.value ? String(courriel.value).trim() : "";
     if (emailVal) {
-      if (!fd.has("email")) fd.append("email", emailVal);
-      if (!fd.has("replyto")) fd.append("replyto", emailVal);
+      payload.email = emailVal;
+      payload.replyto = emailVal;
     }
 
-    var subjectEl = form.querySelector('input[name="_subject"]');
-    if (subjectEl && subjectEl.value && !fd.has("subject")) {
-      fd.append("subject", subjectEl.value);
-    }
+    form.querySelectorAll("input, textarea, select").forEach(function (el) {
+      var name = el.name;
+      if (shouldSkipFieldName(name)) return;
+      if (el.type === "checkbox" || el.type === "radio") {
+        if (!el.checked) return;
+      }
+      if (el.type === "file") return;
+      if (el.disabled) return;
+      var val = el.value;
+      if (val === undefined || val === null) return;
+      payload[name] = String(val);
+    });
 
+    return payload;
+  }
+
+  function prepareFormData(form, fd) {
+    assertNotSpam(form);
+    LEGACY_STRIP.forEach(function (name) {
+      fd.delete(name);
+    });
     return fd;
   }
 
@@ -196,13 +241,38 @@
     if (data && (data.success === true || data.success === "true")) {
       return { ok: true };
     }
-    if (res.ok && data && !data.error && data.success !== false && data.success !== "false") {
+    if (res.ok && data && data.success !== false && data.success !== "false") {
       return { ok: true };
     }
-    return {
-      ok: false,
-      message: (data && data.message) || "Soumission impossible pour le moment.",
-    };
+    var msg = (data && data.message) || "Soumission impossible pour le moment.";
+    if (/security reasons/i.test(msg)) {
+      msg +=
+        " Web3Forms bloque peut‑être ce domaine — configure Basin (voir meta dsf-form-endpoint) ou contacte web3forms.com/contact.";
+    }
+    return { ok: false, message: msg };
+  }
+
+  function sendForm(form, btn, thankYouUrl) {
+    var endpoint = getSubmitUrl(form);
+
+    if (isWeb3FormsUrl(endpoint)) {
+      var payload = buildWeb3FormsPayload(form);
+      return fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    }
+
+    var fd = prepareFormData(form, new FormData(form));
+    return fetch(endpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: fd,
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -214,6 +284,11 @@
 
     var form = document.getElementById("dsf-candidature-form");
     if (!form) return;
+
+    var basinEndpoint = formEndpointMeta();
+    if (basinEndpoint) {
+      form.setAttribute("action", basinEndpoint);
+    }
 
     setFormSubmitNextUrl();
     bindBlurValidation(form);
@@ -268,23 +343,18 @@
 
       var btn = document.getElementById("dsf-submit-btn");
       if (btn) btn.classList.add("is-loading");
-      var ajaxAction = resolveSubmitUrl(form.getAttribute("action") || "");
       var thankYouUrl = merciPageAbsoluteUrl();
-      var fd;
 
+      var fetchPromise;
       try {
-        fd = prepareFormData(form, new FormData(form));
+        fetchPromise = sendForm(form, btn, thankYouUrl);
       } catch (prepErr) {
         if (btn) btn.classList.remove("is-loading");
         window.alert(prepErr.message || "Configuration du formulaire incomplète.");
         return;
       }
 
-      fetch(ajaxAction, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: fd,
-      })
+      fetchPromise
         .then(function (res) {
           return res.json().catch(function () {
             return { success: "false", message: "Réponse invalide du service d’envoi." };
