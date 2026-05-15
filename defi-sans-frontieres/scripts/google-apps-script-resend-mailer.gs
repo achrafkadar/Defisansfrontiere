@@ -1,7 +1,27 @@
 /**
  * Défi Sans Frontières — candidatures : Resend si configuré, sinon Gmail (MailApp).
  * Clé Resend : Propriétés du script → RESEND_API_KEY, RESEND_FROM (optionnel).
+ *
+ * PREMIÈRE FOIS — autoriser Gmail :
+ * 1. Dans l’éditeur : choisir la fonction authorizeMailScope → Exécuter
+ * 2. Autoriser toutes les permissions demandées (envoi de courriel)
+ * 3. Déployer → Gérer les déploiements → Modifier → Nouvelle version → Déployer
  */
+
+/**
+ * Exécuter une fois manuellement (bouton Exécuter) pour accorder script.send_mail.
+ */
+function authorizeMailScope() {
+  var quota = MailApp.getRemainingDailyQuota();
+  MailApp.sendEmail({
+    to: CONFIG.to,
+    subject: "[DSF] Test autorisation formulaire candidatures",
+    body:
+      "Si vous recevez ce message, le script peut envoyer les candidatures.\nQuota restant : " +
+      quota,
+  });
+  return "Autorisation OK — quota Gmail restant : " + quota;
+}
 
 function doGet() {
   return ContentService.createTextOutput(
@@ -57,7 +77,12 @@ function doPost(e) {
     return json_({ success: true, via: via });
   } catch (err) {
     Logger.log("doPost erreur : " + err);
-    return json_({ success: false, message: String(err) });
+    var msg = String(err);
+    if (/permission|authorization|script\.send_mail/i.test(msg)) {
+      msg =
+        "Autorisation Gmail manquante. Dans Apps Script : exécuter la fonction authorizeMailScope, accepter les permissions, puis redéployer l’application Web.";
+    }
+    return json_({ success: false, message: msg });
   }
 }
 
